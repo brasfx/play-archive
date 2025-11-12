@@ -1,36 +1,49 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# PlayArchive
 
-## Getting Started
+![PlayArchive Logo](./src/images/play-archive.png)
 
-First, run the development server:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+PlayArchive um projeto pessoal e uma aplicação web pensada para quem quer organizar, explorar e compartilhar sua biblioteca pessoal de jogos.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Sobre o Projeto
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+O objetivo do PlayArchive é oferecer uma plataforma intuitiva e moderna para gamers registrarem os jogos já jogados, acompanhar suas coleções e descobrir informações detalhadas de cada título. Em breve, será possível sincronizar com APIs populares para automação, explorar novas recomendações e compartilhar sua biblioteca com amigos e comunidades.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Funcionalidades
 
-## Learn More
+- Cadastro e login de usuários
+- Adicionar/remover jogos à biblioteca pessoal
+- Visualização em cards organizados por plataforma, gênero, status (jogado, jogando, wishlist)
+- Busca rápida por títulos
+- Página de detalhes do jogo com capa, notas, descrição e status
+- Visual minimalista, responsivo para desktop e mobile
+- Integração planejada com APIs de jogos para atualização automática de dados e informações extras
+- Futuramente: recomendações personalizadas, compartilhamento de biblioteca, registro de progresso/emblemas
 
-To learn more about Next.js, take a look at the following resources:
+## Tecnologias
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- **Frontend:** Next.js + Typescript + React Query
+- **Backend:** Python (FastAPI)
+- **Banco de dados:** PostgreSQL
+- **Cache:** Redis (para otimização de consultas externas)
+- **Hospedagem:** Docker, pronto para deploy em serviços como Vercel/Render
+- **Design:** Protótipos e identidade visual pensados para experiência limpa e moderna
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Status
 
-## Deploy on Vercel
+🚧 Em desenvolvimento!  
+Em breve, a PlayArchive estará disponível públicamente. Fique de olho nas atualizações e sinta-se livre para contribuir ou acompanhar o projeto.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Como contribuir
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+1. Faça um fork do repositório.
+2. Abra um Pull Request com sua sugestão/correção.
+3. Para ideias, melhorias ou bugs, utilize as Issues.
+
+---
+
+**Contatos**
+
+- Autor: Davi Lopes Ribeiro
+- LinkedIn: https://www.linkedin.com/in/davilopesribeiro/
+- E-mail: engcomp.daviribeiro@gmail.com
