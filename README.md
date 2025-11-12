@@ -1,9 +1,9 @@
 # PlayArchive
+<div align="center">
+  <img src="./src/images/play-archive.png" width="500" alt="PlayArchive Logo" />
+</div>
 
-![PlayArchive Logo](./src/images/play-archive.png)
-
-
-PlayArchive um projeto pessoal e uma aplicação web pensada para quem quer organizar, explorar e compartilhar sua biblioteca pessoal de jogos.
+PlayArchive é um projeto pessoal e uma aplicação web pensada para quem quer organizar, explorar e compartilhar sua biblioteca pessoal de jogos.
 
 ## Sobre o Projeto
 
