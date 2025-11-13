@@ -36,6 +36,9 @@
       ],
       "data/*": [
         "src/data/*"
+      ],
+      "actions/*": [
+        "src/app/actions/*"
       ]
     },
     "plugins": [
