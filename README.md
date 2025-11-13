@@ -22,11 +22,13 @@ O objetivo do PlayArchive é oferecer uma plataforma intuitiva e moderna para ga
 
 ## Tecnologias
 
-- **Frontend:** Next.js + Typescript + React Query
+- **Frontend:** Next.js + Typescript + React Query + Vitest + React Testig Library
 - **Backend:** Python (FastAPI)
 - **Banco de dados:** PostgreSQL
+- **Autenticação:** Supabase 
 - **Cache:** Redis (para otimização de consultas externas)
 - **Hospedagem:** Docker, pronto para deploy em serviços como Vercel/Render
+- **Tradução:** next-intl + Google Translate API
 - **Design:** Protótipos e identidade visual pensados para experiência limpa e moderna
 
 ## Status
