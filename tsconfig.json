@@ -17,11 +17,26 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "react-jsx",
-    "baseUrl": ".", // <-- esta linha indica a base para os paths relativos
-    "paths": { // <-- aqui você define aliases
+    "baseUrl": ".",
+    "paths": {
       "@/*": [
         "src/*"
-      ] // ajuste "src" conforme sua estrutura de pastas
+      ],
+      "components/*": [
+        "src/components/*"
+      ],
+      "lib/*": [
+        "src/lib/*"
+      ],
+      "hooks/*": [
+        "src/hooks/*"
+      ],
+      "images/*": [
+        "src/images/*"
+      ],
+      "data/*": [
+        "src/data/*"
+      ]
     },
     "plugins": [
       {
