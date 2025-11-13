@@ -11,11 +11,15 @@ export default function ToggleTheme() {
   return (
     <Button
       variant="outline"
-      //size="icon"
+      size="icon"
       onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+      className="dark:border-gray-700 dark:hover:bg-gray-800 border-gray-300 hover:bg-gray-100"
     >
-      <Sun className="h-[1.2rem] w-[1.2rem] scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90" />
-      <Moon className="absolute h-[1.2rem] w-[1.2rem] scale-0 rotate-90 transition-all dark:scale-100 dark:rotate-0" />
+      {theme === 'dark' ? (
+        <Moon className="w-5 h-5 text-gray-600 dark:text-primary" />
+      ) : (
+        <Sun className="w-5 h-5 text-warning" />
+      )}
       <span className="sr-only">Toggle theme</span>
     </Button>
   );
