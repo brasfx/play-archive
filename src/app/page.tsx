@@ -1,38 +1,15 @@
-import { AppSidebar } from '@/components/app-sidebar';
-import { ChartAreaInteractive } from '@/components/chart-area-interactive';
-import { DataTable } from '@/components/data-table';
-import { SectionCards } from '@/components/section-cards';
-import { SiteHeader } from '@/components/site-header';
-import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar';
-import { useTranslations } from 'next-intl';
+import { SectionCards } from '@/components/card/section-cards';
+import { getRawGames } from '@/services/rawg';
 
-export default function Page() {
-  const t = useTranslations('HomePage');
+export default async function Page({ searchParams }) {
+  const params = await searchParams;
+  const filters = {
+    search: params.search || '',
+    search_exact: params.search_exact === 'true',
+    ordering: params.ordering || '',
+    platform: params.platform || '',
+  };
 
-  return (
-    <SidebarProvider
-      style={
-        {
-          '--sidebar-width': 'calc(var(--spacing) * 72)',
-          '--header-height': 'calc(var(--spacing) * 12)',
-        } as React.CSSProperties
-      }
-    >
-      <AppSidebar variant="inset" />
-      <SidebarInset>
-        <SiteHeader />
-        <div className="flex flex-1 flex-col">
-          <div className="@container/main flex flex-1 flex-col gap-2">
-            <div className="flex flex-col gap-4 py-4 md:gap-6 md:py-6">
-              <SectionCards />
-              <h1>{t('title')}</h1>
-              <div className="px-4 lg:px-6">
-                <ChartAreaInteractive />
-              </div>
-            </div>
-          </div>
-        </div>
-      </SidebarInset>
-    </SidebarProvider>
-  );
+  const games = await getRawGames(filters); // agora é server fetch
+  return <SectionCards games={games} />;
 }
