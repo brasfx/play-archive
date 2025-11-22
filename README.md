@@ -30,6 +30,7 @@ O objetivo do PlayArchive é oferecer uma plataforma intuitiva e moderna para ga
 - **Estado:** Zustand, Context API
 - **Hospedagem:** Docker, pronto para deploy em serviços como Vercel/Render
 - **Tradução:** next-intl, Google Translate API
+- **CSS:** Tailwind, shadncn/ui, Lucide React
 - **Design:** Figma, Banani (protótipos e identidade visual pensados para experiência limpa e moderna)
 
 ## Status
