@@ -18,7 +18,14 @@
     "lib": "@/lib",
     "hooks": "@/hooks",
     "data": "@/data",
-    "actions": "@/actions"
+    "actions": "@/actions",
+    "assests": "@/assests",
+    "images": "@/assests/images",
+    "types": "@/types",
+    "services": "@/services",
+    "stores": "@/stores",
+    "providers": "@/providers",
+    "utils": "@/utils"
   },
   "registries": {}
 }

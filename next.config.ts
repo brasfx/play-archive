@@ -7,7 +7,16 @@ const nextConfig: NextConfig = {
     config.resolve.alias['@'] = path.resolve(__dirname, 'src'); // Substitua 'src' conforme sua estrutura
     return config;
   },
-  // outras opções que você tenha
+  images: {
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'media.rawg.io',
+        port: '',
+        pathname: '/media/**',
+      },
+    ],
+  },
 };
 const withNextIntl = createNextIntlPlugin();
 export default withNextIntl(nextConfig);
