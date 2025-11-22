@@ -1,6 +1,6 @@
 # PlayArchive
 <div align="center">
-  <img src="./src/images/play-archive.png" width="500" alt="PlayArchive Logo" />
+  <img src="./src/assets/images/play-archive.png" width="500" alt="PlayArchive Logo" />
 </div>
 
 PlayArchive é um projeto pessoal e uma aplicação web pensada para quem quer organizar, explorar e compartilhar sua biblioteca pessoal de jogos.
@@ -22,14 +22,15 @@ O objetivo do PlayArchive é oferecer uma plataforma intuitiva e moderna para ga
 
 ## Tecnologias
 
-- **Frontend:** Next.js + Typescript + React Query + Vitest + React Testing Library
+- **Frontend:** Next.js, Typescript, React Query, Vitest, React Testing Library
 - **Backend:** Python (FastAPI)
 - **Banco de dados:** PostgreSQL
 - **Autenticação:** Supabase 
 - **Cache:** Redis (para otimização de consultas externas)
+- **Estado:** Zustand, Context API
 - **Hospedagem:** Docker, pronto para deploy em serviços como Vercel/Render
-- **Tradução:** next-intl + Google Translate API
-- **Design:** Figma + Banani (protótipos e identidade visual pensados para experiência limpa e moderna)
+- **Tradução:** next-intl, Google Translate API
+- **Design:** Figma, Banani (protótipos e identidade visual pensados para experiência limpa e moderna)
 
 ## Status
 
