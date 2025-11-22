@@ -9,3 +9,9 @@ export async function setLocale(locale: string) {
     maxAge: 60 * 60 * 24 * 365,
   });
 }
+
+export async function getLocale() {
+  const cookieStore = await cookies();
+  const locale = await cookieStore.get('locale');
+  return locale;
+}

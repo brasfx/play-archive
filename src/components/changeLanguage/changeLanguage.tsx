@@ -1,6 +1,6 @@
 'use client';
 import * as React from 'react';
-import { setLocale } from '@/app/actions/set-locale';
+import { setLocale } from '@/actions/set-locale';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { Button } from '@/components/ui/button';
@@ -8,7 +8,7 @@ import br from '@/images/brasil.png';
 import usa from '@/images/usa.png';
 
 export default function LanguageSwitcher() {
-  const [currentLocale, setCurrentLocale] = React.useState('pt-BR');
+  const [currentLocale, setCurrentLocale] = React.useState('pt-br');
   const router = useRouter();
 
   async function handleChangeLocale(newLocale: string) {
@@ -19,7 +19,7 @@ export default function LanguageSwitcher() {
 
   const locales = [
     { code: 'en', label: 'English' },
-    { code: 'pt-BR', label: 'Português' },
+    { code: 'pt-br', label: 'Português' },
   ];
 
   return (

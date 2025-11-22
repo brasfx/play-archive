@@ -1,5 +1,16 @@
 {
-  "HomePage": {
-    "title": "Olá mundo!"
+  "homePage": {
+    "hub": "Centro de jogos",
+    "gallery": "Galeria de jogos",
+    "library": "Minha biblioteca",
+    "add": "Adicionar",
+    "details": "Detalhes"
+  },
+  "search": {
+    "placeholder": "Buscar jogos",
+    "label": "Buscar"
+  },
+  "gameDetails": {
+    "description": "Descrição"
   }
 }

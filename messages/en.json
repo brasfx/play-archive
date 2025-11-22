@@ -1,5 +1,16 @@
 {
-  "HomePage": {
-    "title": "Hello world!"
+  "homePage": {
+    "hub": "Arcade hub",
+    "gallery": "Game gallery",
+    "library": "My library",
+    "add": "Add",
+    "details": "Details"
+  },
+  "search": {
+    "placeholder": "Search games",
+    "label": "Search"
+  },
+  "gameDetails": {
+    "description": "Description"
   }
 }

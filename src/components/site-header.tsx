@@ -3,7 +3,7 @@ import { Separator } from '@/components/ui/separator';
 import { SidebarTrigger } from '@/components/ui/sidebar';
 import TogleTheme from './toogle-theme';
 import { Joystick } from 'lucide-react';
-import LanguageSwitcher from './changeLanguage/change-language';
+import LanguageSwitcher from './changeLanguage/changeLanguage';
 import { useTranslations } from 'next-intl';
 
 export function SiteHeader() {
