@@ -99,7 +99,7 @@
   --destructive-foreground: #ffffff;
   --warning: #f59e0b;
   --warning-foreground: #0b1220;
-  --card: #ffffff;
+  --card: #fafdfd;
   --card-foreground: #0b1220;
   --sidebar: #f8fafc;
   --sidebar-foreground: #0b1220;
@@ -168,7 +168,7 @@
   --destructive-foreground: #fee2e2;
   --warning: #f59e0b;
   --warning-foreground: #1f1b0b;
-  --card: #0d131a;
+  --card: #182330;
   --card-foreground: #e5e7eb;
   --sidebar: #0b0f13;
   --sidebar-foreground: #e5e7eb;

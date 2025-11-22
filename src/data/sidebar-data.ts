@@ -15,38 +15,24 @@ import {
   IconSettings,
   IconUsers,
 } from '@tabler/icons-react';
+import { LibraryBig, Joystick } from 'lucide-react';
 
 const sidebarData = {
   user: {
     name: 'shadcn',
     email: 'm@example.com',
-    avatar: '/avatars/shadcn.jpg',
+    avatar: '/',
   },
   navMain: [
     {
-      title: 'Dashboard',
-      url: '#',
-      icon: IconDashboard,
+      title: 'gallery',
+      url: '/',
+      icon: Joystick,
     },
     {
-      title: 'Lifecycle',
-      url: '#',
-      icon: IconListDetails,
-    },
-    {
-      title: 'Analytics',
-      url: '#',
-      icon: IconChartBar,
-    },
-    {
-      title: 'Projects',
-      url: '#',
-      icon: IconFolder,
-    },
-    {
-      title: 'Team',
-      url: '#',
-      icon: IconUsers,
+      title: 'library',
+      url: '/my-library',
+      icon: LibraryBig,
     },
   ],
   navClouds: [
