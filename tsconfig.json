@@ -57,6 +57,9 @@
       ],
       "@/utils/*": [
         "utils/*"
+      ],
+      "@/auth/*": [
+        "api/auth/*"
       ]
     },
     "plugins": [

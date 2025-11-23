@@ -25,7 +25,8 @@
     "services": "@/services",
     "stores": "@/stores",
     "providers": "@/providers",
-    "utils": "@/utils"
+    "utils": "@/utils",
+    "auth": "@/auth"
   },
   "registries": {}
 }

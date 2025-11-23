@@ -5,6 +5,7 @@ import './globals.css';
 import { ThemeProvider } from '../components/theme-provider';
 import MainLayout from '@/components/layout/main';
 import { FiltersProvider } from '@/providers/FiltersProvider';
+import SessionProvider from '@/components/sessionProvider/sessionProvider';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -38,11 +39,13 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <NextIntlClientProvider>
-            <FiltersProvider>
-              <MainLayout>{children}</MainLayout>
-            </FiltersProvider>
-          </NextIntlClientProvider>
+          <SessionProvider>
+            <NextIntlClientProvider>
+              <FiltersProvider>
+                <MainLayout>{children}</MainLayout>
+              </FiltersProvider>
+            </NextIntlClientProvider>
+          </SessionProvider>
         </ThemeProvider>
       </body>
     </html>

@@ -4,13 +4,29 @@
     "gallery": "Game gallery",
     "library": "My library",
     "add": "Add",
-    "details": "Details"
+    "details": "Details",
+    "login": "Login",
+    "profile": "My profile",
+    "account": "Account"
   },
   "search": {
     "placeholder": "Search games",
     "label": "Search"
   },
   "gameDetails": {
-    "description": "Description"
+    "description": "Description",
+    "release": "Release"
+  },
+  "login": {
+    "title": "Login with your GitHub or Google account",
+    "google": "Login with Google",
+    "github": "Login with GitHub",
+    "continue": "Or continue with",
+    "email": "Email",
+    "password": "Password",
+    "forgot": "Forgot your password?",
+    "login": "Login",
+    "donthaveaccount": "Don't have an account?",
+    "signup": "Sign up"
   }
 }

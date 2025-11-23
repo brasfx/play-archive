@@ -4,13 +4,29 @@
     "gallery": "Galeria de jogos",
     "library": "Minha biblioteca",
     "add": "Adicionar",
-    "details": "Detalhes"
+    "details": "Detalhes",
+    "login": "Entrar",
+    "profile": "Meu perfil",
+    "account": "Minha conta"
   },
   "search": {
     "placeholder": "Buscar jogos",
     "label": "Buscar"
   },
   "gameDetails": {
-    "description": "Descrição"
+    "description": "Descrição",
+    "release": "Lançamento"
+  },
+  "login": {
+    "title": "Entre com sua conta GitHub ou Google",
+    "google": "Entrar com Google",
+    "github": "Entrar com GitHub",
+    "continue": "Ou continue com",
+    "email": "Email",
+    "password": "Senha",
+    "forgot": "Esqueceu sua senha?",
+    "login": "Entrar",
+    "donthaveaccount": "Não tem uma conta? ",
+    "signup": "Cadastre-se."
   }
 }

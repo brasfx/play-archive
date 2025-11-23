@@ -21,9 +21,11 @@ import {
 import { useTranslations } from 'next-intl';
 
 import data from '@/data/sidebar-data';
+import { useSession } from 'next-auth/react';
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
-  const t = useTranslations('homePage');
+  const { data: session, status } = useSession();
+
   return (
     <Sidebar collapsible="offcanvas" {...props}>
       <SidebarHeader>
@@ -43,8 +45,9 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         {/* <NavDocuments items={data.documents} />
         <NavSecondary items={data.navSecondary} className="mt-auto" /> */}
       </SidebarContent>
+
       <SidebarFooter>
-        <NavUser user={data.user} />
+        {session && status === 'authenticated' && <NavUser />}
       </SidebarFooter>
     </Sidebar>
   );

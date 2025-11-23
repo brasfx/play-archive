@@ -15,7 +15,7 @@ import {
   IconSettings,
   IconUsers,
 } from '@tabler/icons-react';
-import { LibraryBig, Joystick } from 'lucide-react';
+import { LibraryBig, Joystick, CircleUser } from 'lucide-react';
 
 const sidebarData = {
   user: {
@@ -33,6 +33,11 @@ const sidebarData = {
       title: 'library',
       url: '/my-library',
       icon: LibraryBig,
+    },
+    {
+      title: 'account',
+      url: '/profile',
+      icon: CircleUser,
     },
   ],
   navClouds: [
