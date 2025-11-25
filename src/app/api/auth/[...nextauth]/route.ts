@@ -19,7 +19,21 @@ export const authOptions = {
   },
   pages: {
     signIn: '/login',
-    //signOut: '/',
+    signOut: '/',
+  },
+  callbacks: {
+    async jwt({ token, account }) {
+      if (account) {
+        token.provider = account.provider;
+      }
+      return token;
+    },
+    async session({ session, token }) {
+      if (session.user) {
+        session.user.provider = token.provider as string;
+      }
+      return session;
+    },
   },
   secret: process.env.NEXTAUTH_SECRET,
 };
