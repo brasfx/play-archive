@@ -1,4 +1,6 @@
 'use client';
+import { useEffect, useState, useMemo } from 'react';
+import { useTheme } from 'next-themes';
 import {
   Card,
   CardHeader,
@@ -8,6 +10,9 @@ import {
 import { Button } from '@/components/ui/button';
 import { motion } from 'motion/react';
 import { LogOut } from 'lucide-react';
+import { BorderBeam } from '@/components/ui/border-beam';
+import { Particles } from '@/components/ui/particles';
+import { CoolMode } from '@/components/ui/cool-mode';
 
 type Social = 'google' | 'github';
 
@@ -26,6 +31,12 @@ export default function SocialLoginCard({
   social,
   onLogout,
 }: Props) {
+  const { resolvedTheme } = useTheme();
+  const color = useMemo(
+    () => (resolvedTheme === 'dark' ? '#ffffff' : '#0b0f13'),
+    [resolvedTheme],
+  );
+
   const socialInfo = {
     google: {
       icon: (
@@ -61,10 +72,10 @@ export default function SocialLoginCard({
             <motion.img
               src={image}
               alt="Foto do usuário"
-              className="rounded-full border-2 border-indigo-600 shadow-lg"
               width={84}
               height={84}
               loading="lazy"
+              className="rounded-full border-2 border-indigo-600 shadow-lg h-[84px] w-[84px]"
               initial={{ scale: 0.7, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               transition={{ duration: 0.4 }}
@@ -82,18 +93,28 @@ export default function SocialLoginCard({
               whileHover={{ scale: 1.04, rotate: -2 }}
               whileTap={{ scale: 0.96, rotate: 2 }}
             >
-              <Button
-                type="button"
-                variant="destructive"
-                className="w-full"
-                onClick={onLogout}
-              >
-                <LogOut />
-                Logout
-              </Button>
+              <CoolMode>
+                <Button
+                  type="button"
+                  variant="destructive"
+                  className="w-full"
+                  onClick={onLogout}
+                >
+                  <LogOut />
+                  Logout
+                </Button>
+              </CoolMode>
             </motion.div>
           </CardFooter>
+          <BorderBeam duration={10} size={300} borderWidth={2} />
         </Card>
+        <Particles
+          className="absolute inset-0 z-0"
+          quantity={100}
+          ease={80}
+          color={color}
+          refresh
+        />
       </div>
     </div>
   );
