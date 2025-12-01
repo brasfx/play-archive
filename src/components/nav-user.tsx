@@ -26,6 +26,7 @@ import {
 } from '@/components/ui/sidebar';
 
 import { useSession, signOut } from 'next-auth/react';
+import Link from 'next/link';
 
 interface User {
   name: string | null;
@@ -85,18 +86,20 @@ export function NavUser() {
             </DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
-              <DropdownMenuItem>
-                <IconUserCircle />
-                Account
-              </DropdownMenuItem>
-              <DropdownMenuItem>
+              <Link href="/profile">
+                <DropdownMenuItem>
+                  <IconUserCircle />
+                  Account
+                </DropdownMenuItem>
+              </Link>
+              {/* <DropdownMenuItem>
                 <IconCreditCard />
                 Billing
               </DropdownMenuItem>
               <DropdownMenuItem>
                 <IconNotification />
                 Notifications
-              </DropdownMenuItem>
+              </DropdownMenuItem> */}
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
             <DropdownMenuItem onClick={() => signOut({ callbackUrl: '/' })}>
