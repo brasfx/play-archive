@@ -32,7 +32,7 @@ import { Disc3 } from '../animate-ui/icons/disc-3';
 import { Star } from '../animate-ui/icons/star';
 
 interface SectionCardsProps {
-  games: RawgGame[] | Games;
+  games: RawgGame[];
   addButtonLabel: string;
   detaislButtonLabel: string;
   placeholderInput: string;
