@@ -17,8 +17,8 @@ export interface Plataforms {
 
 export interface Genre {
   id: number;
-  name: string;
-  slug: string;
+  name?: string;
+  slug?: string;
 }
 
 export interface Store {
