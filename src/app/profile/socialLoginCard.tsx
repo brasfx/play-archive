@@ -14,13 +14,11 @@ import { BorderBeam } from '@/components/ui/border-beam';
 import { Particles } from '@/components/ui/particles';
 import { CoolMode } from '@/components/ui/cool-mode';
 
-type Social = 'google' | 'github';
-
 interface Props {
   name: string;
   email: string;
   image: string;
-  social?: Social;
+  social?: string;
   onLogout: () => void;
 }
 
