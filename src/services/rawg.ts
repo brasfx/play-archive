@@ -1,4 +1,4 @@
-import { Filters } from '@/store/useFiltersStore';
+import { Filters } from '@/stores/useFiltersStore';
 import { getBaseUrl } from '@/utils/getBaseUrl';
 
 export async function getRawGames(filters: Filters) {
