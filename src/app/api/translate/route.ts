@@ -3,13 +3,10 @@ import { NextRequest, NextResponse } from 'next/server';
 const apiKey = process.env.TRANSLATE_API_KEY || '';
 
 export async function POST(req: NextRequest) {
-  // Pegue o body da requisição
   const { text, targetLang } = await req.json();
 
-  // Monte a URL de requisição
   const translateUrl = `https://translation.googleapis.com/language/translate/v2?key=${apiKey}`;
 
-  // Faça o fetch
   const response = await fetch(translateUrl, {
     method: 'POST',
     headers: {
