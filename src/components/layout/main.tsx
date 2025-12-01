@@ -1,6 +1,7 @@
 import { AppSidebar } from '@/components/app-sidebar';
 import { SiteHeader } from '@/components/site-header';
 import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar';
+import { ScrollProgress } from '../ui/scroll-progress';
 
 export default function MainLayout({
   children,
@@ -17,13 +18,12 @@ export default function MainLayout({
       }
     >
       <AppSidebar variant="inset" />
+      <ScrollProgress className="h-0.5 " />
       <SidebarInset>
         <SiteHeader />
         <div className="flex flex-1 flex-col">
           <div className="@container/main flex flex-1 flex-col gap-2">
-            <div className="flex flex-col gap-4 py-4 md:gap-6 md:py-6">
-              {children}
-            </div>
+            <div className="flex flex-col gap-4  md:gap-6">{children}</div>
           </div>
         </div>
       </SidebarInset>
