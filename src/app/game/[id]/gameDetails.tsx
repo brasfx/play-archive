@@ -1,6 +1,9 @@
 'use client';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
+import { Button } from '@/components/ui/button';
+import { ArrowLeft } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 
 export default function GameDetails({ game, descriptionTranslated }) {
   const {
@@ -14,11 +17,22 @@ export default function GameDetails({ game, descriptionTranslated }) {
   } = game;
 
   const t = useTranslations('gameDetails');
-
+  const router = useRouter();
   if (!game) return <div>Jogo não encontrado.</div>;
+
+  function handleBackClick() {
+    router.back();
+  }
 
   return (
     <div>
+      <div className="flex ml-10">
+        <Button onClick={handleBackClick}>
+          <ArrowLeft />
+          Voltar
+        </Button>
+      </div>
+
       <div className="grid-cols-2 gap-8 p-8 md:grid max-w-[1400px] align-middle mx-auto bg-background rounded-lg">
         <div>
           <Image
