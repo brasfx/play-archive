@@ -9,7 +9,7 @@ export interface RequirementsEN {
   recommended?: string;
 }
 
-export interface Plataforms {
+export interface Platforms {
   platform: Platform;
   released_at?: string;
   requirements_en?: RequirementsEN;
