@@ -13,20 +13,13 @@
   "iconLibrary": "lucide",
   "aliases": {
     "components": "@/components",
-    "utils": "@/lib/utils",
+    "utils": "@/utils",
     "ui": "@/components/ui",
     "lib": "@/lib",
-    "hooks": "@/hooks",
-    "data": "@/data",
-    "actions": "@/actions",
-    "assests": "@/assests",
-    "images": "@/assests/images",
-    "types": "@/types",
-    "services": "@/services",
-    "stores": "@/stores",
-    "providers": "@/providers",
-    "utils": "@/utils",
-    "auth": "@/auth"
+    "hooks": "@/hooks"
   },
-  "registries": {}
+  "registries": {
+    "@magicui": "https://magicui.design/r/{name}.json",
+    "@animate-ui": "https://animate-ui.com/r/{name}.json"
+  }
 }
