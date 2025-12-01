@@ -1,5 +1,7 @@
 import { SectionCards } from '@/components/card/section-cards';
+import { StripedPattern } from '@/components/magicui/striped-pattern';
 import { getRawGames } from '@/services/rawg';
+import { getTranslations } from 'next-intl/server';
 
 export default async function Page({ searchParams }) {
   const params = await searchParams;
@@ -10,6 +12,20 @@ export default async function Page({ searchParams }) {
     platform: params.platform || '',
   };
 
-  const games = await getRawGames(filters); // agora é server fetch
-  return <SectionCards games={games} />;
+  const t = await getTranslations('homePage');
+  const s = await getTranslations('search');
+
+  const games = await getRawGames(filters);
+  return (
+    <div className="rounded-b-xl bg-[radial-gradient(circle_500px_at_50%_490px,rgba(139,92,246,0.4),transparent)] inset-0 z-0">
+      <StripedPattern className="z-0 opacity-20 rounded-xl" direction="right" />
+      <SectionCards
+        games={games}
+        addButtonLabel={t('add')}
+        detaislButtonLabel={t('details')}
+        placeholderInput={s('placeholder')}
+        labelInput={s('label')}
+      />
+    </div>
+  );
 }

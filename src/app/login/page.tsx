@@ -9,8 +9,6 @@ export default async function LoginPage({ searchParams }) {
   const session = await getServerSession();
   const { callbackUrl } = await searchParams;
 
-  console.log('searchParamas', searchParams);
-
   if (session) {
     redirect(callbackUrl || '/');
   }
