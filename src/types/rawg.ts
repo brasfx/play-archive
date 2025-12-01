@@ -52,6 +52,14 @@ export interface Tag {
   slug: string;
 }
 
+export interface ParentPlatform {
+  platform: {
+    id: number;
+    name: string;
+    slug: string;
+  };
+}
+
 export interface RawgGame {
   id?: number;
   slug?: string;
@@ -64,8 +72,8 @@ export interface RawgGame {
   ratings_count?: number;
   metacritic?: number;
   playtime?: number;
-  platforms?: Plataforms[];
-  parent_platforms?: Platform[];
+  platforms?: Platforms[];
+  parent_platforms?: ParentPlatform[];
   genres?: Genre[];
   stores?: Store[];
   esrb_rating?: EsrbRating;

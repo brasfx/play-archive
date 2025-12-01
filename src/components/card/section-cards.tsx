@@ -13,7 +13,7 @@ import {
 } from '@/components/ui/card';
 
 import { Games } from '@/types/igdb';
-import { RawgGame, Genre, Platforms } from '@/types/rawg';
+import { RawgGame, Genre, Platforms, ParentPlatform } from '@/types/rawg';
 import Image from 'next/image';
 import Link from 'next/link';
 import SearchInput from '@/components/search/searchInput';
@@ -144,7 +144,7 @@ export function SectionCards({
                     <Disc3 animateOnHover color="#744af3" width={20} />
                     {parent_platforms
                       ?.slice(0, 3)
-                      ?.map(({ platform }: Platforms) => platform.name)
+                      ?.map(({ platform }: ParentPlatform) => platform.name)
                       .join(', ')}
                   </div>
                 </CardFooter>
