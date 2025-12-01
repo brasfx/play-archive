@@ -53,9 +53,9 @@ export interface Tag {
 }
 
 export interface RawgGame {
-  id: number;
-  slug: string;
-  name: string;
+  id?: number;
+  slug?: string;
+  name?: string;
   background_image?: string;
   released?: string;
   rating?: number;

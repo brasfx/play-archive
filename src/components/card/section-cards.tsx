@@ -1,7 +1,7 @@
 'use client';
 
 import * as React from 'react';
-import { FormatDate, FormatYear } from '@/utils/formatDate';
+import { FormatYear } from '@/utils/formatDate';
 
 import { Badge } from '@/components/ui/badge';
 import {
@@ -26,12 +26,8 @@ import { useUpdateSearchParams } from '@/hooks/useUpdateSearchParams';
 
 import { Lens } from '../ui/lens';
 import { Pointer } from '../ui/pointer';
-import { RetroGrid } from '../ui/retro-grid';
-import { StripedPattern } from '../magicui/striped-pattern';
 import { useSession, signIn } from 'next-auth/react';
 import { ShineBorder } from '../ui/shine-border';
-import { useTheme } from 'next-themes';
-import { AnimateIcon } from '../animate-ui/icons/icon';
 import { Disc3 } from '../animate-ui/icons/disc-3';
 import { Star } from '../animate-ui/icons/star';
 
@@ -53,7 +49,6 @@ export function SectionCards({
   const filters = useFiltersFromURL();
   const updateParms = useUpdateSearchParams();
   const { status } = useSession();
-  const { theme } = useTheme();
   const [searchTerm, setSearchTerm] = React.useState(filters.search || '');
   function handleSearchChange(event: React.ChangeEvent<HTMLInputElement>) {
     const value = event.target.value;
@@ -93,13 +88,9 @@ export function SectionCards({
           ({
             id,
             name,
-
             background_image,
             genres,
-            summary,
-            total_rating,
             parent_platforms,
-            platforms,
             released,
           }: RawgGame) => (
             <Card
