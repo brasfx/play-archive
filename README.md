@@ -1,13 +1,13 @@
-# PlayArchive
+# Play Archive
 <div align="center">
-  <img src="./src/assets/images/play-archive.png" width="500" alt="PlayArchive Logo" />
+  <img src="./src/assets/images/play-archive.png" width="500" alt="Play Archive Logo" />
 </div>
 
-PlayArchive é um projeto pessoal e uma aplicação web pensada para quem quer organizar, explorar e compartilhar sua biblioteca pessoal de jogos.
+Play Archive é um projeto pessoal e uma aplicação web pensada para quem quer organizar, explorar e compartilhar sua biblioteca pessoal de jogos.
 
 ## Sobre o Projeto
 
-O objetivo do PlayArchive é oferecer uma plataforma intuitiva e moderna para gamers registrarem os jogos já jogados, acompanhar suas coleções e descobrir informações detalhadas de cada título. Em breve, será possível sincronizar com APIs populares para automação, explorar novas recomendações e compartilhar sua biblioteca com amigos e comunidades.
+O objetivo do Play Archive é oferecer uma plataforma intuitiva e moderna para gamers registrarem os jogos já jogados, acompanhar suas coleções e descobrir informações detalhadas de cada título. Em breve, será possível sincronizar com APIs populares para automação, explorar novas recomendações e compartilhar sua biblioteca com amigos e comunidades.
 
 ## Funcionalidades
 
@@ -36,7 +36,7 @@ O objetivo do PlayArchive é oferecer uma plataforma intuitiva e moderna para ga
 ## Status
 
 🚧 Em desenvolvimento!  
-Em breve, a PlayArchive estará disponível públicamente. Fique de olho nas atualizações e sinta-se livre para contribuir ou acompanhar o projeto.
+Em breve, a Play Archive estará disponível públicamente. Fique de olho nas atualizações e sinta-se livre para contribuir ou acompanhar o projeto.
 
 ## Como contribuir
 

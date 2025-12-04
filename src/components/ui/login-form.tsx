@@ -61,7 +61,7 @@ export function LoginForm({
               className="flex items-center gap-2 self-center font-medium "
             >
               <Gamepad2 />
-              PlayArchive
+              Play Archive
             </Link>
           </CardTitle>
           <CardDescription>{title}</CardDescription>

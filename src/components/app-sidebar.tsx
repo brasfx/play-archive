@@ -54,7 +54,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
               {RandomIcon()}
               <Link href="/">
                 <span className="text-2xl font-semibold ">
-                  <AuroraText>PlayArchive</AuroraText>
+                  <AuroraText>Play Archive</AuroraText>
                 </span>
               </Link>
             </div>

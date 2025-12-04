@@ -18,9 +18,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: 'PlayArchive',
+  title: 'Play Archive',
   description:
-    'PlayArchive é uma aplicação web pensada para quem quer organizar, explorar e compartilhar sua biblioteca pessoal de jogos.',
+    'Play Archive é uma aplicação web pensada para quem quer organizar, explorar e compartilhar sua biblioteca pessoal de jogos.',
 };
 
 export default function RootLayout({
