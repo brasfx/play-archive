@@ -1,16 +1,30 @@
 import { getBaseUrl } from '@/utils/getBaseUrl';
 
 export async function translateDescription(text: string, targetLang = 'pt') {
-  const res = await fetch(`${getBaseUrl()}/api/translate`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ text, targetLang }),
-  });
+  //disable-translation for now
+  // const res = await fetch(`${getBaseUrl()}/api/translate`, {
+  //   method: 'POST',
+  //   headers: { 'Content-Type': 'application/json' },
+  //   body: JSON.stringify({ text, targetLang }),
+  // });
 
-  const { data } = await res.json();
+  // let data: any = null;
 
-  if (res.ok) return data.translations[0].translatedText;
+  // try {
+  //   data = await res.json();
+  // } catch {
+  //   console.error('Translation error: resposta não é JSON');
+  //   return text;
+  // }
 
-  console.error('Translation error:', data.error);
-  return text; // fallback para texto original
+  // if (res.ok) {
+  //   const translated =
+  //     data?.data?.translations?.[0]?.translatedText ??
+  //     data?.translations?.[0]?.translatedText;
+
+  //   if (translated) return translated;
+  // }
+
+  // console.error('Translation error payload:', data);
+  return text;
 }
