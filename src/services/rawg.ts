@@ -27,8 +27,19 @@ export async function getGameById(id: string) {
 
   const response = await fetch(url, { cache: 'no-store' });
 
-  if (!response.ok) throw new Error('Erro na busca da RAWG');
+  let body: unknown = null;
+  try {
+    body = await response.json();
+  } catch {}
 
-  const data = await response.json();
-  return data;
+  if (!response.ok) {
+    console.error('Erro RAWG rota interna', {
+      status: response.status,
+      statusText: response.statusText,
+      body,
+    });
+    throw new Error('Erro na busca da RAWG');
+  }
+
+  return body;
 }
