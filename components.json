@@ -16,7 +16,8 @@
     "utils": "@/utils",
     "ui": "@/components/ui",
     "lib": "@/lib",
-    "hooks": "@/hooks"
+    "hooks": "@/hooks",
+    "api": "@/api"
   },
   "registries": {
     "@magicui": "https://magicui.design/r/{name}.json",

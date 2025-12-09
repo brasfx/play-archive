@@ -1,13 +1,8 @@
-'use client';
-import GamerBackground from '@/components/background/customBackground';
-import React from 'react';
+import { LibraryCards } from '@/components/card/library-cards';
+import { getLibrary } from '@/services/getLibrary';
 
-function Page() {
-  return (
-    <div>
-      <GamerBackground />
-    </div>
-  );
+export default async function MyLibraryPage() {
+  const games = await getLibrary();
+
+  return <LibraryCards games={games} />;
 }
-
-export default Page;

@@ -1,6 +1,6 @@
 'use client';
 
-import * as React from 'react';
+import React, { useState } from 'react';
 import { FormatYear } from '@/utils/formatDate';
 
 import { Badge } from '@/components/ui/badge';
@@ -12,8 +12,8 @@ import {
   CardTitle,
 } from '@/components/ui/card';
 
-import { Games } from '@/types/igdb';
-import { RawgGame, Genre, Platforms, ParentPlatform } from '@/types/rawg';
+import { toast } from 'react-toastify';
+import { RawgGame, Genre, ParentPlatform } from '@/types/rawg';
 import Image from 'next/image';
 import Link from 'next/link';
 import SearchInput from '@/components/search/searchInput';
@@ -30,6 +30,7 @@ import { useSession, signIn } from 'next-auth/react';
 import { ShineBorder } from '../ui/shine-border';
 import { Disc3 } from '../animate-ui/icons/disc-3';
 import { Star } from '../animate-ui/icons/star';
+import { Spinner } from '../ui/spinner';
 
 interface SectionCardsProps {
   games: RawgGame[];
@@ -49,7 +50,10 @@ export function SectionCards({
   const filters = useFiltersFromURL();
   const updateParms = useUpdateSearchParams();
   const { status } = useSession();
-  const [searchTerm, setSearchTerm] = React.useState(filters.search || '');
+  const [searchTerm, setSearchTerm] = useState(filters.search || '');
+  const [loadingAdd, setLoadingAdd] = useState(false);
+  const [idCardSelected, setIdCardSelected] = useState<string | null>(null);
+
   function handleSearchChange(event: React.ChangeEvent<HTMLInputElement>) {
     const value = event.target.value;
     setSearchTerm(value);
@@ -66,9 +70,41 @@ export function SectionCards({
     }
   }
 
-  function handleAddItem() {
-    if (status !== 'authenticated') {
-      signIn();
+  async function handleAddItem(id: string) {
+    setIdCardSelected(id);
+    setLoadingAdd(true);
+    try {
+      if (status !== 'authenticated') {
+        signIn();
+      } else {
+        const res = await fetch('/api/library', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ game_id_rawg: id }),
+        });
+
+        if (!res.ok) {
+          const data = await res.json().catch(() => null);
+
+          if (res.status === 409) {
+            toast.info('Esse jogo já está na sua biblioteca');
+          } else {
+            console.error(
+              'Erro ao adicionar jogo à biblioteca:',
+              data?.error || res.statusText,
+            );
+            toast.error('Erro ao adicionar jogo à biblioteca');
+          }
+          return;
+        }
+        toast.success('Jogo adicionado à biblioteca com sucesso!');
+      }
+    } catch (error) {
+      console.error('Erro ao adicionar jogo à biblioteca:', error);
+      toast.error('Erro ao adicionar jogo à biblioteca');
+    } finally {
+      setLoadingAdd(false);
+      setIdCardSelected(null);
     }
   }
 
@@ -104,6 +140,7 @@ export function SectionCards({
               <div>
                 <Lens lensSize={150} isStatic={false} ariaLabel="Zoom Area">
                   <Image
+                    loading="eager"
                     src={background_image ? `${background_image}` : noImage}
                     alt={name}
                     width={264}
@@ -157,9 +194,14 @@ export function SectionCards({
                 <Button
                   className="flex items-center gap-2"
                   variant="default"
-                  onClick={handleAddItem}
+                  onClick={() => handleAddItem(id)}
+                  disabled={loadingAdd && idCardSelected === id}
                 >
-                  {addButtonLabel}
+                  {loadingAdd && idCardSelected === id ? (
+                    <Spinner />
+                  ) : (
+                    addButtonLabel
+                  )}
                 </Button>
               </div>
             </Card>

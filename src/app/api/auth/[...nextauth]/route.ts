@@ -1,10 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import NextAuth from 'next-auth';
+import NextAuth, { type NextAuthOptions } from 'next-auth';
 import GoogleProvider from 'next-auth/providers/google';
 import GitHubProvider from 'next-auth/providers/github';
-import { signOut } from 'next-auth/react';
 
-const authOptions = {
+export const authOptions: NextAuthOptions = {
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_ID!,
@@ -32,6 +31,7 @@ const authOptions = {
     async session({ session, token }) {
       if (session.user) {
         session.user.provider = token.provider as string;
+        session.user.id = token.sub as string;
       }
       return session;
     },

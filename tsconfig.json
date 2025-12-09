@@ -60,6 +60,9 @@
       ],
       "@/auth/*": [
         "api/auth/*"
+      ],
+      "@/api/*": [
+        "api/*"
       ]
     },
     "plugins": [
