@@ -70,9 +70,17 @@ export function SectionCards({
     }
   }
 
-  async function handleAddItem(id: string) {
+  async function handleAddItem(
+    id: string,
+    background_image: string | null,
+    name: string,
+    slug: string,
+    released: string | null,
+    genres: Genre[] | undefined,
+  ) {
     setIdCardSelected(id);
     setLoadingAdd(true);
+    const genreNames = genres?.map((genre) => genre.name) || [];
     try {
       if (status !== 'authenticated') {
         signIn();
@@ -80,7 +88,14 @@ export function SectionCards({
         const res = await fetch('/api/library', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ game_id_rawg: id }),
+          body: JSON.stringify({
+            game_id_rawg: id,
+            background_image,
+            name,
+            slug,
+            released,
+            genres: genreNames,
+          }),
         });
 
         if (!res.ok) {
@@ -124,6 +139,7 @@ export function SectionCards({
           ({
             id,
             name,
+            slug,
             background_image,
             genres,
             parent_platforms,
@@ -194,7 +210,16 @@ export function SectionCards({
                 <Button
                   className="flex items-center gap-2"
                   variant="default"
-                  onClick={() => handleAddItem(id)}
+                  onClick={() =>
+                    handleAddItem(
+                      id,
+                      background_image,
+                      name,
+                      slug,
+                      released,
+                      genres,
+                    )
+                  }
                   disabled={loadingAdd && idCardSelected === id}
                 >
                   {loadingAdd && idCardSelected === id ? (

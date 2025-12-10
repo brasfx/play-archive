@@ -28,5 +28,22 @@
     "login": "Entrar",
     "donthaveaccount": "Não tem uma conta? ",
     "signup": "Cadastre-se."
+  },
+  "library": {
+    "title": "Minha Biblioteca de Jogos",
+    "empty": "Sua biblioteca está vazia. Comece a adicionar jogos à sua coleção!",
+    "add": "Adicionar",
+    "confirm": "Confirmar",
+    "deleteMessage": "Tem certeza de que deseja remover este jogo da sua biblioteca?",
+    "deleteTitle": "Remover jogo",
+    "cancel": "Cancelar",
+    "details": "Detalhes",
+    "edit": "Editar",
+    "remove": "Remover",
+    "wishlist": "Lista de desejos",
+    "dropped": "Abandonado",
+    "completed": "Finalizado",
+    "backlog": "Pendente",
+    "playing": "Jogando"
   }
 }

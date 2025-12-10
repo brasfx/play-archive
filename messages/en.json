@@ -28,5 +28,22 @@
     "login": "Login",
     "donthaveaccount": "Don't have an account?",
     "signup": "Sign up"
+  },
+  "library": {
+    "title": "My Game Library",
+    "empty": "Your library is empty. Start adding games to your collection!",
+    "add": "Add",
+    "confirm": "Confirm",
+    "deleteMessage": "Are you sure you want to remove this game from your library?",
+    "deleteTitle": "Remove game",
+    "cancel": "Cancel",
+    "details": "Details",
+    "edit": "Edit",
+    "remove": "Remove",
+    "wishlist": "Wishlist",
+    "dropped": "Dropped",
+    "completed": "Completed",
+    "backlog": "Backlog",
+    "playing": "Playing"
   }
 }

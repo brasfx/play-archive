@@ -13,6 +13,12 @@ type GamesResponse = {
   progress: number;
   rating: number | null;
   status: string;
+  name?: string;
+  slug?: string;
+  backgroundImage?: string;
+  released?: string;
+  genres?: string[];
+  platform?: string;
 };
 
 export async function getLibrary() {
@@ -28,7 +34,7 @@ export async function getLibrary() {
     .from('library')
     .select('*')
     .eq('user_id', session.user.id)
-    .order('created_at', { ascending: false });
+    .order('is_favorite', { ascending: false });
 
   if (error) {
     console.error('Erro select library:', error);
@@ -45,6 +51,12 @@ export async function getLibrary() {
     progress: game.progress_percent ?? 0,
     rating: game.rating ?? null,
     status: game.status ?? 'wishlist',
+    name: game.name,
+    slug: game.slug,
+    backgroundImage: game.background_image,
+    released: game.released,
+    genres: game.genres,
+    platform: game.platform,
   }));
 
   return games;
