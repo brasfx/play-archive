@@ -67,7 +67,7 @@ export function LibraryCards({ games, labels }: GamesProps) {
   const router = useRouter();
   const [requestInProgress, setRequestInProgress] = useState(false);
 
-  async function deleteGame(id: string) {
+  async function deleteGame(id: number | string) {
     setRequestInProgress(true);
     try {
       await fetch('/api/library', {
