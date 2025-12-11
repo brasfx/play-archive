@@ -85,10 +85,16 @@ export function LibraryCards({ games, labels }: GamesProps) {
     }
   }
 
-  function parseGenres(genres: string) {
-    const parsed = JSON.parse(genres);
-    parsed.slice(0, 2);
-    return parsed;
+  function parseGenres(genres: string | string[] | null): string[] {
+    if (!genres) return [];
+    if (Array.isArray(genres)) return genres;
+
+    try {
+      const parsed = JSON.parse(genres) as string[];
+      return parsed.slice(0, 2);
+    } catch {
+      return [];
+    }
   }
 
   function getLabelByStatus(status: string) {
