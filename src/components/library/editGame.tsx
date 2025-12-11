@@ -146,11 +146,9 @@ export default function EditGame({ labels, game }: GameProps) {
     },
   ]);
 
-  console.log('game in edit', game);
 
   const router = useRouter();
 
-  console.log('formData', formData);
 
   async function updateGame() {
     try {

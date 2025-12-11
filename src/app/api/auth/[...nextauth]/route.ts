@@ -1,43 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import NextAuth, { type NextAuthOptions } from 'next-auth';
-import GoogleProvider from 'next-auth/providers/google';
-import GitHubProvider from 'next-auth/providers/github';
-
-export const authOptions: NextAuthOptions = {
-  providers: [
-    GoogleProvider({
-      clientId: process.env.GOOGLE_ID!,
-      clientSecret: process.env.GOOGLE_SECRET!,
-    }),
-    GitHubProvider({
-      clientId: process.env.GITHUB_ID!,
-      clientSecret: process.env.GITHUB_SECRET!,
-    }),
-  ],
-  session: {
-    strategy: 'jwt',
-  },
-  pages: {
-    signIn: '/login',
-    signOut: '/',
-  },
-  callbacks: {
-    async jwt({ token, account }) {
-      if (account) {
-        token.provider = account.provider;
-      }
-      return token;
-    },
-    async session({ session, token }) {
-      if (session.user) {
-        session.user.provider = token.provider as string;
-        session.user.id = token.sub as string;
-      }
-      return session;
-    },
-  },
-  secret: process.env.NEXTAUTH_SECRET,
-} as any;
+import { authOptions } from '@/lib/auth';
+import NextAuth from 'next-auth';
 
 const handler = NextAuth(authOptions);
 

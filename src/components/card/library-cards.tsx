@@ -66,7 +66,6 @@ interface Labels {
 export function LibraryCards({ games, labels }: GamesProps) {
   const router = useRouter();
   const [requestInProgress, setRequestInProgress] = useState(false);
-  console.log('labels', labels?.wishlist);
 
   async function deleteGame(id: string) {
     setRequestInProgress(true);
