@@ -4,7 +4,8 @@ import { getLibrary } from '@/services/getLibrary';
 import { getTranslations } from 'next-intl/server';
 
 export default async function MyLibraryPage() {
-  const games = await getLibrary();
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const games: any = await getLibrary();
 
   const t = await getTranslations('library');
 
