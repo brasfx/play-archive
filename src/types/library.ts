@@ -1,7 +1,7 @@
 export interface Library {
   id?: number | string;
   userId?: number | string;
-  gameId?: string;
+  gameId?: number;
   status?: 'playing' | 'completed' | 'wishlist' | 'dropped' | string;
   progress?: number;
   slug?: string;
