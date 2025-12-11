@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { getLocale } from '@/actions/set-locale';
 import { getGameById } from '@/services/rawg';
 import { translateDescription } from '@/services/translateDescription';
@@ -10,7 +11,7 @@ export default async function GamePage({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  const game = await getGameById(id);
+  const game: any = await getGameById(id);
 
   const locale = (await getLocale()).value;
 
