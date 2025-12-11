@@ -52,7 +52,7 @@ export function SectionCards({
   const { status } = useSession();
   const [searchTerm, setSearchTerm] = useState(filters.search || '');
   const [loadingAdd, setLoadingAdd] = useState(false);
-  const [idCardSelected, setIdCardSelected] = useState<string | null>(null);
+  const [idCardSelected, setIdCardSelected] = useState<number | null>(null);
 
   function handleSearchChange(event: React.ChangeEvent<HTMLInputElement>) {
     const value = event.target.value;
@@ -70,8 +70,10 @@ export function SectionCards({
     }
   }
 
+  console.log('Rendered SectionCards with games:', idCardSelected);
+
   async function handleAddItem(
-    id: string,
+    id: number,
     background_image: string | null,
     name: string,
     slug: string,
