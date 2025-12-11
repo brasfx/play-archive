@@ -85,7 +85,7 @@ export function LibraryCards({ games, labels }: GamesProps) {
     }
   }
 
-  function parseGenres(genres: string): string[] {
+  function parseGenres(genres: string) {
     const parsed = JSON.parse(genres);
     parsed.slice(0, 2);
     return parsed;
