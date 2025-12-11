@@ -49,7 +49,7 @@ interface GamesProps {
     createdAt: string;
     gameId: number;
     isFavorite: boolean;
-    notes: string | number | null;
+    notes: string;
     progress: number;
     rating: number | null;
     status: string;

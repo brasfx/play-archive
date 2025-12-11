@@ -34,7 +34,6 @@ import noImage from '@/assets/images/no-image.jpg';
 import { Checkbox } from '../ui/checkbox';
 import { toast } from 'react-toastify';
 import { useRouter } from 'next/navigation';
-import { platform } from 'os';
 
 type StatusLabels = {
   wishlist: string;
@@ -146,9 +145,7 @@ export default function EditGame({ labels, game }: GameProps) {
     },
   ]);
 
-
   const router = useRouter();
-
 
   async function updateGame() {
     try {
