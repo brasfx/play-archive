@@ -12,4 +12,7 @@ export interface Library {
   backgroundImage?: string;
   relesed?: string;
   genres?: string[];
+  createdAt?: string | Date;
+  name?: string;
+  released?: string | Date;
 }
