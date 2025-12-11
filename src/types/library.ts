@@ -1,8 +1,8 @@
 export interface Library {
-  id: number | string;
-  userId: number | string;
-  gameId: number | string;
-  status: 'playing' | 'completed' | 'wishlist' | 'dropped';
+  id?: number | string;
+  userId?: number | string;
+  gameId?: number | string;
+  status?: 'playing' | 'completed' | 'wishlist' | 'dropped' | string;
   progress?: number;
   slug?: string;
   rating?: number;
