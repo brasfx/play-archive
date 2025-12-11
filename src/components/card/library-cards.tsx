@@ -67,7 +67,7 @@ export function LibraryCards({ games, labels }: GamesProps) {
   const router = useRouter();
   const [requestInProgress, setRequestInProgress] = useState(false);
 
-  async function deleteGame(id: number | string) {
+  async function deleteGame(id: number) {
     setRequestInProgress(true);
     try {
       await fetch('/api/library', {
@@ -280,9 +280,9 @@ export function LibraryCards({ games, labels }: GamesProps) {
                   }
                 />
                 <DeleteGame
-                  gameId={gameId}
+                  gameId={gameId as number}
                   handleDelete={() => {
-                    deleteGame(gameId);
+                    deleteGame(gameId as number);
                   }}
                   disabled={requestInProgress}
                   labels={

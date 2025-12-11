@@ -21,7 +21,7 @@ interface Labels {
 }
 
 interface DeleteGameProps {
-  gameId: string;
+  gameId: number;
   disabled: boolean;
   handleDelete: () => void;
   labels?: Labels;
@@ -33,7 +33,7 @@ export function DeleteGame({
   handleDelete,
   labels,
 }: DeleteGameProps) {
-  const { title, message, cancel, confirm } = labels;
+  const { title, message, cancel, confirm } = labels as Labels;
   return (
     <Dialog>
       <DialogTrigger asChild>
