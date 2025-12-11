@@ -25,13 +25,14 @@ export const authOptions: NextAuthOptions = {
     async jwt({ token, account }) {
       if (account) {
         token.provider = account.provider;
+        token.id = account.providerAccountId;
       }
       return token;
     },
     async session({ session, token }) {
       if (session.user) {
         session.user.provider = token.provider as string;
-        session.user.id = token.sub as string;
+        session.user.id = token.id as string;
       }
       return session;
     },

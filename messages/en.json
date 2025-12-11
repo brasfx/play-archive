@@ -44,6 +44,17 @@
     "dropped": "Dropped",
     "completed": "Completed",
     "backlog": "Backlog",
-    "playing": "Playing"
+    "playing": "Playing",
+    "status": "Status",
+    "notes": "Notes",
+    "platform": "Platform",
+    "rating": "Rating (1-10)",
+    "progress": "Progress (%)",
+    "favorite": "Favorite",
+    "favoriteText": "Mark as favorite game",
+    "selectPlatform": "Select platform",
+    "editGame": "Edit Game",
+    "makeChanges": "Make changes to your game",
+    "saveChanges": "Save Changes"
   }
 }

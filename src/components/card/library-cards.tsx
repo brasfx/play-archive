@@ -40,6 +40,17 @@ type StatusLabels = {
   cancel?: string;
   deleteTitle?: string;
   deleteMessage?: string;
+  status?: string;
+  notes?: string;
+  progress?: string;
+  rating?: string;
+  favorite?: string;
+  editGame?: string;
+  makeChanges?: string;
+  saveChanges?: string;
+  platform?: string;
+  favoriteText?: string;
+  selectPlatform?: string;
 };
 
 interface GamesProps {

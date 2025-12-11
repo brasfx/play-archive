@@ -44,6 +44,17 @@
     "dropped": "Abandonado",
     "completed": "Finalizado",
     "backlog": "Pendente",
-    "playing": "Jogando"
+    "playing": "Jogando",
+    "status": "Status",
+    "notes": "Notas",
+    "platform": "Plataforma",
+    "rating": "Avaliação (1-10)",
+    "progress": "Progresso (%)",
+    "favorite": "Favorito",
+    "favoriteText": "Marcar jogo como favorito",
+    "selectPlatform": "Selecionar plataforma",
+    "editGame": "Editar Jogo",
+    "makeChanges": "Faça alterações no seu jogo",
+    "saveChanges": "Salvar alterações"
   }
 }

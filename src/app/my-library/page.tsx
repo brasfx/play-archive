@@ -20,6 +20,17 @@ export default async function MyLibraryPage() {
     confirm: t('confirm'),
     deleteMessage: t('deleteMessage'),
     deleteTitle: t('deleteTitle'),
+    status: t('status'),
+    progress: t('progress'),
+    rating: t('rating'),
+    notes: t('notes'),
+    editGame: t('editGame'),
+    makeChanges: t('makeChanges'),
+    saveChanges: t('saveChanges'),
+    platform: t('platform'),
+    favorite: t('favorite'),
+    favoriteText: t('favoriteText'),
+    selectPlatform: t('selectPlatform'),
   };
 
   return (

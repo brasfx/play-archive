@@ -47,6 +47,17 @@ type StatusLabels = {
   cancel?: string;
   deleteTitle?: string;
   deleteMessage?: string;
+  status?: string;
+  notes?: string;
+  progress?: string;
+  rating?: string;
+  favorite?: string;
+  editGame?: string;
+  makeChanges?: string;
+  saveChanges?: string;
+  platform?: string;
+  favoriteText?: string;
+  selectPlatform?: string;
 };
 
 interface GameProps {
@@ -152,12 +163,15 @@ export default function EditGame({ labels, game }: GameProps) {
           {labels?.edit}
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px]">
-        <form onSubmit={handleSubmit(onSubmit)}>
+      <DialogContent className="sm:max-w-[425px] flex flex-col">
+        <form
+          onSubmit={handleSubmit(onSubmit)}
+          className="flex flex-col flex-1"
+        >
           <DialogHeader>
-            <DialogTitle>Edit game</DialogTitle>
-            <DialogDescription>
-              {`Make changes to your game "${game?.name}"`}
+            <DialogTitle>{labels?.editGame}</DialogTitle>
+            <DialogDescription className="mb-2 mt-4">
+              {`${labels?.makeChanges} "${game?.name}"`}
             </DialogDescription>
           </DialogHeader>
 
@@ -167,19 +181,19 @@ export default function EditGame({ labels, game }: GameProps) {
               src={game?.backgroundImage ? `${game?.backgroundImage}` : noImage}
               alt="game cover"
               width={400}
-              height={225}
-              className="rounded-md"
+              height={100}
+              className="rounded-md  w-full p-0.5 max-h-[188px]  bg-neutral-500 h-60"
             />
 
             <Field className="w-full">
-              <FieldLabel htmlFor="status">Status</FieldLabel>
+              <FieldLabel htmlFor="status">{labels?.status}</FieldLabel>
               <div className="mt-1">
                 <Controller
                   control={control}
                   name="status"
                   render={({ field }) => (
                     <Select value={field.value} onValueChange={field.onChange}>
-                      <SelectTrigger className="w-full">
+                      <SelectTrigger className="w-full border-foreground">
                         <SelectValue placeholder={labels?.wishlist} />
                       </SelectTrigger>
                       <SelectContent className="bg-background text-foreground">
@@ -202,15 +216,15 @@ export default function EditGame({ labels, game }: GameProps) {
               </div>
             </Field>
             <Field className="w-full">
-              <FieldLabel htmlFor="platform">Platform</FieldLabel>
+              <FieldLabel htmlFor="platform">{labels?.platform}</FieldLabel>
               <div className="mt-1">
                 <Controller
                   control={control}
                   name="platform"
                   render={({ field }) => (
                     <Select value={field.value} onValueChange={field.onChange}>
-                      <SelectTrigger className="w-full">
-                        <SelectValue placeholder="Select platform" />
+                      <SelectTrigger className="w-full border-foreground">
+                        <SelectValue placeholder={labels?.selectPlatform} />
                       </SelectTrigger>
                       <SelectContent className="bg-background text-foreground">
                         <SelectItem value="pc">PC</SelectItem>
@@ -225,7 +239,7 @@ export default function EditGame({ labels, game }: GameProps) {
               </div>
             </Field>
             <Field className="w-full">
-              <FieldLabel htmlFor="progress">Progress (%)</FieldLabel>
+              <FieldLabel htmlFor="progress">{labels?.progress}</FieldLabel>
               <div className="mt-1">
                 <Controller
                   control={control}
@@ -252,7 +266,7 @@ export default function EditGame({ labels, game }: GameProps) {
               </div>
             </Field>
             <Field className="w-full">
-              <FieldLabel htmlFor="rating">Rating (1-10)</FieldLabel>
+              <FieldLabel htmlFor="rating">{labels?.rating}</FieldLabel>
               <div className="mt-1">
                 <Controller
                   control={control}
@@ -279,27 +293,30 @@ export default function EditGame({ labels, game }: GameProps) {
               </div>
             </Field>
             <Field className="w-full">
-              <FieldLabel htmlFor="favorite">Favorite</FieldLabel>
+              <FieldLabel htmlFor="favorite">{labels?.favorite}</FieldLabel>
               <div className="mt-1">
                 <Controller
                   control={control}
                   name="favorite"
                   render={({ field }) => (
-                    <FieldGroup>
-                      <Field orientation="horizontal">
-                        <FieldSeparator />
-                        <Checkbox
-                          id="favorite"
-                          checked={field.value}
-                          onCheckedChange={(checked) =>
-                            field.onChange(!!checked)
-                          }
-                        />
-                        <FieldLabel>
-                          <Label htmlFor="favorite">
-                            Esse é meu jogo favorito
-                          </Label>
-                        </FieldLabel>
+                    <FieldGroup className="w-full">
+                      <Field orientation="horizontal" className="w-full">
+                        <Label className="hover:bg-accent/50 w-full flex items-start gap-3 rounded-lg border p-3 has-[[aria-checked=true]]:border-blue-600 has-[[aria-checked=true]]:bg-blue-50 dark:has-[[aria-checked=true]]:border-blue-900 dark:has-[[aria-checked=true]]:bg-blue-950">
+                          <Checkbox
+                            id="favorite"
+                            checked={field.value}
+                            onCheckedChange={(checked) =>
+                              field.onChange(!!checked)
+                            }
+                            className="data-[state=checked]:border-blue-600 data-[state=checked]:bg-blue-600 data-[state=checked]:text-white dark:data-[state=checked]:border-blue-700 dark:data-[state=checked]:bg-blue-700"
+                          />
+
+                          <FieldLabel>
+                            <Label htmlFor="favorite">
+                              {labels?.favoriteText}
+                            </Label>
+                          </FieldLabel>
+                        </Label>
                       </Field>
                     </FieldGroup>
                   )}
@@ -307,24 +324,29 @@ export default function EditGame({ labels, game }: GameProps) {
               </div>
             </Field>
             <Field className="w-full">
-              <FieldLabel htmlFor="notes">Notes</FieldLabel>
+              <FieldLabel htmlFor="notes">{labels?.notes}</FieldLabel>
               <div className="mt-1">
-                <Input id="notes" type="text" {...register('notes')} />
+                <Input
+                  id="notes"
+                  type="text"
+                  {...register('notes')}
+                  className="border-foreground"
+                />
               </div>
             </Field>
           </div>
 
-          <DialogFooter>
+          <DialogFooter className="mt-4">
             <Button
               variant="outline"
               type="button"
               onClick={() => setOpen(false)}
             >
-              Cancel
+              {labels?.cancel}
             </Button>
 
             <Button type="submit" disabled={isSubmitting}>
-              {isSubmitting ? <Spinner /> : 'Save changes'}
+              {isSubmitting ? <Spinner /> : labels?.saveChanges}
             </Button>
           </DialogFooter>
         </form>
