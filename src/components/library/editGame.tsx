@@ -1,5 +1,5 @@
 'use client';
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Dialog,
   DialogTrigger,
@@ -12,12 +12,9 @@ import {
 } from '../ui/dialog';
 import {
   Field,
-  FieldDescription,
   FieldGroup,
   FieldLabel,
-  FieldLegend,
   FieldSeparator,
-  FieldSet,
 } from '@/components/ui/field';
 import { Input } from '@/components/ui/input';
 import {
@@ -34,6 +31,10 @@ import noImage from '@/assets/images/no-image.jpg';
 import { Checkbox } from '../ui/checkbox';
 import { toast } from 'react-toastify';
 import { useRouter } from 'next/navigation';
+import { useForm, Controller } from 'react-hook-form';
+import { z } from 'zod';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { Spinner } from '../ui/spinner';
 
 type StatusLabels = {
   wishlist: string;
@@ -50,116 +51,82 @@ type StatusLabels = {
 
 interface GameProps {
   game: {
-    name: string;
-    backgroundImage: string | null;
-    id: string;
-    userId: string;
-    createdAt: string;
-    gameId: number;
-    isFavorite: boolean;
-    notes: string | number | null;
+    name?: string;
+    backgroundImage?: string | null;
+    id?: string;
+    userId?: string;
+    createdAt?: string;
+    gameId?: number;
+    isFavorite?: boolean;
+    notes?: string | number | null;
     progress: number;
-    rating: number | null;
-    status: string;
-    platform: string;
+    rating?: number | null;
+    status?: string;
+    platform?: string;
   };
   labels?: StatusLabels;
 }
 
-interface Labels {
-  edit: string;
-  cancel: string;
-  save: string;
-}
+const formSchema = z.object({
+  status: z
+    .enum(['wishlist', 'playing', 'completed', 'dropped'])
+    .optional()
+    .nullable()
+    .transform((val) => (val ?? undefined) as string | undefined),
+  platform: z
+    .string()
+    .optional()
+    .transform((val) => (val === '' ? undefined : val)),
+  progress: z.number().min(0).max(100).optional(),
+  rating: z.number().min(1).max(10).optional(),
+  favorite: z.boolean().optional(),
+  notes: z
+    .string()
+    .optional()
+    .transform((val) => (val === '' ? undefined : val)),
+});
 
-type FormField =
-  | {
-      name: 'status';
-      label: string;
-      type: 'status';
-      value: string;
-    }
-  | {
-      name: 'progress' | 'rating';
-      label: string;
-      type: 'slider';
-      value: number | string;
-    }
-  | {
-      name: 'notes';
-      label: string;
-      type: 'text';
-      value: string;
-    }
-  | {
-      name: 'favorite';
-      label: string;
-      type: 'checkbox';
-      value: boolean | string;
-    }
-  | {
-      name: 'platform';
-      label: string;
-      type: 'platform';
-      value: string;
-    };
+type FormValues = z.infer<typeof formSchema>;
 
 export default function EditGame({ labels, game }: GameProps) {
-  const [formData, setFormData] = React.useState<FormField[]>([
-    {
-      name: 'status',
-      label: 'Status',
-      type: 'status',
-      value: game?.status || 'wishlist',
-    },
-    {
-      name: 'platform',
-      label: 'Platform',
-      type: 'platform',
-      value: game?.platform || '',
-    },
-
-    {
-      name: 'progress',
-      label: 'Progress (%)',
-      type: 'slider',
-      value: game?.progress ?? 0,
-    },
-    {
-      name: 'rating',
-      label: 'Rating (1-10)',
-      type: 'slider',
-      value: game?.rating ?? 0,
-    },
-    {
-      name: 'favorite',
-      label: 'Favorite',
-      type: 'checkbox',
-      value: game?.isFavorite ? true : false,
-    },
-    {
-      name: 'notes',
-      label: 'Notes',
-      type: 'text',
-      value: game?.notes ? String(game?.notes) : '',
-    },
-  ]);
-
   const router = useRouter();
 
-  async function updateGame() {
+  const {
+    handleSubmit,
+    control,
+    register,
+    formState: { isSubmitting },
+  } = useForm<FormValues>({
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    resolver: zodResolver(formSchema) as any,
+    defaultValues: {
+      status: (['wishlist', 'playing', 'completed', 'dropped'] as const)
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        .includes(game?.status as any)
+        ? (game.status as FormValues['status'])
+        : 'wishlist',
+      platform: game?.platform || '',
+      progress: game?.progress ?? 0,
+      rating: game?.rating ?? 1,
+      favorite: !!game?.isFavorite,
+      notes: game?.notes ? String(game?.notes) : '',
+    },
+  });
+
+  async function onSubmit(data: FormValues) {
+    console.log('Submitting data:', data);
     try {
       await fetch('/api/library', {
         method: 'PATCH',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           game_id_rawg: game?.gameId,
-          status: formData.find((f) => f.name === 'status')?.value,
-          rating: formData.find((f) => f.name === 'rating')?.value,
-          notes: formData.find((f) => f.name === 'notes')?.value,
-          progress_percent: formData.find((f) => f.name === 'progress')?.value,
-          is_favorite: formData.find((f) => f.name === 'favorite')?.value,
-          platform: formData.find((f) => f.name === 'platform')?.value,
+          status: data.status,
+          rating: data.rating,
+          notes: data.notes,
+          progress_percent: data.progress,
+          is_favorite: data.favorite,
+          platform: data.platform,
         }),
       });
       toast.success('Jogo atualizado na sua biblioteca!');
@@ -168,22 +135,25 @@ export default function EditGame({ labels, game }: GameProps) {
       toast.error('Erro ao atualizar o jogo da biblioteca.');
     } finally {
       router.refresh();
+      setOpen(false);
     }
   }
 
+  const [open, setOpen] = useState(false);
+
   return (
-    <Dialog>
-      <form>
-        <DialogTrigger asChild>
-          <Button
-            className="flex items-center gap-2"
-            variant="default"
-            onClick={() => {}}
-          >
-            {labels?.edit}
-          </Button>
-        </DialogTrigger>
-        <DialogContent className="sm:max-w-[425px]">
+    <Dialog open={open} onOpenChange={setOpen}>
+      <DialogTrigger asChild>
+        <Button
+          className="flex items-center gap-2"
+          variant="default"
+          type="button"
+        >
+          {labels?.edit}
+        </Button>
+      </DialogTrigger>
+      <DialogContent className="sm:max-w-[425px]">
+        <form onSubmit={handleSubmit(onSubmit)}>
           <DialogHeader>
             <DialogTitle>Edit game</DialogTitle>
             <DialogDescription>
@@ -200,23 +170,15 @@ export default function EditGame({ labels, game }: GameProps) {
               height={225}
               className="rounded-md"
             />
-            {formData.map((field) => (
-              <Field key={field.name} className="w-full">
-                <FieldLabel htmlFor={field.name}>{field.label}</FieldLabel>
-                <div className="mt-1">
-                  {field.type === 'status' ? (
-                    <Select
-                      value={field.value}
-                      onValueChange={(value: any) => {
-                        setFormData((prev) =>
-                          prev.map((item) =>
-                            item.name === field.name
-                              ? { ...item, value }
-                              : item,
-                          ),
-                        );
-                      }}
-                    >
+
+            <Field className="w-full">
+              <FieldLabel htmlFor="status">Status</FieldLabel>
+              <div className="mt-1">
+                <Controller
+                  control={control}
+                  name="status"
+                  render={({ field }) => (
+                    <Select value={field.value} onValueChange={field.onChange}>
                       <SelectTrigger className="w-full">
                         <SelectValue placeholder={labels?.wishlist} />
                       </SelectTrigger>
@@ -235,19 +197,18 @@ export default function EditGame({ labels, game }: GameProps) {
                         </SelectItem>
                       </SelectContent>
                     </Select>
-                  ) : field.type === 'platform' ? (
-                    <Select
-                      value={field.value}
-                      onValueChange={(value: any) => {
-                        setFormData((prev) =>
-                          prev.map((item) =>
-                            item.name === field.name
-                              ? { ...item, value }
-                              : item,
-                          ),
-                        );
-                      }}
-                    >
+                  )}
+                />
+              </div>
+            </Field>
+            <Field className="w-full">
+              <FieldLabel htmlFor="platform">Platform</FieldLabel>
+              <div className="mt-1">
+                <Controller
+                  control={control}
+                  name="platform"
+                  render={({ field }) => (
+                    <Select value={field.value} onValueChange={field.onChange}>
                       <SelectTrigger className="w-full">
                         <SelectValue placeholder="Select platform" />
                       </SelectTrigger>
@@ -259,94 +220,115 @@ export default function EditGame({ labels, game }: GameProps) {
                         <SelectItem value="mobile">Mobile</SelectItem>
                       </SelectContent>
                     </Select>
-                  ) : field.type === 'checkbox' ? (
-                    <FieldGroup>
-                      <Field orientation="horizontal">
-                        <FieldSeparator />
-                        <Checkbox
-                          id={field.name}
-                          checked={field.value === true}
-                          onCheckedChange={(checked: boolean) => {
-                            const value = checked ? true : false;
-                            setFormData((prev) =>
-                              prev.map((item) =>
-                                item.name === field.name
-                                  ? { ...item, value }
-                                  : item,
-                              ),
-                            );
-                          }}
-                        />
-                        <FieldLabel>
-                          <Label htmlFor={field.name}>
-                            Esse é meu jogo favorito
-                          </Label>
-                        </FieldLabel>
-                      </Field>
-                    </FieldGroup>
-                  ) : field.type === 'slider' ? (
+                  )}
+                />
+              </div>
+            </Field>
+            <Field className="w-full">
+              <FieldLabel htmlFor="progress">Progress (%)</FieldLabel>
+              <div className="mt-1">
+                <Controller
+                  control={control}
+                  name="progress"
+                  render={({ field }) => (
                     <Field
                       className="flex flex-row items-center gap-4"
                       orientation="horizontal"
                     >
                       <Input
                         className="w-full"
-                        id={field.name}
+                        id="progress"
                         type="range"
-                        min={field.name === 'rating' ? 1 : 0}
-                        max={field.name === 'rating' ? 10 : 100}
-                        step={field.name === 'rating' ? 1 : 5}
-                        value={field.value as number}
-                        onChange={(e: any) => {
-                          const value = Number(e.target.value);
-                          setFormData((prev) =>
-                            prev.map((item) =>
-                              item.name === field.name
-                                ? { ...item, value }
-                                : item,
-                            ),
-                          );
-                        }}
+                        min={0}
+                        max={100}
+                        step={5}
+                        value={field.value}
+                        onChange={(e) => field.onChange(Number(e.target.value))}
                       />
-                      <FieldLabel htmlFor={field.name}>
-                        {field.name === 'rating'
-                          ? `${field.value}`
-                          : `${field.value}%`}
-                      </FieldLabel>
+                      <FieldLabel htmlFor="progress">{field.value}%</FieldLabel>
                     </Field>
-                  ) : (
-                    <Input
-                      id={field.name}
-                      type={field.type}
-                      value={field.value as string | number}
-                      onChange={(e: any) => {
-                        const value = e.target.value;
-                        setFormData((prev) =>
-                          prev.map((item) =>
-                            item.name === field.name
-                              ? { ...item, value }
-                              : item,
-                          ),
-                        );
-                      }}
-                    />
                   )}
-                </div>
-              </Field>
-            ))}
+                />
+              </div>
+            </Field>
+            <Field className="w-full">
+              <FieldLabel htmlFor="rating">Rating (1-10)</FieldLabel>
+              <div className="mt-1">
+                <Controller
+                  control={control}
+                  name="rating"
+                  render={({ field }) => (
+                    <Field
+                      className="flex flex-row items-center gap-4"
+                      orientation="horizontal"
+                    >
+                      <Input
+                        className="w-full"
+                        id="rating"
+                        type="range"
+                        min={1}
+                        max={10}
+                        step={1}
+                        value={field.value}
+                        onChange={(e) => field.onChange(Number(e.target.value))}
+                      />
+                      <FieldLabel htmlFor="rating">{field.value}</FieldLabel>
+                    </Field>
+                  )}
+                />
+              </div>
+            </Field>
+            <Field className="w-full">
+              <FieldLabel htmlFor="favorite">Favorite</FieldLabel>
+              <div className="mt-1">
+                <Controller
+                  control={control}
+                  name="favorite"
+                  render={({ field }) => (
+                    <FieldGroup>
+                      <Field orientation="horizontal">
+                        <FieldSeparator />
+                        <Checkbox
+                          id="favorite"
+                          checked={field.value}
+                          onCheckedChange={(checked) =>
+                            field.onChange(!!checked)
+                          }
+                        />
+                        <FieldLabel>
+                          <Label htmlFor="favorite">
+                            Esse é meu jogo favorito
+                          </Label>
+                        </FieldLabel>
+                      </Field>
+                    </FieldGroup>
+                  )}
+                />
+              </div>
+            </Field>
+            <Field className="w-full">
+              <FieldLabel htmlFor="notes">Notes</FieldLabel>
+              <div className="mt-1">
+                <Input id="notes" type="text" {...register('notes')} />
+              </div>
+            </Field>
           </div>
+
           <DialogFooter>
-            <DialogClose asChild>
-              <Button variant="outline">Cancel</Button>
-            </DialogClose>
-            <DialogClose asChild>
-              <Button type="submit" onClick={updateGame}>
-                Save changes
-              </Button>
-            </DialogClose>
+            <Button
+              variant="outline"
+              type="button"
+              onClick={() => setOpen(false)}
+            >
+              Cancel
+            </Button>
+
+            <Button type="submit" disabled={isSubmitting}>
+              {isSubmitting ? <Spinner /> : 'Save changes'}
+            </Button>
           </DialogFooter>
-        </DialogContent>
-      </form>
+        </form>
+      </DialogContent>
     </Dialog>
   );
 }
