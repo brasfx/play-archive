@@ -181,7 +181,7 @@ export default function EditGame({ labels, game }: GameProps) {
             height={100}
             className="h-40 w-full max-h-40 rounded-md bg-neutral-500 object-cover"
           />
-          <div className="mt-4 flex-1 space-y-4 overflow-y-auto pr-1 pb-4 max-h-[50vh] md:max-h-none">
+          <div className="mt-4 flex-1 space-y-4 overflow-y-auto pr-1 pb-4 max-h-[30vh] md:max-h-none">
             <Field className="w-full">
               <FieldLabel htmlFor="status">{labels?.status}</FieldLabel>
               <div className="mt-1">
