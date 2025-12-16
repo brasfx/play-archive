@@ -162,7 +162,7 @@ export default function EditGame({ labels, game }: GameProps) {
           {labels?.edit}
         </Button>
       </DialogTrigger>
-      <DialogContent className="sm:max-w-[425px] flex flex-col">
+      <DialogContent className="sm:max-w-[425px] flex max-h-screen flex-col overflow-hidden">
         <form
           onSubmit={handleSubmit(onSubmit)}
           className="flex flex-col flex-1"
@@ -173,17 +173,15 @@ export default function EditGame({ labels, game }: GameProps) {
               {`${labels?.makeChanges} "${game?.name}"`}
             </DialogDescription>
           </DialogHeader>
-
-          <div className="grid gap-4">
-            <Image
-              loading="eager"
-              src={game?.backgroundImage ? `${game?.backgroundImage}` : noImage}
-              alt="game cover"
-              width={400}
-              height={100}
-              className="rounded-md  w-full p-0.5 max-h-[188px]  bg-neutral-500 h-60"
-            />
-
+          <Image
+            loading="eager"
+            src={game?.backgroundImage ? `${game?.backgroundImage}` : noImage}
+            alt="game cover"
+            width={400}
+            height={100}
+            className="h-40 w-full max-h-40 rounded-md bg-neutral-500 object-cover"
+          />
+          <div className="mt-4 flex-1 space-y-4 overflow-y-auto pr-1 pb-4 max-h-auto ">
             <Field className="w-full">
               <FieldLabel htmlFor="status">{labels?.status}</FieldLabel>
               <div className="mt-1">
@@ -214,6 +212,7 @@ export default function EditGame({ labels, game }: GameProps) {
                 />
               </div>
             </Field>
+
             <Field className="w-full">
               <FieldLabel htmlFor="platform">{labels?.platform}</FieldLabel>
               <div className="mt-1">
@@ -335,7 +334,7 @@ export default function EditGame({ labels, game }: GameProps) {
             </Field>
           </div>
 
-          <DialogFooter className="mt-4">
+          <DialogFooter className="mt-4 shrink-0">
             <Button
               variant="outline"
               type="button"
