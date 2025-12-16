@@ -12,21 +12,19 @@ import { Badge } from '@/components/ui/badge';
 import { Lens } from '../ui/lens';
 import { Pointer } from '../ui/pointer';
 import { ShineBorder } from '../ui/shine-border';
-import { Star } from '../animate-ui/icons/star';
 import { Disc3 } from '../animate-ui/icons/disc-3';
 import Link from 'next/link';
 import { Button } from '../ui/button';
 
 import noImage from '@/assets/images/no-image.jpg';
 import Image from 'next/image';
-import { FormatYear, FormatDate } from '@/utils/formatDate';
-import { RawgGame, Genre, ParentPlatform } from '@/types/rawg';
+import { FormatDate } from '@/utils/formatDate';
 import { toast } from 'react-toastify';
 import { useRouter } from 'next/navigation';
 import { Progress } from '../ui/progress';
 import { Library } from '@/types/library';
-import { DeleteGame } from '../library/deleteGame';
-import EditGame from '../library/editGame';
+import { DeleteGame } from './deleteGame';
+import EditGame from './editGame';
 import { CirclePlus } from '../animate-ui/icons/circle-plus';
 
 type StatusLabels = {
@@ -265,7 +263,10 @@ export function LibraryCards({ games, labels }: GamesProps) {
 
               <div className="flex w-full m-auto pl-6 gap-4 justify-baseline ">
                 <Link
-                  href={`/game/${gameId}`}
+                  href={{
+                    pathname: `/game/${gameId}`,
+                    query: { from: 'library' },
+                  }}
                   key={id}
                   className="no-underline"
                 >
