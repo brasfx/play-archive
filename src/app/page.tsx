@@ -17,7 +17,7 @@ export default async function Page({ searchParams }) {
 
   const games = await getRawGames(filters);
   return (
-    <div className="rounded-b-xl bg-[radial-gradient(circle_500px_at_50%_490px,rgba(139,92,246,0.4),transparent)] inset-0 z-0">
+    <div className="rounded-b-xl bg-[radial-gradient(circle_500px_at_50%_490px,rgba(139,92,246,0.4),transparent)] inset-0 z-0 flex justify-center">
       <StripedPattern className="z-0 opacity-20 rounded-xl" direction="right" />
       <SectionCards
         games={games}

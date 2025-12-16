@@ -135,7 +135,7 @@ export default function GameDetails({ game, descriptionTranslated, editGame }) {
         <div
           className={`bg-card border rounded-xl shadow-sm overflow-hidden ${
             showItem
-              ? 'grid gap-6 md:grid-cols-[minmax(0,2fr)_minmax(280px,1fr)]'
+              ? 'md:grid md:gap-6 md:grid-cols-[minmax(0,2fr)_minmax(280px,1fr)]'
               : ''
           }`}
         >
@@ -191,7 +191,7 @@ export default function GameDetails({ game, descriptionTranslated, editGame }) {
                     {myStatus !== 'completed' && (
                       <Button size="sm" className="rounded-full">
                         {myStatus === 'wishlist'
-                          ? l('start')
+                          ? t('start')
                           : myStatus === 'paused' || myStatus === 'dropped'
                           ? t('resume')
                           : t('pause')}
