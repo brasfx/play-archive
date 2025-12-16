@@ -4,6 +4,7 @@ import { getGameById } from '@/services/rawg';
 import { translateDescription } from '@/services/translateDescription';
 
 import GameDetails from './gameDetails';
+import { getLibrary } from '@/services/getLibrary';
 
 export default async function GamePage({
   params,
@@ -12,15 +13,21 @@ export default async function GamePage({
 }) {
   const { id } = await params;
   const game: any = await getGameById(id);
+  const libary: any = await getLibrary();
+  const editGame = libary.find((game) => game.gameId === Number(id));
 
-  const locale = (await getLocale()).value;
+  // const locale = (await getLocale())?.value ?? 'pt-br';
 
-  const descriptionTranslated =
-    game.description && locale !== 'en'
-      ? await translateDescription(game.description || '')
-      : game.description;
+  // const descriptionTranslated =
+  //   game.description && locale !== 'en'
+  //     ? await translateDescription(game.description || '')
+  //     : game.description;
 
   return (
-    <GameDetails game={game} descriptionTranslated={descriptionTranslated} />
+    <GameDetails
+      game={game}
+      descriptionTranslated={game?.description}
+      editGame={editGame}
+    />
   );
 }
