@@ -11,6 +11,7 @@ import {
 import Image from 'next/image';
 import ImageZoom from '../zoom/ImageZoom';
 import { HeroVideoDialog } from '../ui/hero-video-dialog';
+import { set } from 'zod';
 
 interface CustomTabProps {
   platforms: any;
@@ -64,6 +65,7 @@ function CustomTab({
   const [screenshots, setScreenshots] = useState<Screenshot[]>([]);
   const [trailer, setTrailer] = useState<Trailer[] | null>(null);
   const [achievements, setAchievements] = useState<Achievement[]>([]);
+  const [isRequesting, setIsRequesting] = useState(false);
 
   const getScreenshots = async (id: string) => {
     const response = await fetch(`/api/rawg/screenshots/${id}`);
@@ -86,13 +88,21 @@ function CustomTab({
   };
 
   const getAchievementes = async (id: string) => {
-    const response = await fetch(`/api/rawg/achievements/${id}`);
-    if (!response.ok) {
-      throw new Error('Erro ao buscar achievements');
-    }
-    const data = await response.json();
+    setIsRequesting(true);
+    try {
+      const response = await fetch(`/api/rawg/achievements/${id}`);
+      if (!response.ok) {
+        throw new Error('Erro ao buscar achievements');
+      }
+      const data = await response.json();
 
-    setAchievements(data.results);
+      setAchievements(data.results);
+    } catch (error) {
+      console.error('Erro ao buscar achievements:', error);
+      setAchievements([]);
+    } finally {
+      setIsRequesting(false);
+    }
   };
 
   const requirements = platforms
@@ -167,8 +177,10 @@ function CustomTab({
             <div>Nenhum achievement disponível.</div>
           )}
         </div>
-      ) : (
+      ) : isRequesting ? (
         <div>Carregando achievements...</div>
+      ) : (
+        <div>Nenhum achievement disponível.</div>
       ),
       icon: TrophyIcon,
     },
@@ -225,30 +237,34 @@ function CustomTab({
   ];
 
   return (
-    <Tabs defaultValue="description" className="">
-      <TabsList>
-        {tabs.map(({ value, label, icon: Icon }) => (
-          <TabsTrigger
-            key={value}
-            value={value}
-            className="data-[state=active]:bg-blue-500 data-[state=active]:text-white"
-            onClick={() => {
-              if (value === 'gallery' && screenshots.length === 0) {
-                getScreenshots(gameId);
-              }
-              if (value === 'trailer' && trailer === null) {
-                getTrailer(gameId);
-              }
-              if (value === 'achievements' && achievements?.length === 0) {
-                getAchievementes(gameId);
-              }
-            }}
-          >
-            <Icon />
-            {label}
-          </TabsTrigger>
-        ))}
-      </TabsList>
+    <Tabs defaultValue="description">
+      <div className="w-full overflow-x-auto">
+        <div className="flex gap-3 whitespace-nowrap">
+          <TabsList>
+            {tabs.map(({ value, label, icon: Icon }) => (
+              <TabsTrigger
+                key={value}
+                value={value}
+                className="data-[state=active]:bg-blue-500 data-[state=active]:text-white"
+                onClick={() => {
+                  if (value === 'gallery' && screenshots.length === 0) {
+                    getScreenshots(gameId);
+                  }
+                  if (value === 'trailer' && trailer === null) {
+                    getTrailer(gameId);
+                  }
+                  if (value === 'achievements' && achievements?.length === 0) {
+                    getAchievementes(gameId);
+                  }
+                }}
+              >
+                <Icon />
+                {label}
+              </TabsTrigger>
+            ))}
+          </TabsList>
+        </div>
+      </div>
       {tabs.map(({ content, value }) => (
         <TabsContent key={value} value={value}>
           {content}
