@@ -70,8 +70,6 @@ export function SectionCards({
     }
   }
 
-  console.log('Rendered SectionCards with games:', idCardSelected);
-
   async function handleAddItem(
     id: number,
     background_image: string | null,

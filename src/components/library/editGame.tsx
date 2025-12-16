@@ -125,7 +125,6 @@ export default function EditGame({ labels, game }: GameProps) {
   });
 
   async function onSubmit(data: FormValues) {
-    console.log('Submitting data:', data);
     try {
       await fetch('/api/library', {
         method: 'PATCH',

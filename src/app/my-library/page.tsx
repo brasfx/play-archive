@@ -1,4 +1,4 @@
-import { LibraryCards } from '@/components/card/library-cards';
+import { LibraryCards } from '@/components/library/library-cards';
 import { StripedPattern } from '@/components/magicui/striped-pattern';
 import { getLibrary } from '@/services/getLibrary';
 import { getTranslations } from 'next-intl/server';

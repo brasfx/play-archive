@@ -43,3 +43,26 @@ export async function getGameById(id: string) {
 
   return body;
 }
+
+export async function getGameScreenshots(id: string) {
+  const baseUrl = getBaseUrl();
+  const url = `${baseUrl}/api/rawg/screenshots/${id}`;
+
+  const response = await fetch(url, { cache: 'no-store' });
+
+  let body: unknown = null;
+  try {
+    body = await response.json();
+  } catch {}
+
+  if (!response.ok) {
+    console.error('Erro RAWG rota interna', {
+      status: response.status,
+      statusText: response.statusText,
+      body,
+    });
+    throw new Error('Erro na busca da RAWG');
+  }
+
+  return body;
+}
