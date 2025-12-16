@@ -13,7 +13,7 @@ import ImageZoom from '../zoom/ImageZoom';
 import { HeroVideoDialog } from '../ui/hero-video-dialog';
 
 interface CustomTabProps {
-  platforms: unknown;
+  platforms: any;
   descriptionTranslated: string;
   gameId: string;
   screenshotsCount: number;
