@@ -15,7 +15,26 @@
   },
   "gameDetails": {
     "description": "Description",
-    "release": "Release"
+    "release": "Release",
+    "gallery": "Game gallery",
+    "library": "My library",
+    "requirements": "Requirements",
+    "achievements": "Achievements",
+    "screenshots": "Screenshots",
+    "trailers": "Trailers",
+    "start": "Start",
+    "pause": "Pause",
+    "resume": "Resume",
+    "finished": "Mark as finished",
+    "edit": "Edit information",
+    "favorite": "Mark as favorite",
+    "myRating": "My rating (1-10)",
+    "added": "Added on",
+    "gameDetails": "Game details",
+    "mods": "Platforms & mods",
+    "personalNotes": "Personal notes",
+    "back": "Back",
+    "notesDefault": "Write a quick summary about the game, upcoming goals, impressions etc."
   },
   "login": {
     "title": "Login with your GitHub or Google account",

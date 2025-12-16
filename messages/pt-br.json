@@ -15,7 +15,26 @@
   },
   "gameDetails": {
     "description": "Descrição",
-    "release": "Lançamento"
+    "release": "Lançamento",
+    "gallery": "Galeria de jogos",
+    "library": "Minha biblioteca",
+    "requirements": "Requisitos",
+    "achievements": "Conquistas",
+    "screenshots": "Capturas de tela",
+    "trailers": "Trailers",
+    "start": "Iniciar",
+    "resume": "Continuar",
+    "pause": "Pausar",
+    "finished": "Marcar como concluído",
+    "edit": "Editar informações",
+    "favorite": "Favoritar",
+    "myRating": "Minha avaliação (1-10)",
+    "added": "Adicionado em",
+    "gameDetails": "Detalhes do jogo",
+    "mods": "Plataformas & modo",
+    "personalNotes": "Notas pessoais",
+    "back": "Voltar",
+    "notesDefault": "Escreva aqui um resumo rápido sobre o jogo, próximas metas, impressões etc."
   },
   "login": {
     "title": "Entre com sua conta GitHub ou Google",
