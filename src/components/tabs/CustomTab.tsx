@@ -218,7 +218,7 @@ function CustomTab({
             <div key={video.id}>
               <div className="mb-4 mt-4 text-xl">{video.name}</div>
               <HeroVideoDialog
-                className="hidden dark:block"
+                className="block"
                 animationStyle="top-in-bottom-out"
                 videoSrc={video.data.max}
                 thumbnailSrc={video.preview}
