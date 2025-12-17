@@ -55,8 +55,6 @@ export default function GameDetails({ game, descriptionTranslated, editGame }) {
     router.back();
   }
 
-  console.log('editGame', editGame);
-
   const breadcrumbs = !showItem
     ? [
         { text: t('gallery'), href: '/' },

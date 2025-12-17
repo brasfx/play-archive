@@ -9,31 +9,44 @@ import {
 } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { motion } from 'motion/react';
-import { LogOut } from 'lucide-react';
+import { Edit, LogOut } from 'lucide-react';
 import { BorderBeam } from '@/components/ui/border-beam';
 import { Particles } from '@/components/ui/particles';
 import { CoolMode } from '@/components/ui/cool-mode';
+import { Badge } from '@/components/ui/badge';
+import { Separator } from '@/components/ui/separator';
+import EditProfile from '@/components/profile/editProfile';
+import { signOut } from 'next-auth/react';
 
 interface Props {
-  name: string;
-  email: string;
-  image: string;
-  social?: string;
-  onLogout: () => void;
+  profile?: {
+    id: string;
+    nickname: string;
+    bio: string;
+    favorite_game_name: string;
+    favorite_platform: string;
+    name: string;
+    email: string;
+    avatar_url: string;
+    provider: string;
+  };
 }
 
-export default function SocialLoginCard({
-  name,
-  email,
-  image,
-  social,
-  onLogout,
-}: Props) {
+export default function SocialLoginCard({ profile }: Props) {
   const { resolvedTheme } = useTheme();
   const color = useMemo(
     () => (resolvedTheme === 'dark' ? '#ffffff' : '#0b0f13'),
     [resolvedTheme],
   );
+
+  const email = profile?.email ?? '';
+  const name = profile?.name ?? '';
+  const avatar = profile?.avatar_url;
+  const social = profile?.provider ?? 'google';
+
+  const onLogout = () => {
+    signOut({ callbackUrl: '/' });
+  };
 
   const socialInfo = {
     google: {
@@ -62,10 +75,10 @@ export default function SocialLoginCard({
 
   return (
     <div className="w-full px-10">
-      <Card className="w-full max-w-[400px]  mx-auto h-[500px] justify-center shadow-xl border-none bg-foreground backdrop-blur-xl text-white dark:text-black">
-        <CardHeader className="flex flex-col items-center gap-2">
+      <Card className="w-full max-w-[400px]  mx-auto h-auto justify-center shadow-xl border-none bg-foreground backdrop-blur-xl text-white dark:text-black">
+        <CardHeader className="flex flex-col items-center gap-2 mt-10">
           <motion.img
-            src={image}
+            src={avatar}
             alt="Foto do usuário"
             width={84}
             height={84}
@@ -78,11 +91,13 @@ export default function SocialLoginCard({
           <div className="font-bold text-2xl">{name}</div>
           <div className="text-md bg-accent-foreground">{email}</div>
         </CardHeader>
-        <CardContent className="flex items-center justify-center gap-2 pb-4">
-          <div className="w-5">{socialInfo[social].icon}</div>
-
-          <span className="text-base ">{socialInfo[social].label}</span>
+        <CardContent className="flex items-center justify-center gap-2 ">
+          <Badge variant="secondary">
+            <div className="w-5">{socialInfo[social].icon}</div>
+            <span className="text-base ">{socialInfo[social].label}</span>
+          </Badge>
         </CardContent>
+
         <CardFooter className="flex justify-center">
           <motion.div
             whileHover={{ scale: 1.04, rotate: -2 }}
@@ -101,6 +116,33 @@ export default function SocialLoginCard({
             </CoolMode>
           </motion.div>
         </CardFooter>
+
+        <div className="flex flex-col text-start gap-2 p-4">
+          <div className="flex flex-col justify-between">
+            <span className="text-muted-foreground">Nickname</span>
+            <span>{profile?.nickname}</span>
+          </div>
+          <div className="flex flex-col justify-between">
+            <span className="text-muted-foreground">Bio</span>
+            <span>{profile?.bio}</span>
+          </div>
+          <div className="flex flex-col justify-between">
+            <span className="text-muted-foreground">Favorite games</span>
+            <span>{profile?.favorite_game_name}</span>
+          </div>
+          <div className="flex flex-col justify-between">
+            <span className="text-muted-foreground">Favorite platforms</span>
+            <span>{profile?.favorite_platform}</span>
+          </div>
+          <div className="flex  justify-end mt-10">
+            <EditProfile
+              nickname={profile?.nickname}
+              bio={profile?.bio}
+              favoriteGames={profile?.favorite_game_name}
+              favoritePlatforms={profile?.favorite_platform}
+            />
+          </div>
+        </div>
         <BorderBeam duration={10} size={300} borderWidth={2} />
       </Card>
       <Particles
