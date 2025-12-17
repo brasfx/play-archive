@@ -2,7 +2,6 @@ import { authOptions } from '@/lib/auth';
 import { createSupabaseServerClient } from '@/lib/supabase/server';
 import { getServerSession } from 'next-auth';
 import { NextResponse } from 'next/server';
-import { id } from 'zod/v4/locales';
 
 export async function PATCH(req: Request) {
   const session = await getServerSession(authOptions);

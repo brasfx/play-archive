@@ -10,7 +10,7 @@ import { Particles } from '@/components/ui/particles';
 import { CoolMode } from '@/components/ui/cool-mode';
 import { Badge } from '@/components/ui/badge';
 import EditProfile from '@/components/profile/EditProfile';
-import { signOut } from 'next-auth/react';
+import { signOut, useSession } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
 
 interface Props {
@@ -29,16 +29,17 @@ interface Props {
 
 export default function SocialLoginCard({ profile }: Props) {
   const t = useTranslations('profile');
+  const { data: session } = useSession();
   const { resolvedTheme } = useTheme();
   const color = useMemo(
     () => (resolvedTheme === 'dark' ? '#ffffff' : '#0b0f13'),
     [resolvedTheme],
   );
 
-  const email = profile?.email ?? '';
-  const name = profile?.name ?? '';
-  const avatar = profile?.avatar_url;
-  const social = profile?.provider ?? 'google';
+  const email = profile?.email ?? session?.user?.email ?? '';
+  const name = profile?.name ?? session?.user?.name ?? '';
+  const avatar = profile?.avatar_url ?? session?.user?.image ?? '';
+  const social = profile?.provider ?? session?.user?.provider ?? 'google';
 
   const onLogout = () => {
     signOut({ callbackUrl: '/' });

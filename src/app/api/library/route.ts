@@ -36,7 +36,7 @@ export async function POST(req: NextRequest) {
     {
       id: session.user?.id,
       email: session.user.email ?? null,
-      avatar: session.user.image ?? null,
+      avatar_url: session.user.image ?? null,
       name: session.user.name ?? null,
       provider: session.user.provider ?? null,
     },
