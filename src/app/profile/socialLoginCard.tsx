@@ -61,59 +61,55 @@ export default function SocialLoginCard({
   };
 
   return (
-    <div className="flex mx-auto items-center justify-center">
-      <div className="inset-0 blur-lg opacity-30" />
+    <div className="w-full px-10">
+      <Card className="w-full max-w-[400px]  mx-auto h-[500px] justify-center shadow-xl border-none bg-foreground backdrop-blur-xl text-white dark:text-black">
+        <CardHeader className="flex flex-col items-center gap-2">
+          <motion.img
+            src={image}
+            alt="Foto do usuário"
+            width={84}
+            height={84}
+            loading="lazy"
+            className="rounded-full border-2 border-indigo-600 shadow-lg h-[84px] w-[84px]"
+            initial={{ scale: 0.7, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ duration: 0.4 }}
+          />
+          <div className="font-bold text-2xl">{name}</div>
+          <div className="text-md bg-accent-foreground">{email}</div>
+        </CardHeader>
+        <CardContent className="flex items-center justify-center gap-2 pb-4">
+          <div className="w-5">{socialInfo[social].icon}</div>
 
-      <div>
-        <Card className="w-[400px] mx-auto h-[500px] justify-center shadow-xl border-none bg-foreground backdrop-blur-xl text-white dark:text-black">
-          <CardHeader className="flex flex-col items-center gap-2">
-            <motion.img
-              src={image}
-              alt="Foto do usuário"
-              width={84}
-              height={84}
-              loading="lazy"
-              className="rounded-full border-2 border-indigo-600 shadow-lg h-[84px] w-[84px]"
-              initial={{ scale: 0.7, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              transition={{ duration: 0.4 }}
-            />
-            <div className="font-bold text-2xl">{name}</div>
-            <div className="text-md bg-accent-foreground">{email}</div>
-          </CardHeader>
-          <CardContent className="flex items-center justify-center gap-2 pb-4">
-            <div className="w-5">{socialInfo[social].icon}</div>
-
-            <span className="text-base ">{socialInfo[social].label}</span>
-          </CardContent>
-          <CardFooter className="flex justify-center">
-            <motion.div
-              whileHover={{ scale: 1.04, rotate: -2 }}
-              whileTap={{ scale: 0.96, rotate: 2 }}
-            >
-              <CoolMode>
-                <Button
-                  type="button"
-                  variant="destructive"
-                  className="w-full"
-                  onClick={onLogout}
-                >
-                  <LogOut />
-                  Logout
-                </Button>
-              </CoolMode>
-            </motion.div>
-          </CardFooter>
-          <BorderBeam duration={10} size={300} borderWidth={2} />
-        </Card>
-        <Particles
-          className="absolute inset-0 z-0"
-          quantity={100}
-          ease={80}
-          color={color}
-          refresh
-        />
-      </div>
+          <span className="text-base ">{socialInfo[social].label}</span>
+        </CardContent>
+        <CardFooter className="flex justify-center">
+          <motion.div
+            whileHover={{ scale: 1.04, rotate: -2 }}
+            whileTap={{ scale: 0.96, rotate: 2 }}
+          >
+            <CoolMode>
+              <Button
+                type="button"
+                variant="destructive"
+                className="w-full"
+                onClick={onLogout}
+              >
+                <LogOut />
+                Logout
+              </Button>
+            </CoolMode>
+          </motion.div>
+        </CardFooter>
+        <BorderBeam duration={10} size={300} borderWidth={2} />
+      </Card>
+      <Particles
+        className="absolute inset-0 z-0"
+        quantity={100}
+        ease={80}
+        color={color}
+        refresh
+      />
     </div>
   );
 }

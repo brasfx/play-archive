@@ -11,12 +11,14 @@ export default function Page() {
   const avatar = session?.user.image;
   const social = session?.user?.provider ?? 'google';
   return (
-    <SocialLoginCard
-      name={name}
-      email={email}
-      image={avatar}
-      social={social}
-      onLogout={() => signOut({ callbackUrl: '/' })}
-    />
+    <div className="flex items-center justify-center overflow-hidden mt-10 w-full">
+      <SocialLoginCard
+        name={name}
+        email={email}
+        image={avatar}
+        social={social}
+        onLogout={() => signOut({ callbackUrl: '/' })}
+      />
+    </div>
   );
 }
