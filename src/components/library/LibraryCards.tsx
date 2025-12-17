@@ -23,8 +23,8 @@ import { toast } from 'react-toastify';
 import { useRouter } from 'next/navigation';
 import { Progress } from '../ui/progress';
 import { Library } from '@/types/library';
-import { DeleteGame } from './deleteGame';
-import EditGame from './editGame';
+import { DeleteGame } from './DeleteGame';
+import EditGame from './EditGame';
 import { CirclePlus } from '../animate-ui/icons/circle-plus';
 
 type StatusLabels = {

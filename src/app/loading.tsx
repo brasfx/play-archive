@@ -1,4 +1,4 @@
-import { SkeletonCard } from '@/components/loading/skeletonCard';
+import { SkeletonCard } from '@/components/loading/SkeletonCard';
 
 export default function Loading() {
   const count = 12;

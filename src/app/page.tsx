@@ -1,4 +1,4 @@
-import { SectionCards } from '@/components/card/section-cards';
+import { SectionCards } from '@/components/card/SectionCards';
 import { StripedPattern } from '@/components/magicui/striped-pattern';
 import { getRawGames } from '@/services/rawg';
 import { getTranslations } from 'next-intl/server';

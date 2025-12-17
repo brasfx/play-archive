@@ -15,7 +15,7 @@ import { Particles } from '@/components/ui/particles';
 import { CoolMode } from '@/components/ui/cool-mode';
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
-import EditProfile from '@/components/profile/editProfile';
+import EditProfile from '@/components/profile/EditProfile';
 import { signOut } from 'next-auth/react';
 
 interface Props {

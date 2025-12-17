@@ -16,7 +16,7 @@ import { toast } from 'react-toastify';
 import { RawgGame, Genre, ParentPlatform } from '@/types/rawg';
 import Image from 'next/image';
 import Link from 'next/link';
-import SearchInput from '@/components/search/searchInput';
+import SearchInput from '@/components/search/SearchInput';
 
 import noImage from '@/assets/images/no-image.jpg';
 import { Button } from '../ui/button';

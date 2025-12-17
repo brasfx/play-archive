@@ -5,7 +5,7 @@ import './globals.css';
 import { ThemeProvider } from '../components/theme-provider';
 import MainLayout from '@/components/layout/main';
 import { FiltersProvider } from '@/providers/FiltersProvider';
-import SessionProvider from '@/components/sessionProvider/sessionProvider';
+import SessionProvider from '@/components/sessionProvider/SessionProvider';
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
