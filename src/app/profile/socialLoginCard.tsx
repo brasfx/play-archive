@@ -1,22 +1,17 @@
 'use client';
-import { useEffect, useState, useMemo } from 'react';
+import { useMemo } from 'react';
 import { useTheme } from 'next-themes';
-import {
-  Card,
-  CardHeader,
-  CardContent,
-  CardFooter,
-} from '@/components/ui/card';
+import { Card, CardHeader, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { motion } from 'motion/react';
-import { Edit, LogOut } from 'lucide-react';
+import { LogOut } from 'lucide-react';
 import { BorderBeam } from '@/components/ui/border-beam';
 import { Particles } from '@/components/ui/particles';
 import { CoolMode } from '@/components/ui/cool-mode';
 import { Badge } from '@/components/ui/badge';
-import { Separator } from '@/components/ui/separator';
 import EditProfile from '@/components/profile/EditProfile';
 import { signOut } from 'next-auth/react';
+import { useTranslations } from 'next-intl';
 
 interface Props {
   profile?: {
@@ -33,6 +28,7 @@ interface Props {
 }
 
 export default function SocialLoginCard({ profile }: Props) {
+  const t = useTranslations('profile');
   const { resolvedTheme } = useTheme();
   const color = useMemo(
     () => (resolvedTheme === 'dark' ? '#ffffff' : '#0b0f13'),
@@ -98,43 +94,46 @@ export default function SocialLoginCard({ profile }: Props) {
           </Badge>
         </CardContent>
 
-        <CardFooter className="flex justify-center">
-          <motion.div
-            whileHover={{ scale: 1.04, rotate: -2 }}
-            whileTap={{ scale: 0.96, rotate: 2 }}
-          >
-            <CoolMode>
-              <Button
-                type="button"
-                variant="destructive"
-                className="w-full"
-                onClick={onLogout}
-              >
-                <LogOut />
-                Logout
-              </Button>
-            </CoolMode>
-          </motion.div>
-        </CardFooter>
-
         <div className="flex flex-col text-start gap-2 p-4">
           <div className="flex flex-col justify-between">
-            <span className="text-muted-foreground">Nickname</span>
+            <span className="text-muted-foreground text-lg">
+              {t('nickname')}
+            </span>
             <span>{profile?.nickname}</span>
           </div>
           <div className="flex flex-col justify-between">
-            <span className="text-muted-foreground">Bio</span>
+            <span className="text-muted-foreground text-lg">{t('bio')}</span>
             <span>{profile?.bio}</span>
           </div>
           <div className="flex flex-col justify-between">
-            <span className="text-muted-foreground">Favorite games</span>
+            <span className="text-muted-foreground text-lg">
+              {t('favoriteGames')}
+            </span>
             <span>{profile?.favorite_game_name}</span>
           </div>
           <div className="flex flex-col justify-between">
-            <span className="text-muted-foreground">Favorite platforms</span>
+            <span className="text-muted-foreground text-lg">
+              {t('favoritePlatforms')}
+            </span>
             <span>{profile?.favorite_platform}</span>
           </div>
-          <div className="flex  justify-end mt-10">
+          <div className="flex flex-col sm:flex-row justify-between gap-4 mt-10">
+            <motion.div
+              whileHover={{ scale: 1.04, rotate: -2 }}
+              whileTap={{ scale: 0.96, rotate: 2 }}
+            >
+              <CoolMode>
+                <Button
+                  type="button"
+                  variant="destructive"
+                  className="w-full sm:w-40 bg-red-500"
+                  onClick={onLogout}
+                >
+                  <LogOut />
+                  Logout
+                </Button>
+              </CoolMode>
+            </motion.div>
             <EditProfile
               nickname={profile?.nickname}
               bio={profile?.bio}

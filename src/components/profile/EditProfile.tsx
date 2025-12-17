@@ -10,7 +10,7 @@ import {
   DialogTrigger,
 } from '../ui/dialog';
 import { Field, FieldLabel } from '../ui/field';
-import { useForm, Controller } from 'react-hook-form';
+import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Spinner } from '../ui/spinner';
@@ -19,6 +19,7 @@ import { Input } from '../ui/input';
 import { Button } from '../ui/button';
 import { Edit } from 'lucide-react';
 import { useRouter } from 'next/navigation';
+import { useTranslations } from 'next-intl';
 
 interface ProfileProps {
   nickname: string;
@@ -44,10 +45,10 @@ function EditProfile({
 }: ProfileProps) {
   const [open, setOpen] = useState<boolean>(false);
   const router = useRouter();
+  const t = useTranslations('profile');
 
   const {
     handleSubmit,
-    control,
     register,
     formState: { isSubmitting },
   } = useForm<FormValues>({
@@ -89,25 +90,24 @@ function EditProfile({
           variant="ghost"
         >
           <Edit />
-          Edit Profile
+          {t('edit')}
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px] flex max-h-[95vh] flex-col overflow-hidden">
         <form
           onSubmit={handleSubmit(onSubmit)}
-          className="flex flex-1 flex-col"
+          className="flex flex-1 flex-col gap-4"
         >
           <DialogHeader>
-            <DialogTitle>Edit Profile</DialogTitle>
-            <DialogDescription>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              Consequuntur
-            </DialogDescription>
+            <DialogTitle>{t('title')}</DialogTitle>
+            <DialogDescription>{t('subtitle')}</DialogDescription>
           </DialogHeader>
-          <div>
+          <div className="flex flex-col gap-2">
             <Field className="w-full">
-              <FieldLabel htmlFor="name">Name</FieldLabel>
-              <div className="mt-1">
+              <div className="mt-2">
+                <FieldLabel htmlFor="name" className="mb-1">
+                  {t('nickname')}
+                </FieldLabel>
                 <Input
                   id="nickname"
                   type="text"
@@ -117,8 +117,10 @@ function EditProfile({
               </div>
             </Field>
             <Field className="w-full">
-              <FieldLabel htmlFor="bio">Bio</FieldLabel>
-              <div className="mt-1">
+              <div className="mt-2">
+                <FieldLabel htmlFor="bio" className="mb-1">
+                  {t('bio')}
+                </FieldLabel>
                 <Input
                   id="bio"
                   type="text"
@@ -128,8 +130,10 @@ function EditProfile({
               </div>
             </Field>
             <Field className="w-full">
-              <FieldLabel htmlFor="favoriteGames">Favorite Games</FieldLabel>
-              <div className="mt-1">
+              <div className="mt-2">
+                <FieldLabel htmlFor="favoriteGames" className="mb-1">
+                  {t('favoriteGames')}
+                </FieldLabel>
                 <Input
                   id="favoriteGames"
                   type="text"
@@ -139,10 +143,10 @@ function EditProfile({
               </div>
             </Field>
             <Field className="w-full">
-              <FieldLabel htmlFor="favoritePlatforms">
-                Favorite Platforms
-              </FieldLabel>
-              <div className="mt-1">
+              <div className="mt-2">
+                <FieldLabel htmlFor="favoritePlatforms" className="mb-1">
+                  {t('favoritePlatforms')}
+                </FieldLabel>
                 <Input
                   id="favoritePlatforms"
                   type="text"
@@ -158,10 +162,10 @@ function EditProfile({
               type="button"
               onClick={() => setOpen(false)}
             >
-              Cancel
+              {t('cancel')}
             </Button>
             <Button type="submit" disabled={isSubmitting}>
-              {isSubmitting ? <Spinner /> : 'Save Changes'}
+              {isSubmitting ? <Spinner /> : t('saveChanges')}
             </Button>
           </DialogFooter>
         </form>

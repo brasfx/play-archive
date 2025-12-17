@@ -75,5 +75,16 @@
     "editGame": "Editar Jogo",
     "makeChanges": "Faça alterações no seu jogo",
     "saveChanges": "Salvar alterações"
+  },
+  "profile": {
+    "title": "Meu perfil",
+    "subtitle": "Atualize suas informações de perfil",
+    "nickname": "Apelido",
+    "bio": "Biografia",
+    "favoriteGames": "Jogo favorito",
+    "favoritePlatforms": "Plataforma favorita",
+    "edit": "Editar perfil",
+    "cancel": "Cancelar",
+    "saveChanges": "Salvar alterações"
   }
 }
