@@ -35,6 +35,7 @@ import { useForm, Controller } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Spinner } from '../ui/spinner';
+import { useTranslations } from 'next-intl';
 
 type StatusLabels = {
   wishlist: string;
@@ -76,6 +77,7 @@ interface GameProps {
     platform?: string;
   };
   labels?: StatusLabels;
+  editingForDetails?: boolean;
 }
 
 const formSchema = z.object({
@@ -99,8 +101,14 @@ const formSchema = z.object({
 
 type FormValues = z.infer<typeof formSchema>;
 
-export default function EditGame({ labels, game }: GameProps) {
+export default function EditGame({
+  editingForDetails,
+  labels,
+  game,
+}: GameProps) {
   const router = useRouter();
+  const t = useTranslations('library');
+  console.log('game dentro do edit game', game);
 
   const {
     handleSubmit,
@@ -159,7 +167,7 @@ export default function EditGame({ labels, game }: GameProps) {
           variant="default"
           type="button"
         >
-          {labels?.edit}
+          {editingForDetails ? t('editInformation') : t('edit')}
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[425px] flex max-h-[95vh] flex-col overflow-hidden">
@@ -168,9 +176,9 @@ export default function EditGame({ labels, game }: GameProps) {
           className="flex flex-col flex-1"
         >
           <DialogHeader>
-            <DialogTitle>{labels?.editGame}</DialogTitle>
+            <DialogTitle>{t('editGame')}</DialogTitle>
             <DialogDescription className="mb-2 mt-4">
-              {`${labels?.makeChanges} "${game?.name}"`}
+              {`${t('makeChanges')} "${game?.name}"`}
             </DialogDescription>
           </DialogHeader>
           <Image
@@ -183,7 +191,7 @@ export default function EditGame({ labels, game }: GameProps) {
           />
           <div className="mt-4 flex-1 space-y-4 overflow-y-auto pr-1 pb-4 max-h-[35vh] md:max-h-none">
             <Field className="w-full">
-              <FieldLabel htmlFor="status">{labels?.status}</FieldLabel>
+              <FieldLabel htmlFor="status">{t('status')}</FieldLabel>
               <div className="mt-1">
                 <Controller
                   control={control}
@@ -191,20 +199,20 @@ export default function EditGame({ labels, game }: GameProps) {
                   render={({ field }) => (
                     <Select value={field.value} onValueChange={field.onChange}>
                       <SelectTrigger className="w-full border-foreground">
-                        <SelectValue placeholder={labels?.wishlist} />
+                        <SelectValue placeholder={t('wishlist')} />
                       </SelectTrigger>
                       <SelectContent className="bg-background text-foreground">
                         <SelectItem value="wishlist">
-                          {labels?.wishlist ?? 'Wishlist'}
+                          {t('wishlist')}
                         </SelectItem>
                         <SelectItem value="playing">
-                          {labels?.playing ?? 'Playing'}
+                          {t('playing') ?? 'Playing'}
                         </SelectItem>
                         <SelectItem value="completed">
-                          {labels?.completed ?? 'Completed'}
+                          {t('completed') ?? 'Completed'}
                         </SelectItem>
                         <SelectItem value="dropped">
-                          {labels?.dropped ?? 'Dropped'}
+                          {t('dropped') ?? 'Dropped'}
                         </SelectItem>
                       </SelectContent>
                     </Select>
@@ -214,7 +222,7 @@ export default function EditGame({ labels, game }: GameProps) {
             </Field>
 
             <Field className="w-full">
-              <FieldLabel htmlFor="platform">{labels?.platform}</FieldLabel>
+              <FieldLabel htmlFor="platform">{t('platform')}</FieldLabel>
               <div className="mt-1">
                 <Controller
                   control={control}
@@ -222,7 +230,7 @@ export default function EditGame({ labels, game }: GameProps) {
                   render={({ field }) => (
                     <Select value={field.value} onValueChange={field.onChange}>
                       <SelectTrigger className="w-full border-foreground">
-                        <SelectValue placeholder={labels?.selectPlatform} />
+                        <SelectValue placeholder={t('selectPlatform')} />
                       </SelectTrigger>
                       <SelectContent className="bg-background text-foreground">
                         <SelectItem value="pc">PC</SelectItem>
@@ -237,7 +245,7 @@ export default function EditGame({ labels, game }: GameProps) {
               </div>
             </Field>
             <Field className="w-full">
-              <FieldLabel htmlFor="progress">{labels?.progress}</FieldLabel>
+              <FieldLabel htmlFor="progress">{t('progress')}</FieldLabel>
               <div className="mt-1">
                 <Controller
                   control={control}
@@ -264,7 +272,7 @@ export default function EditGame({ labels, game }: GameProps) {
               </div>
             </Field>
             <Field className="w-full">
-              <FieldLabel htmlFor="rating">{labels?.rating}</FieldLabel>
+              <FieldLabel htmlFor="rating">{t('rating')}</FieldLabel>
               <div className="mt-1">
                 <Controller
                   control={control}
@@ -291,7 +299,7 @@ export default function EditGame({ labels, game }: GameProps) {
               </div>
             </Field>
             <Field className="w-full">
-              <FieldLabel htmlFor="favorite">{labels?.favorite}</FieldLabel>
+              <FieldLabel htmlFor="favorite">{t('favorite')}</FieldLabel>
               <div className="mt-1">
                 <Controller
                   control={control}
@@ -311,7 +319,7 @@ export default function EditGame({ labels, game }: GameProps) {
 
                           <FieldLabel>
                             <Label htmlFor="favorite">
-                              {labels?.favoriteText}
+                              {t('favoriteText')}
                             </Label>
                           </FieldLabel>
                         </Label>
@@ -322,7 +330,7 @@ export default function EditGame({ labels, game }: GameProps) {
               </div>
             </Field>
             <Field className="w-full">
-              <FieldLabel htmlFor="notes">{labels?.notes}</FieldLabel>
+              <FieldLabel htmlFor="notes">{t('notes')}</FieldLabel>
               <div className="mt-1">
                 <Input
                   id="notes"
@@ -340,11 +348,11 @@ export default function EditGame({ labels, game }: GameProps) {
               type="button"
               onClick={() => setOpen(false)}
             >
-              {labels?.cancel}
+              {t('cancel')}
             </Button>
 
             <Button type="submit" disabled={isSubmitting}>
-              {isSubmitting ? <Spinner /> : labels?.saveChanges}
+              {isSubmitting ? <Spinner /> : t('saveChanges')}
             </Button>
           </DialogFooter>
         </form>

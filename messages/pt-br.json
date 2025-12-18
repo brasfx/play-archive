@@ -34,7 +34,9 @@
     "mods": "Plataformas & modo",
     "personalNotes": "Notas pessoais",
     "back": "Voltar",
-    "notesDefault": "Escreva aqui um resumo rápido sobre o jogo, próximas metas, impressões etc."
+    "notesDefault": "Escreva aqui um resumo rápido sobre o jogo, próximas metas, impressões etc.",
+    "favoriteGames": "Jogo favorito",
+    "addToLibrary": "Adicionar à biblioteca"
   },
   "login": {
     "title": "Entre com sua conta GitHub ou Google",
@@ -74,7 +76,8 @@
     "selectPlatform": "Selecionar plataforma",
     "editGame": "Editar Jogo",
     "makeChanges": "Faça alterações no seu jogo",
-    "saveChanges": "Salvar alterações"
+    "saveChanges": "Salvar alterações",
+    "editInformation": "Editar informações"
   },
   "profile": {
     "title": "Meu perfil",

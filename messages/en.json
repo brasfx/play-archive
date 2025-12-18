@@ -34,7 +34,9 @@
     "mods": "Platforms & mods",
     "personalNotes": "Personal notes",
     "back": "Back",
-    "notesDefault": "Write a quick summary about the game, upcoming goals, impressions etc."
+    "notesDefault": "Write a quick summary about the game, upcoming goals, impressions etc.",
+    "favoriteGames": "Favorite game",
+    "addToLibrary": "Add to library"
   },
   "login": {
     "title": "Login with your GitHub or Google account",
@@ -74,7 +76,8 @@
     "selectPlatform": "Select platform",
     "editGame": "Edit Game",
     "makeChanges": "Make changes to your game",
-    "saveChanges": "Save Changes"
+    "saveChanges": "Save Changes",
+    "editInformation": "Edit information"
   },
   "profile": {
     "title": "My Profile",

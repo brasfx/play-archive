@@ -18,6 +18,12 @@ import CustomTab from '@/components/tabs/CustomTab';
 import { Badge } from '@/components/ui/badge';
 import { FormatDate } from '@/utils/formatDate';
 import getLabelByPlatform from '@/utils/getLabelByPlatform';
+import EditGame from '@/components/library/EditGame';
+import { toast } from 'react-toastify';
+import { Progress } from '@/components/ui/progress';
+import { Genre } from '@/types/rawg';
+import { signIn, useSession } from 'next-auth/react';
+import { Spinner } from '@/components/ui/spinner';
 
 export default function GameDetails({ game, descriptionTranslated, editGame }) {
   const {
@@ -48,6 +54,8 @@ export default function GameDetails({ game, descriptionTranslated, editGame }) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const showItem = searchParams.get('from');
+  const loginStatus = useSession().status;
+  const [loadingAdd, setLoadingAdd] = useState(false);
 
   if (!game) return <div>Jogo não encontrado.</div>;
 
@@ -85,6 +93,59 @@ export default function GameDetails({ game, descriptionTranslated, editGame }) {
         break;
     }
   };
+
+  async function handleAddToLibrary(
+    id: number,
+    background_image: string | null,
+    name: string,
+    slug: string,
+    released: string | null,
+    genres: Genre[] | undefined,
+  ) {
+    setLoadingAdd(true);
+    console.log('entrei aqui');
+    const genreNames = genres?.map((genre) => genre.name) || [];
+    try {
+      if (loginStatus !== 'authenticated') {
+        signIn();
+      } else {
+        const res = await fetch('/api/library', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            game_id_rawg: id,
+            background_image,
+            name,
+            slug,
+            released,
+            genres: genreNames,
+          }),
+        });
+
+        if (!res.ok) {
+          const data = await res.json().catch(() => null);
+
+          if (res.status === 409) {
+            toast.info('Esse jogo já está na sua biblioteca');
+          } else {
+            console.error(
+              'Erro ao adicionar jogo à biblioteca:',
+              data?.error || res.statusText,
+            );
+            toast.error('Erro ao adicionar jogo à biblioteca');
+          }
+          return;
+        }
+        toast.success('Jogo adicionado à biblioteca com sucesso!');
+      }
+    } catch (error) {
+      console.error('Erro ao adicionar jogo à biblioteca:', error);
+      toast.error('Erro ao adicionar jogo à biblioteca');
+    } finally {
+      setLoadingAdd(false);
+      router.refresh();
+    }
+  }
 
   return (
     <div className="min-h-screen bg-background">
@@ -186,41 +247,53 @@ export default function GameDetails({ game, descriptionTranslated, editGame }) {
 
                 {showItem && (
                   <div className="flex flex-wrap items-center gap-2">
-                    {myStatus !== 'completed' && (
-                      <Button size="sm" className="rounded-full">
-                        {myStatus === 'wishlist'
-                          ? t('start')
-                          : myStatus === 'paused' || myStatus === 'dropped'
-                          ? t('resume')
-                          : t('pause')}
-                      </Button>
-                    )}
-                    {myStatus !== 'completed' && (
-                      <Button
-                        size="sm"
-                        variant="outline"
-                        className="rounded-full"
+                    <div className="flex flex-row w-full m-auto  gap-2 justify-baseline items-center">
+                      <Progress
+                        value={myProgress}
+                        className={`w-[80%] ${
+                          myProgress === 100
+                            ? '[&>div]:bg-green-500'
+                            : myProgress < 50
+                            ? '[&>div]:bg-red-500'
+                            : myProgress > 50 && myProgress < 75
+                            ? '[&>div]:bg-yellow-500'
+                            : '[&>div]:bg-blue-500'
+                        }`}
+                      />
+                      <span className="text-sm text-muted-foreground">
+                        {myProgress}%
+                      </span>
+                    </div>
+
+                    {isFavorite && (
+                      <Badge
+                        variant="success"
+                        className="rounded-full px-4 py-2"
                       >
-                        <Check />
-                        {t('finished')}
-                      </Button>
+                        <Star className="w-8 h-8 text-yellow-500" />
+                        {t('favoriteGames')}
+                      </Badge>
                     )}
-                    {!isFavorite && (
-                      <Button
-                        size="sm"
-                        variant="outline"
-                        className="rounded-full"
-                      >
-                        <Star />
-                        {t('favorite')}
-                      </Button>
-                    )}
-                    {isFavorite && <Star className="w-6 h-6 text-yellow-500" />}
                   </div>
                 )}
-                {!showItem && (
-                  <Button size="sm" variant="success" className="rounded-full">
-                    Adicionar a biblioteca
+                {!showItem && !editGame && (
+                  <Button
+                    size="sm"
+                    variant="success"
+                    className="rounded-full"
+                    disabled={loadingAdd}
+                    onClick={() =>
+                      handleAddToLibrary(
+                        game.id,
+                        game.background_image,
+                        game.name,
+                        game.slug,
+                        game.released,
+                        game.genres,
+                      )
+                    }
+                  >
+                    {loadingAdd ? <Spinner /> : t('addToLibrary')}
                   </Button>
                 )}
 
@@ -263,7 +336,7 @@ export default function GameDetails({ game, descriptionTranslated, editGame }) {
                     <span className="text-muted-foreground">
                       {l('progress')}
                     </span>
-                    <span>{myProgress}%</span>
+                    <span>{myProgress}</span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-muted-foreground">{t('added')}</span>
@@ -299,14 +372,7 @@ export default function GameDetails({ game, descriptionTranslated, editGame }) {
                   {notes || t('notesDefault')}
                 </p>
               </div>
-
-              <Button
-                variant="default"
-                size="sm"
-                className="w-full mt-2 text-white"
-              >
-                {t('edit')}
-              </Button>
+              <EditGame game={editGame} editingForDetails={true} />
             </aside>
           )}
         </div>

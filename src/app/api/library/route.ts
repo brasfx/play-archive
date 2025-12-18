@@ -108,17 +108,30 @@ export async function DELETE(req: NextRequest) {
 }
 
 export async function PATCH(req: NextRequest) {
-  const {
-    game_id_rawg,
-    status,
-    rating,
-    notes,
-    progress_percent,
-    is_favorite,
-    platform,
-  } = await req.json();
+  // const {
+  //   game_id_rawg,
+  //   status,
+  //   rating,
+  //   notes,
+  //   progress_percent,
+  //   is_favorite,
+  //   platform,
+  // } = await req.json();
 
-  if (!game_id_rawg) {
+  const body = await req.json();
+
+  const updates = Object.fromEntries(
+    Object.entries({
+      status: body.status,
+      rating: body.rating,
+      notes: body.notes,
+      progress_percent: body.progress_percent,
+      is_favorite: body.is_favorite,
+      platform: body.platform,
+    }).filter(([, v]) => v !== undefined),
+  );
+
+  if (!body.game_id_rawg) {
     return NextResponse.json(
       { error: 'game_id_rawg é obrigatório' },
       { status: 400 },
@@ -134,15 +147,8 @@ export async function PATCH(req: NextRequest) {
 
   const { error } = await supabase
     .from('library')
-    .update({
-      status,
-      rating,
-      notes,
-      progress_percent,
-      is_favorite,
-      platform,
-    })
-    .eq('game_id_rawg', game_id_rawg)
+    .update(updates)
+    .eq('game_id_rawg', body.game_id_rawg)
     .eq('user_id', session.user.id);
 
   if (error) {
