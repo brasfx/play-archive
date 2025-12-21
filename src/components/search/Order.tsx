@@ -10,7 +10,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/ui/select';
-import { orderBy, Order } from '@/constants/filters';
+import { orderBy, TypeOrderBy } from '@/constants/filters';
 import { ArrowDownUp, ArrowUpDown, ListOrdered, X } from 'lucide-react';
 import { useFiltersFromURL } from '@/hooks/useFiltersFromURL';
 import { useUpdateSearchParams } from '@/hooks/useUpdateSearchParams';
@@ -66,7 +66,7 @@ export default function Order() {
               {t('clear2')} <X className="h-4 w-4" />
             </Button>
           )}
-          {orderBy.map((item: Order) => (
+          {orderBy.map((item: TypeOrderBy) => (
             <SelectItem
               value={item.value}
               key={item.value}

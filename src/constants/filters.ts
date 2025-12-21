@@ -1,9 +1,9 @@
-export type Order = {
+export type TypeOrderBy = {
   name: string;
   value: string;
 };
 
-export const orderBy: Order[] = [
+export const orderBy: TypeOrderBy[] = [
   {
     name: 'Data de lançamento (mais recente)',
     value: '-release',
