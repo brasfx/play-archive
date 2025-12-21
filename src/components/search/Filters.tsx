@@ -43,10 +43,13 @@ export default function Filters() {
 
   function handleClick() {
     updateParms({
-      genres: selectedGenres.length > 0 ? selectedGenres : undefined,
-      platforms: selectedPlatforms.length > 0 ? selectedPlatforms : undefined,
+      genres: selectedGenres.length > 0 ? selectedGenres.join(',') : undefined,
+      platforms:
+        selectedPlatforms.length > 0 ? selectedPlatforms.join(',') : undefined,
     });
   }
+
+  console.log(selectedGenres, selectedPlatforms);
 
   const topGenres = React.useMemo(
     () =>
@@ -162,9 +165,9 @@ export default function Filters() {
                   key={platform.slug}
                   variant="purple"
                   size="sm"
-                  onClick={() => handleSelectPlatforms(platform.id)}
+                  onClick={() => handleSelectPlatforms(String(platform.id))}
                   className={`${
-                    selectedPlatforms.includes(platform.id)
+                    selectedPlatforms.includes(String(platform.id))
                       ? 'bg-purple'
                       : 'bg-foreground text-background'
                   } `}
