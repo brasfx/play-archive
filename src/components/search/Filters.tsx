@@ -25,7 +25,7 @@ import { useTranslations } from 'next-intl';
 import { ListFilter } from 'lucide-react';
 import { Badge } from '../ui/badge';
 
-export default function Filters({}) {
+export default function Filters() {
   const filters = useFiltersFromURL();
   const updateParms = useUpdateSearchParams();
   const t = useTranslations('filters');

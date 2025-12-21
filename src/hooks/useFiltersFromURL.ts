@@ -4,11 +4,12 @@ import { useSearchParams } from 'next/navigation';
 
 export interface Filters {
   search?: string;
-  genres?: string;
+  genres?: string | string[];
   ordering?: string;
   page?: number;
   page_size?: number;
   platforms?: string | string[];
+  parent_platforms?: string | string[];
 }
 
 export function useFiltersFromURL(): Filters {
