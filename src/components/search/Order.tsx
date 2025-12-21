@@ -38,7 +38,6 @@ export default function Order() {
         setSelectedItem(value);
         updateParms({ ordering: value });
       }}
-      className="h-10 bg-purple md:w-auto w-full"
     >
       <SelectTrigger className="rounded-2xl bg-purple text-white hover:bg-purple/90 md:w-auto w-full">
         {selectedItem === '' ? (
