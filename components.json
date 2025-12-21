@@ -17,7 +17,18 @@
     "ui": "@/components/ui",
     "lib": "@/lib",
     "hooks": "@/hooks",
-    "api": "@/api"
+    "api": "@/api",
+    "constants": "@/constants",
+    "providers": "@/providers",
+    "stores": "@/stores",
+    "types": "@/types",
+    "data": "@/data",
+    "assets": "@/assets",
+    "images": "@/assets/images",
+    "actions": "@/actions",
+    "services": "@/services",
+    "auth": "@/auth",
+    "app": "@/app"
   },
   "registries": {
     "@magicui": "https://magicui.design/r/{name}.json",

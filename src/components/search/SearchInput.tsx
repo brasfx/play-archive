@@ -6,6 +6,11 @@ import {
   InputGroupInput,
 } from '@/ui/input-group';
 import { Search } from '../animate-ui/icons/search';
+import Filters from './Filters';
+import { Button } from '../ui/button';
+import Order from './Order';
+import { BrushCleaning } from 'lucide-react';
+import ClearAlll from './ClearAlll';
 
 export default function SearchInput({
   handleChange,
@@ -23,28 +28,23 @@ export default function SearchInput({
   label: string;
 }) {
   return (
-    <div className="mb-6 mt-4 max-w-lg mx-auto flex flex-col sm:flex-row gap-2 items-center z-10">
-      <InputGroup className=" border-gray-300 focus:ring-0 focus:border-gray-300 h-full z-10 bg-background">
+    <div className="md:max-w-[500px] max-w-[650px] w-full z-10 flex flex-col sm:flex-row gap-2 items-center">
+      <InputGroup className=" border-gray-300 focus:ring-0 focus:border-gray-300  h-10 md:max-w-[500px] max-w-[612px] z-10 bg-background">
         <InputGroupInput
           placeholder={placeholder}
           onChange={handleChange}
           onKeyPress={handleKeyPress}
           value={search}
         />
-      </InputGroup>
-      <InputGroupAddon
-        align="inline-end"
-        className="sm:w-auto w-full h-full z-10"
-      >
-        <InputGroupButton
-          variant="default"
+        <Button
+          variant="purple"
           onClick={handleClick}
-          className="w-full h-full"
+          className="w-auto h-full rounded-s-none px-4  dark:border-l-2 border-foreground "
         >
-          <Search animateOnHover className="mr-2 " />
+          <Search animateOnHover />
           {label}
-        </InputGroupButton>
-      </InputGroupAddon>
+        </Button>
+      </InputGroup>
     </div>
   );
 }

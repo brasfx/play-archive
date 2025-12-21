@@ -9,7 +9,9 @@ export default async function Page({ searchParams }) {
     search: params.search || '',
     search_exact: params.search_exact === 'true',
     ordering: params.ordering || '',
-    platform: params.platform || '',
+    platforms: params.platforms || '',
+    genres: params.genres || '',
+    parent_platforms: params.parent_platforms || '',
   };
 
   const t = await getTranslations('homePage');
