@@ -6,4 +6,5 @@ export interface Filters {
   page?: number;
   page_size?: number;
   platforms?: string | string[];
+  parent_platforms?: string | string[];
 }
