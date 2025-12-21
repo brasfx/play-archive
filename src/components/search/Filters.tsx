@@ -30,9 +30,10 @@ export default function Filters() {
   const updateParms = useUpdateSearchParams();
   const t = useTranslations('filters');
   const [open, setOpen] = React.useState(false);
-  const filterParam = filters.genres !== '' && filters.genres?.split(',');
+  const filterParam =
+    filters.genres !== '' && (filters.genres as string)?.split(',');
   const filterParamPlatforms =
-    filters.platforms !== '' && filters.platforms?.split(',');
+    filters.platforms !== '' && (filters.platforms as string)?.split(',');
   const [selectedGenres, setSelectedGenres] = React.useState<string[]>(
     filterParam || [],
   );
