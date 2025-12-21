@@ -49,8 +49,6 @@ export default function Filters() {
     });
   }
 
-  console.log(selectedGenres, selectedPlatforms);
-
   const topGenres = React.useMemo(
     () =>
       [...genreFilters]

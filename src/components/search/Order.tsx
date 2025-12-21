@@ -48,11 +48,7 @@ export default function Order() {
           <ArrowDownUp />
         )}
 
-        <SelectValue
-          placeholder={t('orderBy')}
-          value={selectedItem}
-          className="text-white"
-        />
+        <SelectValue placeholder={t('orderBy')} className="text-white" />
       </SelectTrigger>
       <SelectContent className="bg-foreground dark:bg-background text-white">
         <SelectGroup className="bg-foreground dark:bg-background text-white">
