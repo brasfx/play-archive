@@ -10,7 +10,7 @@
     "account": "Account"
   },
   "search": {
-    "placeholder": "Search games",
+    "placeholder": "Search game name",
     "label": "Search"
   },
   "gameDetails": {

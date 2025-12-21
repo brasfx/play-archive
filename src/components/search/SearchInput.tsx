@@ -36,15 +36,23 @@ export default function SearchInput({
           onKeyPress={handleKeyPress}
           value={search}
         />
-        <Button
+        {/* <Button
           variant="purple"
           onClick={handleClick}
-          className="w-auto h-full rounded-s-none px-4  dark:border-l-2 border-foreground "
+          className="w-auto h-full rounded-s-none px-4 display-none md:blockdark:border-l-2 border-foreground "
         >
           <Search animateOnHover />
           {label}
-        </Button>
+        </Button> */}
       </InputGroup>
+      <Button
+        variant="purple"
+        onClick={handleClick}
+        className="md:w-auto h-9.5 rounded-2xl px-6 w-full mt-2 md:mt-0"
+      >
+        <Search animateOnHover />
+        {label}
+      </Button>
     </div>
   );
 }

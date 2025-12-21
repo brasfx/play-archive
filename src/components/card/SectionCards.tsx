@@ -128,7 +128,7 @@ export function SectionCards({
 
   return (
     <div className="max-w-[1400px] mx-auto px-4 lg:px-6 z-10 py-4 md:py-6">
-      <div className="flex flex-row gap-2 align-middle p-6 justify-between flex-wrap w-full">
+      <div className="flex flex-row gap-2 align-middle p-6 justify-center md:justify-between flex-wrap w-full">
         <SearchInput
           handleChange={handleSearchChange}
           handleKeyPress={handleKeyPress}

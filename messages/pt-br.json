@@ -10,7 +10,7 @@
     "account": "Minha conta"
   },
   "search": {
-    "placeholder": "Buscar jogos",
+    "placeholder": "Digite o nome do jogo",
     "label": "Buscar"
   },
   "gameDetails": {
