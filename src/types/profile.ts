@@ -9,6 +9,7 @@ export type FavoriteGame = {
 
 export type PublicProfile = {
   id?: string;
+  bio?: string | null;
   nickname?: string;
   name?: string | null;
   avatar_url?: string | null;
