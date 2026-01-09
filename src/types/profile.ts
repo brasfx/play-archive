@@ -5,6 +5,7 @@ export type FavoriteGame = {
   hoursPlayed?: number | null;
   rating?: number | null;
   achievements?: number | null;
+  progress?: number | null;
 };
 
 export type PublicProfile = {
