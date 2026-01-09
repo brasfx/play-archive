@@ -20,7 +20,7 @@ export type PublicProfile = {
   bg_id?: string | null;
   favorite_platform?: string | null;
   favorite_game_name?: string | null;
-  favorite_game_id_rawg?: string | null;
+  favorite_game_id_rawg?: number | null;
   favorite_game_image?: string | null;
   favorite_game_progress?: number | null;
   favorite_game_rating?: number | null;
