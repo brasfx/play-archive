@@ -31,6 +31,7 @@ export function ProfileScreen({
       left={
         <FavoriteGameCard
           game={{
+            id: profile.favorite_game_id_rawg,
             name: profile.favorite_game_name,
             coverUrl: profile.favorite_game_image,
             progress: profile.favorite_game_progress,
