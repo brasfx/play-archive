@@ -1,4 +1,5 @@
 import { createSupabaseServerClient } from '@/lib/supabase/server';
+import { FriendRow } from '@/types/friendship';
 
 export async function getPublicFriendList(userId: string) {
   const supabase = createSupabaseServerClient();
@@ -21,5 +22,5 @@ export async function getPublicFriendList(userId: string) {
   return (data ?? []).map((f) => ({
     friendshipId: f.id,
     friend: f.requester_id === userId ? f.addressee : f.requester,
-  }));
+  })) as FriendRow[];
 }
