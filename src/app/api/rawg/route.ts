@@ -13,19 +13,21 @@ export async function GET(req: NextRequest) {
 
   const params = url.searchParams;
 
-  const cacheKey = `rawg:search:${params.toString()}`;
-
-  const cached = await redis.get<string>(cacheKey);
-  if (cached) {
-    const json = typeof cached === 'string' ? JSON.parse(cached) : cached;
-    return NextResponse.json(json);
-  }
+  const hasSearch = Boolean(params.get('search')?.trim());
+  const ttlSeconds = hasSearch ? 120 : 3600;
 
   const rawgParams = new URLSearchParams();
   for (const [name, value] of params) {
     if (name !== 'key') rawgParams.append(name, value);
   }
   rawgParams.append('key', RAWG_API_KEY);
+  const cacheKey = `rawg:search:${rawgParams.toString()}`;
+
+  const cached = await redis.get<string>(cacheKey);
+  if (cached) {
+    const json = typeof cached === 'string' ? JSON.parse(cached) : cached;
+    return NextResponse.json(json);
+  }
 
   const rawgUrl = `https://api.rawg.io/api/games?${rawgParams.toString()}`;
 
@@ -37,7 +39,10 @@ export async function GET(req: NextRequest) {
     return NextResponse.json({ error: data }, { status: response.status });
   }
 
-  await redis.set(cacheKey, JSON.stringify(data), { ex: 21600 });
+  const payload = { results: data?.results };
+  await redis.set(cacheKey, JSON.stringify(payload), {
+    ex: ttlSeconds,
+  });
 
   return NextResponse.json({ results: data?.results });
 }
