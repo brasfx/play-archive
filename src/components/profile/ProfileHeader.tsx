@@ -1,12 +1,12 @@
 import React from 'react';
-import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import type { PublicProfile } from '@/types/profile';
 import { motion } from 'motion/react';
 import EditProfile from './EditProfile';
 import ChangeBackground from './ChangeBackground';
 import { toast } from 'react-toastify';
-import { BorderBeam } from '../ui/border-beam';
+import { signOut } from 'next-auth/react';
+import { LogOut } from 'lucide-react';
 
 export function ProfileHeader({
   profile,
@@ -29,6 +29,10 @@ export function ProfileHeader({
       console.error('Erro ao enviar convite:', error);
       toast.error('Erro ao enviar convite.');
     }
+  };
+
+  const onLogout = () => {
+    signOut({ callbackUrl: '/' });
   };
 
   return (
@@ -89,6 +93,16 @@ export function ProfileHeader({
           {!isOwner && (
             <Button variant="outline" onClick={inviteFriend}>
               Adicionar amigo
+            </Button>
+          )}
+          {isOwner && (
+            <Button
+              variant="destructive"
+              onClick={onLogout}
+              className="rounded-full"
+            >
+              <LogOut className="h-4 w-4" />
+              Logout
             </Button>
           )}
         </div>
