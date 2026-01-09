@@ -4,7 +4,7 @@ import { NextIntlClientProvider } from 'next-intl';
 import './globals.css';
 import { ThemeProvider } from '../components/theme-provider';
 import MainLayout from '@/components/layout/main';
-import { FiltersProvider } from '@/providers/FiltersProvider';
+import { AppStoreProvider } from '@/providers/AppProvider';
 import SessionProvider from '@/components/sessionProvider/SessionProvider';
 
 const geistSans = Geist({
@@ -42,9 +42,9 @@ export default function RootLayout({
         >
           <SessionProvider>
             <NextIntlClientProvider>
-              <FiltersProvider>
+              <AppStoreProvider>
                 <MainLayout>{children}</MainLayout>
-              </FiltersProvider>
+              </AppStoreProvider>
             </NextIntlClientProvider>
           </SessionProvider>
         </ThemeProvider>

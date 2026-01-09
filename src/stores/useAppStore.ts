@@ -11,11 +11,22 @@ export interface Filters {
   ordering?: string | null;
 }
 
-interface FiltersState {
+type FiltersSlice = {
   filters: Filters;
   setFilters: (next: Partial<Filters>) => void;
   resetFilters: () => void;
-}
+};
+
+type ProfileSlice = {
+  profileBgId: number | null;
+  setProfileBgId: (id: number | null) => void;
+};
+
+export type AppState = FiltersSlice & ProfileSlice;
+export type AppInit = {
+  filters?: Partial<Filters>;
+  profileBgId?: number | null;
+};
 
 const initialFilters: Filters = {
   page: 1,
@@ -28,12 +39,15 @@ const initialFilters: Filters = {
   ordering: null,
 };
 
-export const createFiltersStore = (initState?: Partial<Filters>) =>
-  createStore<FiltersState>((set) => ({
+export const createAppStore = (initState?: Partial<AppState>) =>
+  createStore<AppState>((set) => ({
     filters: { ...initialFilters, ...initState },
     setFilters: (next) =>
       set((state) => ({
         filters: { ...state.filters, ...next },
       })),
     resetFilters: () => set(() => ({ filters: { ...initialFilters } })),
+    profileBgId: null,
+    setProfileBgId: (id) => set({ profileBgId: id }),
+    ...initState,
   }));
