@@ -15,4 +15,6 @@ export type PublicProfile = {
   location?: string | null;
   gamesCount?: number;
   favoriteGame?: FavoriteGame | null;
+  public_id?: string | null;
+  bg_id?: string | null;
 };
