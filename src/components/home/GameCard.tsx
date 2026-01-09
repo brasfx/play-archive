@@ -14,9 +14,11 @@ import type { RawgGame, Genre, ParentPlatform } from '@/types/rawg';
 import noImage from '@/assets/images/no-image.jpg';
 import AddToLibraryButtonClient from './AddToLibraryButtonClient';
 
-import { ShineBorder } from '@/components/ui/shine-border';
-import { Disc3 } from '@/components/animate-ui/icons/disc-3';
-import { Star } from '@/components/animate-ui/icons/star';
+// import { ShineBorder } from '@/components/ui/shine-border';
+// import { Disc3 } from '@/components/animate-ui/icons/disc-3';
+// import { Star } from '@/components/animate-ui/icons/star';
+
+import { ShineBorder, Star, Disc3 } from './EffectsClient';
 
 export default function GameCard({
   game,
