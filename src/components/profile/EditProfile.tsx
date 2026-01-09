@@ -20,7 +20,7 @@ import { Button } from '../ui/button';
 import { Edit } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
-import type { EditProfile } from '@/types/profile';
+import type { EditProfileProps } from '@/types/profile';
 import {
   Select,
   SelectContent,
@@ -66,7 +66,7 @@ function EditProfile({
   const [open, setOpen] = useState<boolean>(false);
   const router = useRouter();
   const t = useTranslations('profile');
-  const [library, setLibrary] = useState<EditProfile[]>([]);
+  const [library, setLibrary] = useState<EditProfileProps[]>([]);
   const [isLoadingLibrary, setIsLoadingLibrary] = useState(false);
   console.log('library', library);
 
@@ -81,7 +81,7 @@ function EditProfile({
       try {
         const res = await fetch('/api/library', { method: 'GET' });
         if (!res.ok) throw new Error('Failed to fetch library');
-        const data = (await res.json()) as EditProfile[];
+        const data = (await res.json()) as EditProfileProps[];
         if (!cancelled) setLibrary(data);
       } finally {
         if (!cancelled) setIsLoadingLibrary(false);

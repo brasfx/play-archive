@@ -18,9 +18,15 @@ export type PublicProfile = {
   favoriteGame?: FavoriteGame | null;
   public_id?: string | null;
   bg_id?: string | null;
+  favorite_platform?: string | null;
+  favorite_game_name?: string | null;
+  favorite_game_id_rawg?: string | null;
+  favorite_game_image?: string | null;
+  favorite_game_progress?: number | null;
+  favorite_game_rating?: number | null;
 };
 
-export type EditProfile = {
+export type EditProfileProps = {
   id: number | string;
   nickname?: string;
   name: string;
