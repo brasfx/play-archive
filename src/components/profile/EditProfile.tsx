@@ -20,7 +20,7 @@ import { Button } from '../ui/button';
 import { Edit } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
-import type { Library } from '@/types/library';
+import type { EditPorfile } from '@/types/profile';
 import {
   Select,
   SelectContent,
@@ -66,13 +66,13 @@ function EditProfile({
   const [open, setOpen] = useState<boolean>(false);
   const router = useRouter();
   const t = useTranslations('profile');
-  const [library, setLibrary] = useState<Library[]>([]);
+  const [library, setLibrary] = useState<EditPorfile[]>([]);
   const [isLoadingLibrary, setIsLoadingLibrary] = useState(false);
-  console.log(library);
+  console.log('library', library);
 
   useEffect(() => {
     if (!open) return;
-    if (library.length) return; // evita refetch ao reabrir, se quiser
+    if (library.length) return;
 
     let cancelled = false;
 
@@ -81,7 +81,7 @@ function EditProfile({
       try {
         const res = await fetch('/api/library', { method: 'GET' });
         if (!res.ok) throw new Error('Failed to fetch library');
-        const data = (await res.json()) as Library[];
+        const data = (await res.json()) as EditPorfile[];
         if (!cancelled) setLibrary(data);
       } finally {
         if (!cancelled) setIsLoadingLibrary(false);
@@ -198,7 +198,7 @@ function EditProfile({
                   control={control}
                   render={({ field }) => (
                     <Select
-                      value={field.value ?? ''} // mantém controlado
+                      value={field.value ?? ''}
                       onValueChange={(rawgId) => {
                         field.onChange(rawgId);
 

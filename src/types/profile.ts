@@ -18,3 +18,21 @@ export type PublicProfile = {
   public_id?: string | null;
   bg_id?: string | null;
 };
+
+export type EditProfile = {
+  id: number | string;
+  nickname?: string;
+  bio?: string;
+  user_id: string;
+  game_id_rawg: number | null;
+  status: 'playing' | 'completed' | 'wishlist' | 'dropped' | string;
+  progress_percent: number;
+  rating: number;
+  is_favorite: boolean;
+  notes: string;
+  platform: string;
+  background_image: string;
+  released: string;
+  slug?: string;
+  genres?: string[];
+};
