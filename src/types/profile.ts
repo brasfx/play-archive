@@ -22,6 +22,7 @@ export type PublicProfile = {
 export type EditProfile = {
   id: number | string;
   nickname?: string;
+  name: string;
   bio?: string;
   user_id: string;
   game_id_rawg: number | null;
