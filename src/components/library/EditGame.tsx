@@ -181,9 +181,8 @@ export default function EditGame({
             </DialogDescription>
           </DialogHeader>
           <Image
-            loading="eager"
             src={game?.backgroundImage ? `${game?.backgroundImage}` : noImage}
-            alt="game cover"
+            alt="This is my game cover background"
             width={400}
             height={100}
             className="h-40 w-full max-h-40 rounded-md bg-neutral-500 object-cover"

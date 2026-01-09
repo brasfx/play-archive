@@ -169,11 +169,11 @@ export function SectionCards({
               <div>
                 <Lens lensSize={150} isStatic={false} ariaLabel="Zoom Area">
                   <Image
-                    loading="eager"
                     src={background_image ? `${background_image}` : noImage}
-                    alt={name}
+                    alt={`This is cover of ${name}`}
                     width={264}
                     height={100}
+                    fetchPriority="high"
                     className="rounded-t-md w-full p-0.5 max-h-[188px] object-cover self-center bg-neutral-500 h-60"
                   />
                 </Lens>

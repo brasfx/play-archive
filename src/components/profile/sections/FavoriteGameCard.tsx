@@ -26,7 +26,7 @@ export function FavoriteGameCard({ game }: { game?: FavoriteGame | null }) {
             {game.coverUrl ? (
               <Image
                 src={game.coverUrl}
-                alt="my favorite game image"
+                alt="This is my favorite game image"
                 fill
                 className="object-cover"
               />

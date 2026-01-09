@@ -166,7 +166,7 @@ function CustomTab({
               <div className="relative h-40 w-40 overflow-hidden rounded-md border mt-2">
                 <Image
                   src={achievement.image}
-                  alt={achievement.name}
+                  alt="This is my achievement image"
                   fill
                   className="object-cover"
                 />

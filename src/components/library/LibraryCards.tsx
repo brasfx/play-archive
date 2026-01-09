@@ -194,9 +194,8 @@ export function LibraryCards({ games, labels }: GamesProps) {
               <div>
                 <Lens lensSize={150} isStatic={false} ariaLabel="Zoom Area">
                   <Image
-                    loading="eager"
                     src={backgroundImage ? `${backgroundImage}` : noImage}
-                    alt={slug}
+                    alt={`This is cover of ${slug}`}
                     width={264}
                     height={100}
                     className="rounded-t-md w-full p-0.5 max-h-[188px] object-cover self-center bg-neutral-500 h-60"

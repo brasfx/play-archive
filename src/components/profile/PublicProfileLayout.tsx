@@ -20,7 +20,7 @@ export default function PublicProfileLayout({
       {(profileBgId || bgId) && (
         <Image
           src={`/bg/${profileBgId !== null ? profileBgId : bgId}.jpg`}
-          alt="background"
+          alt="This is my background for the profile"
           sizes="100vw"
           fill
           className="fixed inset-0 z-0 object-cover opacity-90 md:rounded-2xl"

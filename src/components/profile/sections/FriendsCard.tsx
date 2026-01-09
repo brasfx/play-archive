@@ -20,7 +20,7 @@ export default function FriendsCard({ friendlist }: FriendsCardProps) {
                   {friend?.avatar_url ? (
                     <Image
                       src={friend?.avatar_url}
-                      alt="Foto do usuário"
+                      alt="This is my avatar"
                       width={48}
                       height={48}
                       className="object-cover"

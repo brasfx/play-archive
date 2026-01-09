@@ -146,7 +146,7 @@ function FriendCard({
           {friend.avatar_url ? (
             <Image
               src={friend.avatar_url}
-              alt={friend.name}
+              alt="This is my avatar"
               fill
               className="object-cover"
               sizes="40px"
