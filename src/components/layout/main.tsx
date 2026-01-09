@@ -19,7 +19,7 @@ export default function MainLayout({
       }
     >
       <AppSidebar variant="inset" />
-      <ScrollProgress className="h-0.5 " />
+      {/* <ScrollProgress className="h-0.5 " /> */}
       <SidebarInset>
         <SiteHeader />
         <div className="flex flex-1 flex-col">
