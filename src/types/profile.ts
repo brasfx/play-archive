@@ -11,7 +11,7 @@ export type PublicProfile = {
   id?: string;
   nickname?: string;
   name?: string | null;
-  avatarUrl?: string | null;
+  avatar_url?: string | null;
   location?: string | null;
   gamesCount?: number;
   favoriteGame?: FavoriteGame | null;

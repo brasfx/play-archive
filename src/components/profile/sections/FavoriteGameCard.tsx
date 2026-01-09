@@ -24,7 +24,12 @@ export function FavoriteGameCard({ game }: { game?: FavoriteGame | null }) {
         <div className="flex gap-4">
           <div className="relative h-20 w-30 overflow-hidden rounded-md border">
             {game.coverUrl ? (
-              <Image src={game.coverUrl} alt="" fill className="object-cover" />
+              <Image
+                src={game.coverUrl}
+                alt="my favorite game image"
+                fill
+                className="object-cover"
+              />
             ) : (
               <div className="h-full w-full bg-muted" />
             )}
