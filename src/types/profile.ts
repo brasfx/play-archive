@@ -1,5 +1,5 @@
 export type FavoriteGame = {
-  id: string;
+  id: number;
   name: string;
   coverUrl?: string | null;
   hoursPlayed?: number | null;
