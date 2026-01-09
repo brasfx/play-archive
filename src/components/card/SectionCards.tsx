@@ -31,6 +31,10 @@ import { ShineBorder } from '../ui/shine-border';
 import { Disc3 } from '../animate-ui/icons/disc-3';
 import { Star } from '../animate-ui/icons/star';
 import { Spinner } from '../ui/spinner';
+import Filters from '../search/Filters';
+import { InputGroupAddon } from '../ui/input-group';
+import Order from '../search/Order';
+import ClearAlll from '../search/ClearAlll';
 
 interface SectionCardsProps {
   games: RawgGame[];
@@ -60,13 +64,12 @@ export function SectionCards({
   }
 
   function handleSearchClick() {
-    updateParms({ search: searchTerm, search_exact: true });
     updateParms({ search: searchTerm });
   }
 
   function handleKeyPress(event: React.KeyboardEvent<HTMLInputElement>) {
     if (event.key === 'Enter') {
-      updateParms({ search: searchTerm, search_exact: true });
+      updateParms({ search: searchTerm });
     }
   }
 
@@ -125,14 +128,24 @@ export function SectionCards({
 
   return (
     <div className="max-w-[1400px] mx-auto px-4 lg:px-6 z-10 py-4 md:py-6">
-      <SearchInput
-        handleChange={handleSearchChange}
-        handleKeyPress={handleKeyPress}
-        search={searchTerm}
-        handleClick={handleSearchClick}
-        placeholder={placeholderInput}
-        label={labelInput}
-      />
+      <div className="flex flex-row gap-2 align-middle p-6 justify-center md:justify-between flex-wrap w-full">
+        <SearchInput
+          handleChange={handleSearchChange}
+          handleKeyPress={handleKeyPress}
+          search={searchTerm}
+          handleClick={handleSearchClick}
+          placeholder={placeholderInput}
+          label={labelInput}
+        />
+        <InputGroupAddon
+          align="inline-end"
+          className="md:w-auto w-full h-full z-10 flex flex-col md:flex-row gap-4 items-center"
+        >
+          <Order />
+          <Filters />
+          {/* <ClearAlll /> */}
+        </InputGroupAddon>
+      </div>
 
       <div className="*:data-[slot=card]:from-primary/5 *:data-[slot=card]:to-card dark:*:data-[slot=card]:bg-card grid grid-cols-1 gap-6 px-4 *:data-[slot=card]:bg-gradient-to-t *:data-[slot=card]:shadow-xs lg:px-6 @xl/main:grid-cols-2  @5xl/main:grid-cols-4">
         {games?.map(

@@ -103,7 +103,6 @@ export default function GameDetails({ game, descriptionTranslated, editGame }) {
     genres: Genre[] | undefined,
   ) {
     setLoadingAdd(true);
-    console.log('entrei aqui');
     const genreNames = genres?.map((genre) => genre.name) || [];
     try {
       if (loginStatus !== 'authenticated') {

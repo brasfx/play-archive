@@ -63,6 +63,9 @@
       ],
       "@/api/*": [
         "api/*"
+      ],
+      "@/constants/*": [
+        "constants/*"
       ]
     },
     "plugins": [

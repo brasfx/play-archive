@@ -14,9 +14,17 @@ export function useUpdateSearchParams() {
     Object.entries(values).forEach(([key, value]) => {
       if (value === null || value === '' || value === undefined) {
         params.delete(key);
-      } else {
-        params.set(key, String(value));
+        return;
       }
+
+      if ((key === 'genres' || key === 'platforms') && Array.isArray(value)) {
+        const csv = value.join(','); // "puzzle,racing" [web:119]
+        if (!csv) params.delete(key);
+        else params.set(key, csv);
+        return;
+      }
+
+      params.set(key, String(value));
     });
 
     router.push(`/?${params.toString()}`, { scroll: false });

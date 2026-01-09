@@ -3,12 +3,13 @@ import { createStore } from 'zustand';
 export interface Filters {
   page?: number;
   page_size?: number;
-  platforms?: string | null;
-  genres?: string | null;
+  platforms?: string | string[] | null;
+  genres?: string | string[] | null;
   tags?: string | null;
   dates?: string | null;
   metacritic?: string | null;
   ordering?: string | null;
+  parent_platforms?: string | string[] | null;
 }
 
 type FiltersSlice = {
@@ -37,6 +38,7 @@ const initialFilters: Filters = {
   dates: null,
   metacritic: null,
   ordering: null,
+  parent_platforms: null,
 };
 
 export const createAppStore = (initState?: Partial<AppState>) =>

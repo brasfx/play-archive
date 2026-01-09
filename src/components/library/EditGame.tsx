@@ -108,7 +108,6 @@ export default function EditGame({
 }: GameProps) {
   const router = useRouter();
   const t = useTranslations('library');
-  console.log('game dentro do edit game', game);
 
   const {
     handleSubmit,
