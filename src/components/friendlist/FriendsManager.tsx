@@ -49,7 +49,7 @@ type ViewKey = 'friends' | 'add' | 'pending' | 'blocked' | 'suggested';
 
 type Props = {
   accepted: FriendRow[];
-  pending: FriendRow[];
+  pending: PendingRow[];
   blocked: FriendRow[];
 
   onSearch?: (query: string) => void;
