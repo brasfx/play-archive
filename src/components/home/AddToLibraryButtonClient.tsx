@@ -77,6 +77,7 @@ export default function AddToLibraryButtonClient({
     <Button
       className="flex items-center gap-2"
       variant="default"
+      aria-label={label}
       onClick={handleAdd}
       disabled={loading}
     >

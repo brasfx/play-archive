@@ -39,7 +39,10 @@ export default function Order() {
         updateParms({ ordering: value });
       }}
     >
-      <SelectTrigger className="rounded-2xl bg-purple text-white hover:bg-purple/90 md:w-auto w-full">
+      <SelectTrigger
+        aria-label="Ordenar por"
+        className="rounded-2xl bg-purple text-white hover:bg-purple/90 md:w-auto w-full"
+      >
         {selectedItem === '' ? (
           <ListOrdered />
         ) : selectedItem?.startsWith('-') ? (
@@ -48,12 +51,17 @@ export default function Order() {
           <ArrowDownUp />
         )}
 
-        <SelectValue placeholder={t('orderBy')} className="text-white" />
+        <SelectValue
+          aria-label="Ordernar por"
+          placeholder={t('orderBy')}
+          className="text-white"
+        />
       </SelectTrigger>
       <SelectContent className="bg-foreground dark:bg-background text-white">
         <SelectGroup className="bg-foreground dark:bg-background text-white">
           {selectedItem !== '' && (
             <Button
+              aria-label={t('clear')}
               variant="destructive"
               onClick={clearOrder}
               className="w-full justify-between"
