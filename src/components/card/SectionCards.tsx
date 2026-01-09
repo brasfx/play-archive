@@ -173,7 +173,7 @@ export function SectionCards({
                     alt={`This is cover of ${name}`}
                     width={264}
                     height={100}
-                    loading="lazy"
+                    loading="eager"
                     className="rounded-t-md w-full p-0.5 max-h-[188px] object-cover self-center bg-neutral-500 h-60"
                   />
                 </Lens>
