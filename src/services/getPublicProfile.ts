@@ -1,22 +1,15 @@
-import { authOptions } from '@/lib/auth';
 import { createSupabaseServerClient } from '@/lib/supabase/server';
-import { getServerSession } from 'next-auth';
 
 interface Profile {
-  id?: string;
+  id: string;
 }
 
-export async function getProfile(id?: string): Promise<Profile | null> {
-  const session = await getServerSession(authOptions);
-  if (!session) {
-    throw new Error('No session found');
-  }
-
+export async function getPublicProfile(id: string): Promise<Profile | null> {
   const supabase = createSupabaseServerClient();
   const { data, error } = await supabase
     .from('profiles')
     .select('*')
-    .eq('id', id ?? session.user.id)
+    .eq('public_id', id)
     .single();
 
   if (error) {

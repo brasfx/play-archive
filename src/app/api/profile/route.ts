@@ -5,8 +5,17 @@ import { NextResponse } from 'next/server';
 
 export async function PATCH(req: Request) {
   const session = await getServerSession(authOptions);
-  const { nickname, bio, favorite_game_name, favorite_platform } =
-    await req.json();
+  const {
+    nickname,
+    bio,
+    favorite_game_name,
+    favorite_game_image,
+    favorite_game_id_rawg,
+    favorite_platform,
+    favorite_game_progress,
+    favorite_game_rating,
+    bg_id,
+  } = await req.json();
 
   const clean = (v: unknown) =>
     typeof v === 'string' && v.trim() === '' ? null : v;
@@ -23,7 +32,12 @@ export async function PATCH(req: Request) {
       nickname: clean(nickname),
       bio: clean(bio),
       favorite_game_name: clean(favorite_game_name),
+      favorite_game_image: clean(favorite_game_image),
+      favorite_game_id_rawg: clean(favorite_game_id_rawg),
+      favorite_game_progress: clean(favorite_game_progress),
+      favorite_game_rating: clean(favorite_game_rating),
       favorite_platform: clean(favorite_platform),
+      bg_id: clean(bg_id),
       updated_at: new Date().toISOString(),
     })
     .eq('id', session.user.id);

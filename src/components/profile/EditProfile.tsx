@@ -1,5 +1,5 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
   Dialog,
   DialogContent,
@@ -10,7 +10,7 @@ import {
   DialogTrigger,
 } from '../ui/dialog';
 import { Field, FieldLabel } from '../ui/field';
-import { useForm } from 'react-hook-form';
+import { Controller, useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Spinner } from '../ui/spinner';
@@ -20,18 +20,34 @@ import { Button } from '../ui/button';
 import { Edit } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useTranslations } from 'next-intl';
+import type { Library } from '@/types/library';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '../ui/select';
 
 interface ProfileProps {
   nickname: string;
   bio: string;
-  favoriteGames: string;
+  favoriteGameName: string;
+  favoriteGameId: number | null;
+  favoriteGameImage: string;
+  favoriteGameProgress: number;
+  favoriteGameRating: number;
   favoritePlatforms: string;
 }
 
 const formSchema = z.object({
   nickname: z.string().optional(),
   bio: z.string().optional(),
-  favoriteGames: z.string().optional(),
+  favoriteGameName: z.string().optional(),
+  favoriteGameId: z.string().optional(),
+  favoriteGameImage: z.string().optional(),
+  favoriteGameProgress: z.number().optional(),
+  favoriteGameRating: z.number().optional(),
   favoritePlatforms: z.string().optional(),
 });
 
@@ -40,26 +56,64 @@ type FormValues = z.infer<typeof formSchema>;
 function EditProfile({
   nickname,
   bio,
-  favoriteGames,
+  favoriteGameName,
+  favoriteGameId,
+  favoriteGameImage,
+  favoriteGameProgress,
+  favoriteGameRating,
   favoritePlatforms,
 }: ProfileProps) {
   const [open, setOpen] = useState<boolean>(false);
   const router = useRouter();
   const t = useTranslations('profile');
+  const [library, setLibrary] = useState<Library[]>([]);
+  const [isLoadingLibrary, setIsLoadingLibrary] = useState(false);
+  console.log(library);
+
+  useEffect(() => {
+    if (!open) return;
+    if (library.length) return; // evita refetch ao reabrir, se quiser
+
+    let cancelled = false;
+
+    (async () => {
+      setIsLoadingLibrary(true);
+      try {
+        const res = await fetch('/api/library', { method: 'GET' });
+        if (!res.ok) throw new Error('Failed to fetch library');
+        const data = (await res.json()) as Library[];
+        if (!cancelled) setLibrary(data);
+      } finally {
+        if (!cancelled) setIsLoadingLibrary(false);
+      }
+    })();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [open, library.length]);
 
   const {
     handleSubmit,
     register,
+    control,
+    setValue,
     formState: { isSubmitting },
   } = useForm<FormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       nickname: nickname || '',
       bio: bio || '',
-      favoriteGames: favoriteGames || '',
+      favoriteGameName: favoriteGameName || '',
+      favoriteGameId: favoriteGameId !== null ? String(favoriteGameId) : '',
+      favoriteGameProgress: favoriteGameProgress || null,
+      favoriteGameRating: favoriteGameRating || null,
+      favoriteGameImage: favoriteGameImage || '',
       favoritePlatforms: favoritePlatforms || '',
     },
   });
+
+  console.log(favoriteGameId);
 
   async function onSubmit(data: FormValues) {
     try {
@@ -69,7 +123,11 @@ function EditProfile({
         body: JSON.stringify({
           nickname: data.nickname,
           bio: data.bio,
-          favorite_game_name: data.favoriteGames,
+          favorite_game_name: data.favoriteGameName,
+          favorite_game_id_rawg: data.favoriteGameId,
+          favorite_game_image: data.favoriteGameImage,
+          favorite_game_progress: data.favoriteGameProgress,
+          favorite_game_rating: data.favoriteGameRating,
           favorite_platform: data.favoritePlatforms,
         }),
       });
@@ -86,7 +144,7 @@ function EditProfile({
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button
-          className="w-full sm:w-40 text-foreground bg-background"
+          className="w-full sm:w-40 text-foreground bg-background rounded-full"
           variant="ghost"
         >
           <Edit />
@@ -134,11 +192,56 @@ function EditProfile({
                 <FieldLabel htmlFor="favoriteGames" className="mb-1">
                   {t('favoriteGames')}
                 </FieldLabel>
-                <Input
-                  id="favoriteGames"
-                  type="text"
-                  {...register('favoriteGames')}
-                  className="border-foreground"
+
+                <Controller
+                  name="favoriteGameId"
+                  control={control}
+                  render={({ field }) => (
+                    <Select
+                      value={field.value ?? ''} // mantém controlado
+                      onValueChange={(rawgId) => {
+                        field.onChange(rawgId);
+
+                        const selected = library.find(
+                          (g) => String(g.game_id_rawg) === String(rawgId),
+                        );
+                        console.log(selected);
+                        console.log(rawgId);
+                        setValue('favoriteGameName', selected?.name ?? '');
+                        setValue(
+                          'favoriteGameImage',
+                          selected?.background_image ?? '',
+                        );
+                        setValue(
+                          'favoriteGameProgress',
+                          selected?.progress_percent ?? 0,
+                        );
+                        setValue('favoriteGameRating', selected?.rating ?? 0);
+                      }}
+                    >
+                      <SelectTrigger
+                        id="favoriteGameId"
+                        className="border-foreground w-full"
+                      >
+                        <SelectValue
+                          className="text-white"
+                          placeholder="Selecione seu jogo favorito"
+                        />
+                      </SelectTrigger>
+
+                      <SelectContent className="bg-foreground dark:bg-background text-white">
+                        {library.map((game) => (
+                          <SelectItem
+                            key={game.game_id_rawg}
+                            value={String(game.game_id_rawg)}
+                            disabled={!game.name}
+                          >
+                            {game.name ?? 'Sem nome'}
+                          </SelectItem>
+                        ))}
+                      </SelectContent>
+                    </Select>
+                  )}
                 />
               </div>
             </Field>
@@ -168,6 +271,10 @@ function EditProfile({
               {isSubmitting ? <Spinner /> : t('saveChanges')}
             </Button>
           </DialogFooter>
+          <input type="hidden" {...register('favoriteGameName')} />
+          <input type="hidden" {...register('favoriteGameImage')} />
+          <input type="hidden" {...register('favoriteGameProgress')} />
+          <input type="hidden" {...register('favoriteGameRating')} />
         </form>
       </DialogContent>
     </Dialog>

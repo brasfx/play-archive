@@ -1,20 +1,28 @@
-import { getProfile } from '@/services/getProfile';
+import { getPublicProfile } from '@/services/getPublicProfile';
+
 import { ProfileScreen } from '@/components/profile/ProfileScreen';
 import { getGamesCount } from '@/services/getGamesCount';
-import { getFriendList } from '@/services/getFriendList';
+import { getPublicFriendList } from '@/services/getPublicFriendList';
 
-export default async function Page() {
-  const profile = await getProfile();
+type PageProps = {
+  params: Promise<{ id: string }>;
+};
+
+export default async function Page({ params }: PageProps) {
+  const { id } = await params;
+
+  const profile = await getPublicProfile(id);
 
   const [gamesCount, friendships] = await Promise.all([
     getGamesCount(profile.id),
-    getFriendList(),
+    getPublicFriendList(profile.id),
   ]);
+
   return (
     <div className="w-full">
       <ProfileScreen
         profile={profile}
-        isOwner={true}
+        isOwner={false}
         gamesCount={gamesCount}
         friendlist={friendships}
       />

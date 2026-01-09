@@ -164,3 +164,26 @@ export async function PATCH(req: NextRequest) {
     message: 'Jogo atualizado com sucesso',
   });
 }
+
+export async function GET(req: NextRequest) {
+  const session = await getServerSession(authOptions);
+  if (!session) {
+    return NextResponse.json({ error: 'Não autenticado' }, { status: 401 });
+  }
+  const supabase = createSupabaseServerClient();
+  const { data, error } = await supabase
+    .from('library')
+    .select('*')
+    .eq('user_id', session.user.id)
+    .order('is_favorite', { ascending: false });
+
+  if (error) {
+    console.error('Erro select library:', error);
+    return NextResponse.json(
+      { error: 'Erro ao buscar jogos' },
+      { status: 500 },
+    );
+  }
+
+  return NextResponse.json(data);
+}
