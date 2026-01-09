@@ -41,7 +41,7 @@ export default function GameCard({
     released,
   } = game;
 
-  const priority = index < 2;
+  const priority = index < 13;
 
   return (
     <Card className="flex relative flex-col w-full max-w-[308px] max-h-[500px] gap-4 z-10">
