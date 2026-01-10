@@ -36,7 +36,7 @@ export default function SearchBarClient({
 
       <InputGroupAddon
         align="inline-end"
-        className="md:w-auto w-full h-full z-10 flex flex-col md:flex-row gap-4 items-center"
+        className="md:w-auto w-full h-full z-10 flex flex-col md:flex-row gap-4 items-center px-0"
       >
         <Order />
         <Filters />

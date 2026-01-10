@@ -7,7 +7,9 @@
     "details": "Details",
     "login": "Login",
     "profile": "My profile",
-    "account": "Account"
+    "account": "Account",
+    "friendlist": "Friends list",
+    "logout": "Logout"
   },
   "search": {
     "placeholder": "Search game name",

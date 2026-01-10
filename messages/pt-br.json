@@ -7,7 +7,9 @@
     "details": "Detalhes",
     "login": "Entrar",
     "profile": "Meu perfil",
-    "account": "Minha conta"
+    "account": "Minha conta",
+    "friendlist": "Lista de amigos",
+    "logout": "Sair"
   },
   "search": {
     "placeholder": "Digite o nome do jogo",

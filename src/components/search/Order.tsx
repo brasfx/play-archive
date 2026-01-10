@@ -6,7 +6,6 @@ import {
   SelectContent,
   SelectGroup,
   SelectItem,
-  SelectLabel,
   SelectTrigger,
   SelectValue,
 } from '@/ui/select';
@@ -15,7 +14,6 @@ import { ArrowDownUp, ArrowUpDown, ListOrdered, X } from 'lucide-react';
 import { useFiltersFromURL } from '@/hooks/useFiltersFromURL';
 import { useUpdateSearchParams } from '@/hooks/useUpdateSearchParams';
 import { Button } from '../ui/button';
-import { SelectSeparator } from '../ui/select';
 import { useTranslations } from 'next-intl';
 
 export default function Order() {

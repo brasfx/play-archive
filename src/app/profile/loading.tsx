@@ -9,14 +9,18 @@ export default function Loading() {
           <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div className="flex items-center gap-4">
               <Skeleton className="h-16 w-16 rounded-2xl bg-white/10" />
+
               <div className="space-y-2">
                 <Skeleton className="h-5 w-40 bg-white/10" />
                 <Skeleton className="h-4 w-44 bg-white/10" />
                 <Skeleton className="h-4 w-36 bg-white/10" />
               </div>
             </div>
-            <div className="flex  flex-wrap gap-3 sm:justify-end">
+
+            <div className="flex flex-col flex-wrap gap-3 sm:justify-end">
               <Skeleton className="h-9 w-32 rounded-full bg-white/10" />
+              <Skeleton className="h-9 w-32 rounded-full bg-white/10" />
+              <Skeleton className="h-9 w-32 rounded-full bg-red-500/20" />
             </div>
           </div>
         </div>

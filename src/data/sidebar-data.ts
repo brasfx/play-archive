@@ -35,9 +35,14 @@ const sidebarData = {
       icon: LibraryBig,
     },
     {
-      title: 'account',
+      title: 'profile',
       url: '/profile',
       icon: CircleUser,
+    },
+    {
+      title: 'friendlist',
+      url: '/friendlist',
+      icon: IconUsers,
     },
   ],
   navClouds: [

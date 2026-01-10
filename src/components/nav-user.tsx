@@ -27,6 +27,7 @@ import {
 
 import { useSession, signOut } from 'next-auth/react';
 import Link from 'next/link';
+import { useTranslations } from 'next-intl';
 
 interface User {
   name: string | null;
@@ -41,6 +42,7 @@ export function NavUser() {
   const name = session?.user?.name ?? 'User';
   const email = session?.user?.email ?? '';
   const avatar = session?.user?.image ?? '';
+  const t = useTranslations('homePage');
 
   return (
     <SidebarMenu>
@@ -89,7 +91,7 @@ export function NavUser() {
               <Link href="/profile">
                 <DropdownMenuItem>
                   <IconUserCircle />
-                  Account
+                  {t('account')}
                 </DropdownMenuItem>
               </Link>
               {/* <DropdownMenuItem>
@@ -104,7 +106,7 @@ export function NavUser() {
             <DropdownMenuSeparator />
             <DropdownMenuItem onClick={() => signOut({ callbackUrl: '/' })}>
               <IconLogout />
-              Log out
+              {t('logout')}
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

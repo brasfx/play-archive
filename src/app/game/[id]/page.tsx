@@ -3,7 +3,7 @@ import { getLocale } from '@/actions/set-locale';
 import { getGameById } from '@/services/rawg';
 import { translateDescription } from '@/services/translateDescription';
 
-import GameDetails from './gameDetails';
+import GameDetails from '../../../components/game/gameDetails';
 import { getLibrary } from '@/services/getLibrary';
 import { getServerSession } from 'next-auth';
 import { authOptions } from '@/lib/auth';
