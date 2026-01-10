@@ -15,6 +15,7 @@ import { UserPlus, Users, Inbox, Ban, Search } from 'lucide-react';
 import { toast } from 'react-toastify';
 import SidebarItem from './SidebarItem';
 import FriendCard from './FriendCard';
+import { useTranslations } from 'next-intl';
 
 type ViewKey = 'friends' | 'add' | 'pending' | 'blocked' | 'suggested';
 
@@ -55,6 +56,7 @@ export function FriendsManager({
   const [currentInvite, setCurrentInvite] = useState<string>('');
   const [suggestions, setSuggestions] = useState<PublicProfile[]>([]);
   const [isSearching, setIsSearching] = useState(false);
+  const t = useTranslations('friendlist');
 
   useEffect(() => {
     const t = setTimeout(() => onSearch?.(q), 250);
@@ -101,10 +103,10 @@ export function FriendsManager({
   const inviteFriend = async (publicIdOrNickname: string) => {
     try {
       await onSendInvite?.(publicIdOrNickname);
-      toast.success('Convite enviado!');
+      toast.success(t('inviteSuccess'));
     } catch (e) {
       console.error(e);
-      toast.error('Erro ao enviar convite');
+      toast.error(t('inviteError'));
     }
   };
 
@@ -115,27 +117,27 @@ export function FriendsManager({
           <SidebarItem
             active={view === 'friends'}
             icon={<Users className="h-4 w-4" />}
-            label="Amigos"
+            label={t('friends')}
             count={accepted.length}
             onClick={() => setView('friends')}
           />
           <SidebarItem
             active={view === 'add'}
             icon={<UserPlus className="h-4 w-4" />}
-            label="Adicionar amigo"
+            label={t('addFriends')}
             onClick={() => setView('add')}
           />
           <SidebarItem
             active={view === 'pending'}
             icon={<Inbox className="h-4 w-4" />}
-            label="Pendentes"
+            label={t('pending')}
             count={pending.length}
             onClick={() => setView('pending')}
           />
           <SidebarItem
             active={view === 'blocked'}
             icon={<Ban className="h-4 w-4" />}
-            label="Bloqueados"
+            label={t('blocked')}
             count={blocked.length}
             onClick={() => setView('blocked')}
           />
@@ -148,25 +150,25 @@ export function FriendsManager({
             <div className="min-w-0">
               <h2 className="truncate text-lg font-semibold">
                 {view === 'friends'
-                  ? 'Amigos'
+                  ? t('friends')
                   : view === 'pending'
-                  ? 'Pendentes'
+                  ? t('pending')
                   : view === 'blocked'
-                  ? 'Bloqueados'
-                  : 'Adicionar amigo'}
+                  ? t('blocked')
+                  : t('addFriends')}
               </h2>
               <p className="text-sm text-muted-foreground">
-                Buscar, aceitar convites, remover e bloquear.
+                {t('searchTitle')}
               </p>
             </div>
 
             <div className="md:hidden">
               <Tabs value={view} onValueChange={(v) => setView(v as ViewKey)}>
                 <TabsList>
-                  <TabsTrigger value="friends">Amigos</TabsTrigger>
-                  <TabsTrigger value="pending">Pendentes</TabsTrigger>
-                  <TabsTrigger value="blocked">Bloqueados</TabsTrigger>
-                  <TabsTrigger value="add">Adicionar</TabsTrigger>
+                  <TabsTrigger value="friends">{t('friends')}</TabsTrigger>
+                  <TabsTrigger value="pending">{t('pending')}</TabsTrigger>
+                  <TabsTrigger value="blocked">{t('blocked')}</TabsTrigger>
+                  <TabsTrigger value="add">{t('addFriends')}</TabsTrigger>
                 </TabsList>
               </Tabs>
             </div>
@@ -184,8 +186,8 @@ export function FriendsManager({
                 }
                 placeholder={
                   view === 'add'
-                    ? 'Buscar usuário por nickname...'
-                    : 'Buscar por nickname...'
+                    ? t('searchPlaceholder')
+                    : t('searchPlaceholderInput')
                 }
                 className="pl-9"
               />
@@ -198,7 +200,7 @@ export function FriendsManager({
             {view === 'friends' ? (
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
-                  <h3 className="text-sm font-semibold">Sua lista</h3>
+                  <h3 className="text-sm font-semibold">{t('yourList')}</h3>
                   <Badge variant="secondary">{acceptedFiltered.length}</Badge>
                 </div>
 
@@ -218,7 +220,7 @@ export function FriendsManager({
 
                   {acceptedFiltered.length === 0 ? (
                     <p className="text-sm text-muted-foreground">
-                      Nenhum amigo encontrado.
+                      {t('noInvites')}
                     </p>
                   ) : null}
                 </div>
@@ -227,7 +229,7 @@ export function FriendsManager({
 
             {view === 'add' && suggestions.length > 0 ? (
               <div className="space-y-3">
-                <h3 className="text-sm font-semibold">Sugestões</h3>
+                <h3 className="text-sm font-semibold">{t('suggested')}</h3>
                 <div className="grid gap-2">
                   {suggestions.map((s) => (
                     <FriendCard
@@ -251,12 +253,12 @@ export function FriendsManager({
 
             {view === 'add' ? (
               <div className="space-y-3 mt-3">
-                <h3 className="text-sm font-semibold">Enviar convite</h3>
+                <h3 className="text-sm font-semibold">{t('sendInvite')}</h3>
                 <div className="flex gap-2">
                   <Input
                     value={currentInvite}
                     onChange={(e) => setCurrentInvite(e.target.value)}
-                    placeholder="Public ID ou nickname"
+                    placeholder={t('publicId')}
                   />
                   <Button
                     onClick={() => inviteFriend?.(currentInvite)}
@@ -266,7 +268,7 @@ export function FriendsManager({
                     className="gap-2"
                   >
                     <UserPlus className="h-4 w-4" />
-                    Enviar
+                    {t('sendInvite')}
                   </Button>
                 </div>
               </div>
@@ -277,7 +279,7 @@ export function FriendsManager({
                 <div className="space-y-2">
                   <div className="flex items-center justify-between">
                     <h3 className="text-sm font-semibold">
-                      Convites recebidos
+                      {t('receivedInvites')}
                     </h3>
                     <Badge variant="secondary">{incoming.length}</Badge>
                   </div>
@@ -297,7 +299,7 @@ export function FriendsManager({
                     ))}
                     {incoming.length === 0 ? (
                       <p className="text-sm text-muted-foreground">
-                        Nenhum convite recebido.
+                        {t('noInvites')}
                       </p>
                     ) : null}
                   </div>
@@ -307,7 +309,9 @@ export function FriendsManager({
 
                 <div className="space-y-2">
                   <div className="flex items-center justify-between">
-                    <h3 className="text-sm font-semibold">Convites enviados</h3>
+                    <h3 className="text-sm font-semibold">
+                      {t('sentInvites')}
+                    </h3>
                     <Badge variant="secondary">{outgoing.length}</Badge>
                   </div>
 
@@ -326,7 +330,7 @@ export function FriendsManager({
                     ))}
                     {outgoing.length === 0 ? (
                       <p className="text-sm text-muted-foreground">
-                        Nenhum convite enviado.
+                        {t('noInvites')}
                       </p>
                     ) : null}
                   </div>
@@ -337,7 +341,7 @@ export function FriendsManager({
             {view === 'blocked' ? (
               <div className="space-y-2">
                 <div className="flex items-center justify-between">
-                  <h3 className="text-sm font-semibold">Bloqueados</h3>
+                  <h3 className="text-sm font-semibold">{t('blocked')}</h3>
                   <Badge variant="secondary">{blockedFiltered.length}</Badge>
                 </div>
 
@@ -356,7 +360,7 @@ export function FriendsManager({
                   ))}
                   {blockedFiltered.length === 0 ? (
                     <p className="text-sm text-muted-foreground">
-                      Nenhum usuário bloqueado.
+                      {t('noBlocked')}
                     </p>
                   ) : null}
                 </div>

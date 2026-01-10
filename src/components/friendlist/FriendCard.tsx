@@ -32,6 +32,7 @@ import {
 
 import type { FriendRow, PendingRow } from '@/types/friendship';
 import type { PublicProfile } from '@/types/profile';
+import { useTranslations } from 'next-intl';
 
 type Props = {
   accepted: FriendRow[];
@@ -78,6 +79,8 @@ export default function FriendCard({
     desc: string;
   }>(null);
 
+  const t = useTranslations('friendlist');
+
   return (
     <div className="flex items-center justify-between gap-3 rounded-md border bg-card p-3">
       <div className="flex min-w-0 items-center gap-3">
@@ -102,11 +105,11 @@ export default function FriendCard({
           <p className="truncate text-xs text-muted-foreground">
             {kind === 'pending'
               ? (row as PendingRow).direction === 'incoming'
-                ? 'Convite recebido'
-                : 'Convite enviado'
+                ? t('receivedInvites')
+                : t('sentInvite')
               : kind === 'blocked'
-              ? 'Bloqueado'
-              : 'Amigo'}
+              ? t('blocked')
+              : t('friend')}
           </p>
         </div>
       </div>
@@ -116,31 +119,33 @@ export default function FriendCard({
           (row as PendingRow).direction === 'incoming' ? (
             <>
               <Button
+                aria-label={t('accept')}
                 size="sm"
                 onClick={() => onAcceptInvite(row.friendshipId)}
                 className="gap-2"
               >
                 <Check className="h-4 w-4" />
-                Aceitar
+                {t('accept')}
               </Button>
               <Button
+                aria-label={t('reject')}
                 size="sm"
                 variant="secondary"
                 onClick={() => onRejectInvite(row.friendshipId)}
                 className="gap-2"
               >
                 <X className="h-4 w-4" />
-                Rejeitar
+                {t('reject')}
               </Button>
             </>
           ) : (
-            <Badge variant="secondary">Aguardando</Badge>
+            <Badge variant="secondary">{t('waiting')}</Badge>
           )
         ) : null}
 
         <DropdownMenu modal={false}>
           <DropdownMenuTrigger asChild>
-            <Button size="icon" variant="ghost" aria-label="Ações">
+            <Button size="icon" variant="ghost" aria-label="actions">
               <MoreVertical className="h-4 w-4" />
             </Button>
           </DropdownMenuTrigger>
@@ -152,13 +157,13 @@ export default function FriendCard({
                 onClick={() =>
                   setConfirm({
                     type: 'unblock',
-                    title: 'Desbloquear',
-                    desc: `Desbloquear ${friend.nickname ?? friend.name}?`,
+                    title: t('unblock'),
+                    desc: `${t('unblock')} ${friend.nickname ?? friend.name}?`,
                   })
                 }
               >
                 <ShieldCheck className="h-4 w-4" />
-                Desbloquear
+                {t('unblock')}
               </DropdownMenuItem>
             ) : (
               <DropdownMenuItem
@@ -166,13 +171,13 @@ export default function FriendCard({
                 onClick={() =>
                   setConfirm({
                     type: 'block',
-                    title: 'Bloquear',
-                    desc: `Bloquear ${friend.nickname || friend.name}?`,
+                    title: t('block'),
+                    desc: `${t('block')} ${friend.nickname || friend.name}?`,
                   })
                 }
               >
                 <ShieldAlert className="h-4 w-4" />
-                Bloquear
+                {t('block')}
               </DropdownMenuItem>
             )}
 
@@ -184,13 +189,13 @@ export default function FriendCard({
                 onClick={() =>
                   setConfirm({
                     type: 'remove',
-                    title: 'Cancelar',
-                    desc: `Cancelar convite de ${friend.nickname}?`,
+                    title: t('cancel'),
+                    desc: `${t('cancelTo')} ${friend.nickname}?`,
                   })
                 }
               >
                 <ShieldX className="h-4 w-4" />
-                Cancelar convite
+                {t('cancelInvite')}
               </DropdownMenuItem>
             ) : null}
 
@@ -200,13 +205,13 @@ export default function FriendCard({
                 onClick={() =>
                   setConfirm({
                     type: 'remove',
-                    title: 'Remover amigo',
-                    desc: `Remover ${friend.nickname} da sua lista?`,
+                    title: t('remove'),
+                    desc: t('removeInvite', { name: friend.nickname }),
                   })
                 }
               >
                 <Trash2 className="h-4 w-4" />
-                Remover
+                {t('remove')}
               </DropdownMenuItem>
             ) : null}
 
@@ -216,7 +221,7 @@ export default function FriendCard({
                 onClick={() => onSendInvite?.(friend.public_id ?? friend.id)}
               >
                 <Send className="h-4 w-4" />
-                Enviar convite
+                {t('sendInvite')}
               </DropdownMenuItem>
             ) : null}
           </DropdownMenuContent>
@@ -232,7 +237,7 @@ export default function FriendCard({
 
           <DialogFooter>
             <Button variant="secondary" onClick={() => setConfirm(null)}>
-              Cancelar
+              {t('cancel')}
             </Button>
             <Button
               variant={confirm?.type === 'remove' ? 'destructive' : 'default'}
@@ -247,7 +252,7 @@ export default function FriendCard({
                 setConfirm(null);
               }}
             >
-              Confirmar
+              {t('confirm')}
             </Button>
           </DialogFooter>
         </DialogContent>

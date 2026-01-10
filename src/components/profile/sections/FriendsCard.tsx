@@ -4,13 +4,22 @@ import Image from 'next/image';
 import Link from 'next/link';
 import type { Friend, FriendRow } from '@/types/friendship';
 
+import type { useTranslations } from 'next-intl';
+
+type TFn = ReturnType<typeof useTranslations>;
+
 type FriendsCardProps = {
   friendlist: FriendRow[];
+  t: TFn;
 };
 
-export default function FriendsCard({ friendlist }: FriendsCardProps) {
+export default function FriendsCard({ friendlist, t }: FriendsCardProps) {
   return (
-    <ProfileSectionCard title="Amigos" count={friendlist.length}>
+    <ProfileSectionCard
+      title={t('friends')}
+      count={friendlist.length}
+      href="/friendlist"
+    >
       <div className="flex items-baseline justify-between">
         <div className="flex flex-col flex-wrap gap-4">
           {friendlist.map(({ friend }: Friend) => (

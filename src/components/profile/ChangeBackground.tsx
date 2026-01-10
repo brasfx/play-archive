@@ -21,7 +21,6 @@ export default function ChangeBackground() {
   const t = useTranslations('profile');
   const [isSubmitting, setIsSubmitting] = React.useState(false);
   const images = Array.from({ length: 24 }, (_, i) => i + 1);
-  //const [selectedImage, setSelectedImage] = React.useState<number>(0);
 
   const setProfileBgId = useAppStore((s) => s.setProfileBgId);
   const profileBgId = useAppStore((s) => s.profileBgId);
@@ -36,10 +35,10 @@ export default function ChangeBackground() {
           bg_id: profileBgId,
         }),
       });
-      toast.success('Plano de fundo atualizado com sucesso!');
+      toast.success(t('bgUpdateSuccess'));
     } catch (error) {
-      console.error('Erro ao atualizar o perfil:', error);
-      toast.error('Erro ao atualizar o perfil.');
+      console.error(t('bgUpdateError'), error);
+      toast.error(t('bgUpdateError'));
     } finally {
       setOpen(false);
       setIsSubmitting(false);
@@ -48,7 +47,6 @@ export default function ChangeBackground() {
 
   const removeBackground = () => {
     setProfileBgId(null);
-    //setSelectedImage(0);
   };
 
   return (
@@ -60,13 +58,13 @@ export default function ChangeBackground() {
           size="icon"
         >
           <Wallpaper />
-          Plano de fundo
+          {t('background')}
         </Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[1025px] max-h-[95vh] overflow-hidden flex flex-col [&>button]:hidden">
         <DialogHeader className="shrink-0">
-          <DialogTitle>{t('title')}</DialogTitle>
-          <DialogDescription>{t('subtitle')}</DialogDescription>
+          <DialogTitle>{t('myBackground')}</DialogTitle>
+          <DialogDescription>{t('updateBackground')}</DialogDescription>
         </DialogHeader>
 
         <div className="flex-1 overflow-y-auto pr-1">
@@ -75,7 +73,6 @@ export default function ChangeBackground() {
               <div
                 key={image}
                 onClick={() => {
-                  //setSelectedImage(image);
                   setProfileBgId(image);
                 }}
               >
@@ -101,7 +98,7 @@ export default function ChangeBackground() {
             onClick={removeBackground}
             className="md:absolute left-4 "
           >
-            Remover plano de fundo
+            {t('removeBackground')}
           </Button>
           <Button
             variant="outline"

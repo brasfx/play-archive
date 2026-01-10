@@ -1,4 +1,3 @@
-import React from 'react';
 import { Button } from '@/components/ui/button';
 import type { PublicProfile } from '@/types/profile';
 import { motion } from 'motion/react';
@@ -8,14 +7,20 @@ import { toast } from 'react-toastify';
 import { signOut } from 'next-auth/react';
 import { LogOut } from 'lucide-react';
 
+import type { useTranslations } from 'next-intl';
+
+type TFn = ReturnType<typeof useTranslations>;
+
 export function ProfileHeader({
   profile,
   isOwner,
   onEdit,
+  t,
 }: {
   profile: PublicProfile;
   isOwner: boolean;
   onEdit?: () => void;
+  t: TFn;
 }) {
   const inviteFriend = async () => {
     try {
@@ -92,7 +97,7 @@ export function ProfileHeader({
           )}
           {!isOwner && (
             <Button variant="outline" onClick={inviteFriend}>
-              Adicionar amigo
+              {t('addFriend')}
             </Button>
           )}
           {isOwner && (
@@ -102,7 +107,7 @@ export function ProfileHeader({
               className="rounded-full"
             >
               <LogOut className="h-4 w-4" />
-              Logout
+              {t('logout')}
             </Button>
           )}
         </div>

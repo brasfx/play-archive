@@ -3,6 +3,10 @@ import Image from 'next/image';
 import { ProfileSectionCard } from '@/components/profile/ProfileSectionCard';
 import type { FavoriteGame } from '@/types/profile';
 
+import type { useTranslations } from 'next-intl';
+
+type TFn = ReturnType<typeof useTranslations>;
+
 function Stat({ label, value }: { label: string; value: React.ReactNode }) {
   return (
     <div className="flex items-baseline justify-between gap-3">
@@ -12,13 +16,17 @@ function Stat({ label, value }: { label: string; value: React.ReactNode }) {
   );
 }
 
-export function FavoriteGameCard({ game }: { game?: FavoriteGame | null }) {
+export function FavoriteGameCard({
+  game,
+  t,
+}: {
+  game?: FavoriteGame | null;
+  t: TFn;
+}) {
   return (
-    <ProfileSectionCard title="Jogo favorito">
+    <ProfileSectionCard title={t('favoriteGame')}>
       {!game.name ? (
-        <div className="text-sm text-foreground">
-          Nenhum jogo favorito definido.
-        </div>
+        <div className="text-sm text-foreground">{t('noFavoriteGame')}</div>
       ) : (
         <div className="flex gap-4">
           <div className="relative h-20 w-30 overflow-hidden rounded-md border">
@@ -39,10 +47,10 @@ export function FavoriteGameCard({ game }: { game?: FavoriteGame | null }) {
 
             <div className="mt-3 space-y-2">
               {typeof game.progress === 'number' && (
-                <Stat label="Progresso" value={`${game.progress}%`} />
+                <Stat label={t('myProgress')} value={`${game.progress}%`} />
               )}
               {typeof game.rating === 'number' && (
-                <Stat label="Nota" value={`${game.rating}.0`} />
+                <Stat label={t('myRating')} value={`${game.rating}.0`} />
               )}
               {typeof game.achievements === 'number' && (
                 <Stat label="Conquistas" value={game.achievements} />
