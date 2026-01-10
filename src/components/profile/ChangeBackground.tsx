@@ -21,13 +21,10 @@ export default function ChangeBackground() {
   const t = useTranslations('profile');
   const [isSubmitting, setIsSubmitting] = React.useState(false);
   const images = Array.from({ length: 24 }, (_, i) => i + 1);
-  const [selectedImage, setSelectedImage] = React.useState<number>(0);
-  console.log(selectedImage);
+  //const [selectedImage, setSelectedImage] = React.useState<number>(0);
 
   const setProfileBgId = useAppStore((s) => s.setProfileBgId);
   const profileBgId = useAppStore((s) => s.profileBgId);
-
-  console.log('profileBgId', profileBgId);
 
   const changeBackground = async () => {
     setIsSubmitting(true);
@@ -51,7 +48,7 @@ export default function ChangeBackground() {
 
   const removeBackground = () => {
     setProfileBgId(null);
-    setSelectedImage(0);
+    //setSelectedImage(0);
   };
 
   return (
@@ -78,7 +75,7 @@ export default function ChangeBackground() {
               <div
                 key={image}
                 onClick={() => {
-                  setSelectedImage(image);
+                  //setSelectedImage(image);
                   setProfileBgId(image);
                 }}
               >

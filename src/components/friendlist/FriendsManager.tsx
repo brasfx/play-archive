@@ -1,49 +1,20 @@
 'use client';
 
-import * as React from 'react';
-import Image from 'next/image';
-import { cn } from '@/lib/utils';
+import React, { useEffect, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from '@/components/ui/dialog';
+
 import { Badge } from '@/components/ui/badge';
 import { Separator } from '@/components/ui/separator';
 import { ScrollArea } from '@/components/ui/scroll-area';
 import type { FriendRow, PendingRow } from '@/types/friendship';
 import type { PublicProfile } from '@/types/profile';
 
-import {
-  UserPlus,
-  Users,
-  Inbox,
-  Ban,
-  MoreVertical,
-  Check,
-  X,
-  Trash2,
-  ShieldAlert,
-  ShieldCheck,
-  Search,
-  ShieldX,
-  Send,
-} from 'lucide-react';
+import { UserPlus, Users, Inbox, Ban, Search } from 'lucide-react';
 import { toast } from 'react-toastify';
-import Link from 'next/link';
+import SidebarItem from './SidebarItem';
+import FriendCard from './FriendCard';
 
 type ViewKey = 'friends' | 'add' | 'pending' | 'blocked' | 'suggested';
 
@@ -65,255 +36,6 @@ type Props = {
   onSendInvite?: (publicIdOrNickname: string) => Promise<void> | void;
 };
 
-function SidebarItem({
-  active,
-  icon,
-  label,
-  count,
-  onClick,
-}: {
-  active?: boolean;
-  icon: React.ReactNode;
-  label: string;
-  count?: number;
-  onClick: () => void;
-}) {
-  return (
-    <button
-      onClick={onClick}
-      className={cn(
-        'w-full flex items-center justify-between rounded-md px-3 py-2 text-left text-sm transition',
-        active
-          ? 'bg-primary text-white font-semibold'
-          : 'text-muted-foreground hover:bg-muted/60 hover:text-foreground',
-      )}
-    >
-      <span className="flex items-center gap-2">
-        <span className={cn(active ? 'text-white' : 'text-muted-foreground')}>
-          {icon}
-        </span>
-        <span>{label}</span>
-      </span>
-
-      {typeof count === 'number' ? (
-        <span
-          className={cn(
-            active ? 'text-white' : 'text-muted-foreground',
-            'text-xs tabular-nums',
-          )}
-        >
-          {count}
-        </span>
-      ) : null}
-    </button>
-  );
-}
-
-function FriendCard({
-  row,
-  kind,
-  onAcceptInvite,
-  onRejectInvite,
-  onRemoveFriend,
-  onBlockFriend,
-  onUnblockFriend,
-  onSendInvite,
-}: {
-  row: FriendRow | PendingRow;
-  kind: 'accepted' | 'pending' | 'blocked' | 'suggested';
-  onAcceptInvite: Props['onAcceptInvite'];
-  onRejectInvite: Props['onRejectInvite'];
-  onRemoveFriend: Props['onRemoveFriend'];
-  onBlockFriend: Props['onBlockFriend'];
-  onUnblockFriend: Props['onUnblockFriend'];
-  onSendInvite?: Props['onSendInvite'];
-}) {
-  const friend = row.friend;
-
-  const [confirm, setConfirm] = React.useState<null | {
-    type: 'remove' | 'block' | 'unblock' | 'sendInvite';
-    title: string;
-    desc: string;
-  }>(null);
-
-  return (
-    <div className="flex items-center justify-between gap-3 rounded-md border bg-card p-3">
-      <div className="flex min-w-0 items-center gap-3">
-        <Link
-          href={`profile/${friend.public_id}`}
-          className="relative h-10 w-10 shrink-0 overflow-hidden rounded-md border bg-muted"
-        >
-          {friend.avatar_url ? (
-            <Image
-              src={friend.avatar_url}
-              alt="This is my avatar"
-              fill
-              className="object-cover"
-              sizes="40px"
-            />
-          ) : null}
-        </Link>
-
-        <div className="min-w-0">
-          <p className="truncate text-sm font-medium">{friend.name}</p>
-          <p className="truncate text-sm font-medium">{friend.nickname}</p>
-          <p className="truncate text-xs text-muted-foreground">
-            {kind === 'pending'
-              ? (row as PendingRow).direction === 'incoming'
-                ? 'Convite recebido'
-                : 'Convite enviado'
-              : kind === 'blocked'
-              ? 'Bloqueado'
-              : 'Amigo'}
-          </p>
-        </div>
-      </div>
-
-      <div className="flex items-center gap-2">
-        {kind === 'pending' ? (
-          (row as PendingRow).direction === 'incoming' ? (
-            <>
-              <Button
-                size="sm"
-                onClick={() => onAcceptInvite(row.friendshipId)}
-                className="gap-2"
-              >
-                <Check className="h-4 w-4" />
-                Aceitar
-              </Button>
-              <Button
-                size="sm"
-                variant="secondary"
-                onClick={() => onRejectInvite(row.friendshipId)}
-                className="gap-2"
-              >
-                <X className="h-4 w-4" />
-                Rejeitar
-              </Button>
-            </>
-          ) : (
-            <Badge variant="secondary">Aguardando</Badge>
-          )
-        ) : null}
-
-        <DropdownMenu modal={false}>
-          <DropdownMenuTrigger asChild>
-            <Button size="icon" variant="ghost" aria-label="Ações">
-              <MoreVertical className="h-4 w-4" />
-            </Button>
-          </DropdownMenuTrigger>
-
-          <DropdownMenuContent align="end" className="w-44 bg-background">
-            {kind === 'blocked' ? (
-              <DropdownMenuItem
-                className="gap-2"
-                onClick={() =>
-                  setConfirm({
-                    type: 'unblock',
-                    title: 'Desbloquear',
-                    desc: `Desbloquear ${friend.nickname ?? friend.name}?`,
-                  })
-                }
-              >
-                <ShieldCheck className="h-4 w-4" />
-                Desbloquear
-              </DropdownMenuItem>
-            ) : (
-              <DropdownMenuItem
-                className="gap-2"
-                onClick={() =>
-                  setConfirm({
-                    type: 'block',
-                    title: 'Bloquear',
-                    desc: `Bloquear ${friend.nickname || friend.name}?`,
-                  })
-                }
-              >
-                <ShieldAlert className="h-4 w-4" />
-                Bloquear
-              </DropdownMenuItem>
-            )}
-
-            {kind !== 'blocked' ? <DropdownMenuSeparator /> : null}
-
-            {kind === 'pending' ? (
-              <DropdownMenuItem
-                className="gap-2"
-                onClick={() =>
-                  setConfirm({
-                    type: 'remove',
-                    title: 'Cancelar',
-                    desc: `Cancelar convite de ${friend.nickname}?`,
-                  })
-                }
-              >
-                <ShieldX className="h-4 w-4" />
-                Cancelar convite
-              </DropdownMenuItem>
-            ) : null}
-
-            {kind === 'accepted' ? (
-              <DropdownMenuItem
-                className="gap-2 text-destructive focus:text-destructive"
-                onClick={() =>
-                  setConfirm({
-                    type: 'remove',
-                    title: 'Remover amigo',
-                    desc: `Remover ${friend.nickname} da sua lista?`,
-                  })
-                }
-              >
-                <Trash2 className="h-4 w-4" />
-                Remover
-              </DropdownMenuItem>
-            ) : null}
-
-            {kind === 'suggested' ? (
-              <DropdownMenuItem
-                className="gap-2"
-                onClick={() => onSendInvite?.(friend.public_id ?? friend.id)}
-              >
-                <Send className="h-4 w-4" />
-                Enviar convite
-              </DropdownMenuItem>
-            ) : null}
-          </DropdownMenuContent>
-        </DropdownMenu>
-      </div>
-
-      <Dialog open={!!confirm} onOpenChange={(o) => !o && setConfirm(null)}>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>{confirm?.title}</DialogTitle>
-            <DialogDescription>{confirm?.desc}</DialogDescription>
-          </DialogHeader>
-
-          <DialogFooter>
-            <Button variant="secondary" onClick={() => setConfirm(null)}>
-              Cancelar
-            </Button>
-            <Button
-              variant={confirm?.type === 'remove' ? 'destructive' : 'default'}
-              onClick={async () => {
-                if (!confirm) return;
-                if (confirm.type === 'remove')
-                  await onRemoveFriend(row.friendshipId);
-                if (confirm.type === 'block')
-                  await onBlockFriend(row.friendshipId);
-                if (confirm.type === 'unblock')
-                  await onUnblockFriend(row.friendshipId);
-                setConfirm(null);
-              }}
-            >
-              Confirmar
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
-    </div>
-  );
-}
-
 export function FriendsManager({
   accepted,
   pending,
@@ -327,19 +49,19 @@ export function FriendsManager({
   onUnblockFriend,
   onSendInvite,
 }: Props) {
-  const [view, setView] = React.useState<ViewKey>('friends');
-  const [q, setQ] = React.useState('');
-  const [invite, setInvite] = React.useState('');
-  const [currentInvite, setCurrentInvite] = React.useState<string>('');
-  const [suggestions, setSuggestions] = React.useState<PublicProfile[]>([]);
-  const [isSearching, setIsSearching] = React.useState(false);
+  const [view, setView] = useState<ViewKey>('friends');
+  const [q, setQ] = useState('');
+  const [invite, setInvite] = useState('');
+  const [currentInvite, setCurrentInvite] = useState<string>('');
+  const [suggestions, setSuggestions] = useState<PublicProfile[]>([]);
+  const [isSearching, setIsSearching] = useState(false);
 
-  React.useEffect(() => {
+  useEffect(() => {
     const t = setTimeout(() => onSearch?.(q), 250);
     return () => clearTimeout(t);
   }, [q, onSearch]);
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (view !== 'add') return;
 
     const query = invite.trim();
@@ -366,14 +88,12 @@ export function FriendsManager({
   const acceptedFiltered = accepted.filter((r) =>
     r.friend?.name.toLowerCase().includes(norm(q)),
   );
-  console.log('acceptedFiltered', acceptedFiltered);
   const blockedFiltered = blocked.filter((r) =>
     r.friend.name.toLowerCase().includes(norm(q)),
   );
   const pendingFiltered = pending.filter((r) =>
     r.friend.name.toLowerCase().includes(norm(q)),
   );
-  console.log('pendingFiltered', pendingFiltered);
 
   const incoming = pendingFiltered.filter((p) => p.direction === 'incoming');
   const outgoing = pendingFiltered.filter((p) => p.direction === 'outgoing');

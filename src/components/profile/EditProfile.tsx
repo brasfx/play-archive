@@ -68,7 +68,6 @@ function EditProfile({
   const t = useTranslations('profile');
   const [library, setLibrary] = useState<EditProfileProps[]>([]);
   const [isLoadingLibrary, setIsLoadingLibrary] = useState(false);
-  console.log('library', library);
 
   useEffect(() => {
     if (!open) return;
@@ -112,8 +111,6 @@ function EditProfile({
       favoritePlatforms: favoritePlatforms || '',
     },
   });
-
-  console.log(favoriteGameId);
 
   async function onSubmit(data: FormValues) {
     try {
@@ -205,8 +202,7 @@ function EditProfile({
                         const selected = library.find(
                           (g) => String(g.game_id_rawg) === String(rawgId),
                         );
-                        console.log(selected);
-                        console.log(rawgId);
+
                         setValue('favoriteGameName', selected?.name ?? '');
                         setValue(
                           'favoriteGameImage',

@@ -13,7 +13,6 @@ function Stat({ label, value }: { label: string; value: React.ReactNode }) {
 }
 
 export function FavoriteGameCard({ game }: { game?: FavoriteGame | null }) {
-  console.log(game);
   return (
     <ProfileSectionCard title="Jogo favorito">
       {!game.name ? (
