@@ -144,7 +144,7 @@ export function FriendsManager({
         </div>
       </aside>
 
-      <section className="rounded-lg border bg-card mt-4">
+      <section className="rounded-lg border bg-card mt-4 overflow-x-hidden">
         <div className="flex flex-col gap-3 border-b p-4">
           <div className="flex flex-wrap items-center justify-between gap-3">
             <div className="min-w-0">
@@ -162,9 +162,9 @@ export function FriendsManager({
               </p>
             </div>
 
-            <div className="md:hidden">
+            <div className="md:hidden max-w-full overflow-x-auto">
               <Tabs value={view} onValueChange={(v) => setView(v as ViewKey)}>
-                <TabsList>
+                <TabsList className="w-max">
                   <TabsTrigger value="friends">{t('friends')}</TabsTrigger>
                   <TabsTrigger value="pending">{t('pending')}</TabsTrigger>
                   <TabsTrigger value="blocked">{t('blocked')}</TabsTrigger>
@@ -254,18 +254,19 @@ export function FriendsManager({
             {view === 'add' ? (
               <div className="space-y-3 mt-3">
                 <h3 className="text-sm font-semibold">{t('sendInvite')}</h3>
-                <div className="flex gap-2">
+                <div className="flex flex-col sm:flex-row gap-4">
                   <Input
                     value={currentInvite}
                     onChange={(e) => setCurrentInvite(e.target.value)}
                     placeholder={t('publicId')}
+                    className="w-full sm:flex-1 min-w-0"
                   />
                   <Button
                     onClick={() => inviteFriend?.(currentInvite)}
                     disabled={
                       !currentInvite.trim() || !onSendInvite || isSearching
                     }
-                    className="gap-2"
+                    className="w-full sm:w-auto whitespace-nowrap"
                   >
                     <UserPlus className="h-4 w-4" />
                     {t('sendInvite')}
