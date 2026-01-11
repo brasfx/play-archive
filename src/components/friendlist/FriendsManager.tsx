@@ -16,6 +16,7 @@ import { toast } from 'react-toastify';
 import SidebarItem from './SidebarItem';
 import FriendCard from './FriendCard';
 import { useTranslations } from 'next-intl';
+import { cn } from '@/lib/utils';
 
 type ViewKey = 'friends' | 'add' | 'pending' | 'blocked' | 'suggested';
 
@@ -165,10 +166,36 @@ export function FriendsManager({
             <div className="md:hidden max-w-full overflow-x-auto">
               <Tabs value={view} onValueChange={(v) => setView(v as ViewKey)}>
                 <TabsList className="w-max">
-                  <TabsTrigger value="friends">{t('friends')}</TabsTrigger>
-                  <TabsTrigger value="pending">{t('pending')}</TabsTrigger>
-                  <TabsTrigger value="blocked">{t('blocked')}</TabsTrigger>
-                  <TabsTrigger value="add">{t('addFriends')}</TabsTrigger>
+                  <TabsTrigger
+                    value="friends"
+                    className={cn(
+                      view === 'friends' && 'bg-primary text-white',
+                    )}
+                  >
+                    {t('friends')}
+                  </TabsTrigger>
+                  <TabsTrigger
+                    value="pending"
+                    className={cn(
+                      view === 'pending' && 'bg-primary text-white',
+                    )}
+                  >
+                    {t('pending')}
+                  </TabsTrigger>
+                  <TabsTrigger
+                    value="blocked"
+                    className={cn(
+                      view === 'blocked' && 'bg-primary text-white',
+                    )}
+                  >
+                    {t('blocked')}
+                  </TabsTrigger>
+                  <TabsTrigger
+                    value="add"
+                    className={cn(view === 'add' && 'bg-primary text-white')}
+                  >
+                    {t('addFriends')}
+                  </TabsTrigger>
                 </TabsList>
               </Tabs>
             </div>
