@@ -92,15 +92,6 @@ export default function Filters() {
     setSelectedPlatforms([]);
   };
 
-  // React.useEffect(() => {
-  //   if (!filters.genres) {
-  //     setSelectedGenres([]);
-  //   }
-  //   if (!filters.platforms) {
-  //     setSelectedPlatforms([]);
-  //   }
-  // }, [filters.genres, filters.platforms]);
-
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>

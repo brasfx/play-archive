@@ -15,6 +15,5 @@ export async function getTwitchAccessToken() {
   if (!response.ok) throw new Error('Erro ao obter access_token Twitch');
 
   const data = await response.json();
-  // data.access_token é o que você precisa!
   return data.access_token;
 }

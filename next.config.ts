@@ -4,7 +4,7 @@ import createNextIntlPlugin from 'next-intl/plugin';
 
 const nextConfig: NextConfig = {
   webpack(config) {
-    config.resolve.alias['@'] = path.resolve(__dirname, 'src'); // Substitua 'src' conforme sua estrutura
+    config.resolve.alias['@'] = path.resolve(__dirname, 'src');
     return config;
   },
   images: {

@@ -45,7 +45,7 @@ export async function PATCH(req: NextRequest) {
     .from('friendships')
     .update({ status: status })
     .eq('id', friendshipId)
-    .eq('addressee_id', requesterId) // garante que só o destinatário aceite
+    .eq('addressee_id', requesterId)
     .eq('status', 'pending')
     .select('id, status, requester_id, addressee_id')
     .single();
