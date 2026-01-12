@@ -81,7 +81,9 @@
     ".next/dev/types/**/*.ts",
     "**/*.mts",
     "**/*.ts",
-    "**/*.tsx"
+    "**/*.tsx",
+    "jest.config.js",
+    "__mocks__/fileMock.js"
   ],
   "exclude": [
     "node_modules"
