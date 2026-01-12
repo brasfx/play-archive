@@ -50,7 +50,9 @@
     "forgot": "Forgot your password?",
     "login": "Login",
     "donthaveaccount": "Don't have an account?",
-    "signup": "Sign up"
+    "signup": "Sign up",
+    "organize": "Organize your library.",
+    "subtitle": "Enter your social account to sync your collection and preferences."
   },
   "library": {
     "title": "My Game Library",

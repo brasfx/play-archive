@@ -108,16 +108,6 @@ export async function DELETE(req: NextRequest) {
 }
 
 export async function PATCH(req: NextRequest) {
-  // const {
-  //   game_id_rawg,
-  //   status,
-  //   rating,
-  //   notes,
-  //   progress_percent,
-  //   is_favorite,
-  //   platform,
-  // } = await req.json();
-
   const body = await req.json();
 
   const updates = Object.fromEntries(

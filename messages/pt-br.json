@@ -50,7 +50,9 @@
     "forgot": "Esqueceu sua senha?",
     "login": "Entrar",
     "donthaveaccount": "Não tem uma conta? ",
-    "signup": "Cadastre-se."
+    "signup": "Cadastre-se.",
+    "organize": "Organize sua biblioteca.",
+    "subtitle": "Entre com sua conta social para sincronizar sua coleção e preferências."
   },
   "library": {
     "title": "Minha Biblioteca de Jogos",

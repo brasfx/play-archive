@@ -1,21 +1,16 @@
 import {
   IconCamera,
-  IconChartBar,
-  IconDashboard,
   IconDatabase,
   IconFileAi,
   IconFileDescription,
   IconFileWord,
-  IconFolder,
   IconHelp,
-  IconInnerShadowTop,
-  IconListDetails,
   IconReport,
   IconSearch,
   IconSettings,
   IconUsers,
 } from '@tabler/icons-react';
-import { LibraryBig, Joystick, CircleUser } from 'lucide-react';
+import { LibraryBig, Joystick, CircleUser, LogIn, LogOut } from 'lucide-react';
 
 const sidebarData = {
   user: {
@@ -35,15 +30,22 @@ const sidebarData = {
       icon: LibraryBig,
     },
     {
-      title: 'profile',
-      url: '/profile',
-      icon: CircleUser,
-    },
-    {
       title: 'friendlist',
       url: '/friendlist',
       icon: IconUsers,
     },
+    {
+      title: 'profile',
+      url: '/profile',
+      icon: CircleUser,
+    },
+
+    {
+      title: 'login',
+      url: '/login',
+      icon: LogIn,
+    },
+    { title: 'logout', url: '#', icon: LogOut },
   ],
   navClouds: [
     {

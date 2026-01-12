@@ -50,6 +50,5 @@ export async function POST(req: NextRequest) {
 
   await redis.set(cacheKey, JSON.stringify(data), { ex: 21600 });
 
-  // Retorne para o client
   return NextResponse.json(data);
 }

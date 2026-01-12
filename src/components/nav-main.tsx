@@ -1,9 +1,8 @@
 'use client';
 
 import Link from 'next/link';
-import { IconCirclePlusFilled, IconMail, type Icon } from '@tabler/icons-react';
+import { type Icon } from '@tabler/icons-react';
 
-import { Button } from '@/components/ui/button';
 import {
   SidebarGroup,
   SidebarGroupContent,
@@ -12,6 +11,7 @@ import {
   SidebarMenuItem,
 } from '@/components/ui/sidebar';
 import { useTranslations } from 'next-intl';
+import { signOut, useSession } from 'next-auth/react';
 
 export function NavMain({
   items,
@@ -23,19 +23,36 @@ export function NavMain({
   }[];
 }) {
   const t = useTranslations('homePage');
+  const { status } = useSession();
+
+  const isAuthenticated = status === 'authenticated';
+  const onLogout = () => {
+    signOut({ callbackUrl: '/' });
+  };
+  const filteredItems = items.filter((item) => {
+    if (status === 'loading') return false;
+    return isAuthenticated ? item.title !== 'login' : item.title !== 'logout';
+  });
   return (
     <SidebarGroup>
       <SidebarGroupContent className="flex flex-col gap-2">
         <SidebarMenu>
-          {items.map((item) => (
-            <Link key={item.title} href={item.url}>
-              <SidebarMenuItem key={item.title}>
-                <SidebarMenuButton tooltip={t(item.title)}>
+          {filteredItems.map((item) => (
+            <SidebarMenuItem key={item.title}>
+              {item.title === 'logout' ? (
+                <SidebarMenuButton tooltip={t(item.title)} onClick={onLogout}>
                   {item.icon && <item.icon />}
                   <span>{t(item.title)}</span>
                 </SidebarMenuButton>
-              </SidebarMenuItem>
-            </Link>
+              ) : (
+                <SidebarMenuButton tooltip={t(item.title)} asChild>
+                  <Link href={item.url}>
+                    {item.icon && <item.icon />}
+                    <span>{t(item.title)}</span>
+                  </Link>
+                </SidebarMenuButton>
+              )}
+            </SidebarMenuItem>
           ))}
         </SidebarMenu>
       </SidebarGroupContent>

@@ -26,6 +26,8 @@ import { AuroraText } from './ui/aurora-text';
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
   const { data: session, status } = useSession();
 
+  const isAuthenticated = status === 'authenticated';
+
   const icons = [Gamepad, Gamepad2, GamepadDirectional, Joystick];
 
   function getRandomIcon() {
@@ -67,9 +69,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <NavSecondary items={data.navSecondary} className="mt-auto" /> */}
       </SidebarContent>
 
-      <SidebarFooter>
-        {session && status === 'authenticated' && <NavUser />}
-      </SidebarFooter>
+      <SidebarFooter>{session && isAuthenticated && <NavUser />}</SidebarFooter>
     </Sidebar>
   );
 }
