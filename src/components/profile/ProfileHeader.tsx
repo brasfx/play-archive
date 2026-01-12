@@ -4,10 +4,11 @@ import { motion } from 'motion/react';
 import EditProfile from './EditProfile';
 import ChangeBackground from './ChangeBackground';
 import { toast } from 'react-toastify';
-import { signOut } from 'next-auth/react';
+import { signOut, useSession } from 'next-auth/react';
 import { LogOut } from 'lucide-react';
 
 import type { useTranslations } from 'next-intl';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
 type TFn = ReturnType<typeof useTranslations>;
 
@@ -22,7 +23,21 @@ export function ProfileHeader({
   onEdit?: () => void;
   t: TFn;
 }) {
+  const { status } = useSession();
+  const isLoggedIn = status === 'authenticated';
+  const pathname = usePathname();
+  const searchParams = useSearchParams();
+  const currentUrl = `${pathname}${
+    searchParams.toString() ? `?${searchParams.toString()}` : ''
+  }`;
+
+  const router = useRouter();
+
   const inviteFriend = async () => {
+    if (!isLoggedIn) {
+      router.push(`/login?callbackUrl=${encodeURIComponent(currentUrl)}`);
+      return;
+    }
     try {
       await fetch('/api/friendships', {
         method: 'POST',
