@@ -47,7 +47,7 @@ export default function GameCard({
   } = game;
 
   const priority = index < 13;
-  const fetchPriority = index < 1 ? Priority.High : Priority.Low;
+  const fetchPriority = index < 2 ? Priority.High : Priority.Low;
 
   return (
     <Card className="flex relative flex-col w-full max-w-[308px] max-h-[500px] gap-4 z-10">
