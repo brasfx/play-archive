@@ -52,7 +52,7 @@ export default function GameCard({
     released,
   } = game;
 
-  const priority = index < 13;
+  const priority = index < 2;
   const fetchPriority = index < 2 ? Priority.High : Priority.Auto;
   const lazy = index < 2 ? Loading.Eager : Loading.Lazy;
 
