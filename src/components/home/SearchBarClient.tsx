@@ -5,15 +5,8 @@ import SearchInput from '@/components/search/SearchInput';
 import { InputGroupAddon } from '@/components/ui/input-group';
 import { useFiltersFromURL } from '@/hooks/useFiltersFromURL';
 import { useUpdateSearchParams } from '@/hooks/useUpdateSearchParams';
-import dynamic from 'next/dynamic';
-
-const Filters = dynamic(() => import('@/components/search/Filters'), {
-  ssr: false,
-});
-
-const Order = dynamic(() => import('@/components/search/Order'), {
-  ssr: false,
-});
+import Filters from '@/components/search/Filters';
+import Order from '@/components/search/Order';
 
 export default function SearchBarClient({
   placeholder,
