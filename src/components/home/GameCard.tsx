@@ -23,6 +23,7 @@ import { Star } from '@/components/animate-ui/icons/star';
 const Priority = {
   High: 'high',
   Low: 'low',
+  Auto: 'auto',
 } as const;
 
 export default function GameCard({
@@ -47,7 +48,7 @@ export default function GameCard({
   } = game;
 
   const priority = index < 13;
-  const fetchPriority = index < 2 ? Priority.High : Priority.Low;
+  const fetchPriority = index < 13 ? Priority.High : Priority.Auto;
 
   return (
     <Card className="flex relative flex-col w-full max-w-[308px] max-h-[500px] gap-4 z-10">
@@ -59,6 +60,7 @@ export default function GameCard({
           alt={`This is cover of ${name}`}
           width={264}
           height={188}
+          loading="lazy"
           priority={priority}
           fetchPriority={fetchPriority}
           className="rounded-t-md w-full p-0.5 max-h-[188px] object-cover self-center bg-neutral-500 h-60"
