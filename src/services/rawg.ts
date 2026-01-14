@@ -13,7 +13,7 @@ export async function getRawGames(filters: Filters) {
   const baseUrl = getBaseUrl();
   const url = `${baseUrl}/api/rawg?${params.toString()}`;
 
-  const response = await fetch(url, { cache: 'no-store' });
+  const response = await fetch(url, { next: { revalidate: 60 } });
 
   if (!response.ok) throw new Error('Erro na busca da RAWG');
 
@@ -25,7 +25,7 @@ export async function getGameById(id: string) {
   const baseUrl = getBaseUrl();
   const url = `${baseUrl}/api/rawg/game/${id}`;
 
-  const response = await fetch(url, { cache: 'no-store' });
+  const response = await fetch(url, { next: { revalidate: 60 } });
 
   let body: unknown = null;
   try {
