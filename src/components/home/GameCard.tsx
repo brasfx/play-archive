@@ -20,6 +20,11 @@ import { Star } from '@/components/animate-ui/icons/star';
 
 // import { ShineBorder, Star, Disc3 } from './EffectsClient';
 
+const Priority = {
+  High: 'high',
+  Low: 'low',
+} as const;
+
 export default function GameCard({
   game,
   index,
@@ -42,6 +47,7 @@ export default function GameCard({
   } = game;
 
   const priority = index < 13;
+  const fetchPriority = index < 1 ? Priority.High : Priority.Low;
 
   return (
     <Card className="flex relative flex-col w-full max-w-[308px] max-h-[500px] gap-4 z-10">
@@ -54,6 +60,7 @@ export default function GameCard({
           width={264}
           height={188}
           priority={priority}
+          fetchPriority={fetchPriority}
           className="rounded-t-md w-full p-0.5 max-h-[188px] object-cover self-center bg-neutral-500 h-60"
         />
       </div>
