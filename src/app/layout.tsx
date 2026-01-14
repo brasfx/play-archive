@@ -1,6 +1,8 @@
 import type { Metadata } from 'next';
 import { Geist, Geist_Mono } from 'next/font/google';
 import { NextIntlClientProvider } from 'next-intl';
+import { getMessages } from 'next-intl/server';
+import { getLocale } from 'next-intl/server';
 import './globals.css';
 import { ThemeProvider } from '../components/theme-provider';
 import MainLayout from '@/components/layout/main';
@@ -23,13 +25,15 @@ export const metadata: Metadata = {
     'PlayArchive é uma aplicação web pensada para quem quer organizar, explorar e compartilhar sua biblioteca pessoal de jogos.',
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const locale = await getLocale();
+  const messages = await getMessages();
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang={locale} suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
         suppressHydrationWarning
@@ -41,7 +45,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <SessionProvider>
-            <NextIntlClientProvider>
+            <NextIntlClientProvider messages={messages} locale={locale}>
               <AppStoreProvider>
                 <MainLayout>{children}</MainLayout>
               </AppStoreProvider>

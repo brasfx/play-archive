@@ -1,26 +1,30 @@
 'use client';
+
 import * as React from 'react';
-import { setLocale } from '@/actions/set-locale';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
+import { useLocale } from 'next-intl';
+
+import { setLocale } from '@/actions/set-locale';
 import { Button } from '@/components/ui/button';
 import br from '@/images/brasil.png';
 import usa from '@/images/usa.png';
 
-export default function LanguageSwitcher() {
-  const [currentLocale, setCurrentLocale] = React.useState('pt-br');
-  const router = useRouter();
+const locales = [
+  { code: 'en', label: 'English' },
+  { code: 'pt-br', label: 'Português' },
+] as const;
 
-  async function handleChangeLocale(newLocale: string) {
+type Locale = (typeof locales)[number]['code'];
+
+export default function LanguageSwitcher() {
+  const router = useRouter();
+  const currentLocale = useLocale();
+
+  async function handleChangeLocale(newLocale: Locale) {
     await setLocale(newLocale);
     router.refresh();
-    setCurrentLocale(newLocale);
   }
-
-  const locales = [
-    { code: 'en', label: 'English' },
-    { code: 'pt-br', label: 'Português' },
-  ];
 
   return (
     <div>
@@ -33,6 +37,7 @@ export default function LanguageSwitcher() {
             size="icon"
             onClick={() => handleChangeLocale(code)}
             className="dark:border-gray-700 dark:hover:bg-gray-800 border-gray-300 hover:bg-gray-100"
+            aria-label={label}
           >
             <Image
               src={code === 'en' ? usa : br}
