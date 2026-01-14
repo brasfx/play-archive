@@ -1,5 +1,5 @@
 import { SectionCards } from '@/components/home/SectionCards';
-import { StripedPattern } from '@/components/magicui/striped-pattern';
+import { StripedPattern } from '@/components/bg/StripedPattern';
 import { getRawGames } from '@/services/rawg';
 import { getTranslations } from 'next-intl/server';
 
